@@ -328,4 +328,4 @@ const QuizComponentEnhanced = {
 };
 
 // Use enhanced component as default
-const QuizComponent = QuizComponentEnhanced;
+QuizComponent = QuizComponentEnhanced;

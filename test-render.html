@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test Render</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #f8fafc;
+            padding: 20px;
+        }
+
+        .test {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .error {
+            background: #fef2f2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+
+        .success {
+            background: #f0fdf4;
+            border-color: #10b981;
+            color: #065f46;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🧪 Application Render Test</h1>
+
+    <div id="results"></div>
+
+    <script>
+        const results = document.getElementById('results');
+
+        function addResult(title, success, message) {
+            const div = document.createElement('div');
+            div.className = `test ${success ? 'success' : 'error'}`;
+            div.innerHTML = `<h2>${success ? '✅' : '❌'} ${title}</h2><p>${message}</p>`;
+            results.appendChild(div);
+        }
+
+        // Test 1: Check if content files load
+        window.addEventListener('load', () => {
+            addResult('Page Load', true, 'Page loaded successfully');
+
+            // Test 2: Check content files
+            const hasUnit1 = !!window.unit1Content;
+            const hasUnit2 = !!window.unit2Content;
+            const hasUnit3 = !!window.unit3Content;
+            const hasUnit4 = !!window.unit4Content;
+
+            addResult('Content Files', hasUnit1 && hasUnit2 && hasUnit3 && hasUnit4,
+                `unit1: ${hasUnit1}, unit2: ${hasUnit2}, unit3: ${hasUnit3}, unit4: ${hasUnit4}`);
+
+            // Test 3: Check courseData
+            const hasCourseData = !!window.courseData;
+            addResult('Course Data', hasCourseData, hasCourseData ? `Units: ${window.courseData.units.length}, Projects: ${window.courseData.projects.length}` : 'Not found');
+
+            // Test 4: Check Components
+            const hasComponents = !!window.Components;
+            addResult('Components', hasComponents, hasComponents ? 'Components object found' : 'Not found');
+
+            // Test 5: Check app
+            const hasApp = !!window.app;
+            addResult('App Object', hasApp, hasApp ? 'App object found' : 'Not found');
+
+            // Test 6: Try to render WelcomeCard
+            if (hasComponents) {
+                try {
+                    const card = window.Components.WelcomeCard(50);
+                    const hasText = card.includes('Welcome');
+                    addResult('WelcomeCard Render', hasText, `Generated ${card.length} chars, contains "Welcome": ${hasText}`);
+                } catch (e) {
+                    addResult('WelcomeCard Render', false, `Error: ${e.message}`);
+                }
+            }
+
+            // Test 7: Check if app initialized
+            if (hasApp) {
+                try {
+                    const state = window.app.state;
+                    addResult('App State', !!state, `Current page: ${state.currentPage}, Progress: ${state.progress}%`);
+                } catch (e) {
+                    addResult('App State', false, `Error: ${e.message}`);
+                }
+            }
+
+            // Test 8: Check content-display element
+            const contentDisplay = document.getElementById('content-display');
+            const hasContent = contentDisplay && contentDisplay.innerHTML.length > 0;
+            addResult('Content Display', hasContent, contentDisplay ? `Element found, HTML length: ${contentDisplay.innerHTML.length}` : 'Element not found');
+
+            // Test 9: Check CSS variables
+            const root = document.documentElement;
+            const textMain = getComputedStyle(root).getPropertyValue('--text-main');
+            const bgMain = getComputedStyle(root).getPropertyValue('--bg-main');
+            addResult('CSS Variables', textMain && bgMain, `--text-main: ${textMain}, --bg-main: ${bgMain}`);
+
+            // Test 10: Check body computed styles
+            const bodyStyle = getComputedStyle(document.body);
+            addResult('Body Styles', true, `Color: ${bodyStyle.color}, Background: ${bodyStyle.backgroundColor}, Font: ${bodyStyle.fontFamily}`);
+        });
+
+        // Capture errors
+        window.addEventListener('error', (e) => {
+            addResult('JavaScript Error', false, `${e.message} at ${e.filename}:${e.lineno}`);
+        });
+    </script>
+
+    <!-- Load all scripts -->
+    <script src="js/projects-content.js"></script>
+    <script src="js/unit1-content.js"></script>
+    <script src="js/unit2-content.js"></script>
+    <script src="js/unit3-content.js"></script>
+    <script src="js/unit4-content.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/quizzes.js"></script>
+    <script src="js/quizzes-enhanced.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

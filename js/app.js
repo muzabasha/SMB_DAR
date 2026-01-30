@@ -210,7 +210,6 @@ const app = {
         this.nodes.contentDisplay.innerHTML = `<div id="quiz-container"></div>`;
         QuizComponent.init(unitNumber);
     },
-},
 
     renderProjectPage() {
         const project = courseData.projects.find(p => p.id === this.state.currentProjectId);
@@ -218,20 +217,20 @@ const app = {
         this.nodes.contentDisplay.innerHTML = Components.ProjectDetailsBlock(project);
     },
 
-        renderSidebar() {
-    let html = '';
-    courseData.units.forEach(unit => {
-        html += `<div class="nav-unit">
+    renderSidebar() {
+        let html = '';
+        courseData.units.forEach(unit => {
+            html += `<div class="nav-unit">
                 <div class="unit-header" onclick="app.navigateTo('unit', ${unit.id})">Unit ${unit.id}</div>
                 ${unit.topics.map(t => Components.SidebarNavItem(t, this.state.currentTopicId === t.id)).join('')}
             </div>`;
-    });
-    this.nodes.sidebarNav.innerHTML = html;
-    lucide.createIcons();
-},
+        });
+        this.nodes.sidebarNav.innerHTML = html;
+        lucide.createIcons();
+    },
 
-renderDashboard() {
-    let html = `
+    renderDashboard() {
+        let html = `
             <div class="dashboard-grid">
                 ${Components.WelcomeCard(this.state.progress)}
 
@@ -301,26 +300,26 @@ renderDashboard() {
                 ${Components.NextClassPreview()}
             </div>
         `;
-    this.nodes.contentDisplay.innerHTML = html;
-},
+        this.nodes.contentDisplay.innerHTML = html;
+    },
 
-checkAnswer(index) {
-    // Simple visual feedback for now
-    const options = document.querySelectorAll('.option-btn');
-    options.forEach((btn, i) => {
-        if (i === index) {
-            btn.style.background = '#d1fae5';
-            btn.style.borderColor = '#10b981';
-        }
-    });
-    alert('Good job! In the full version, this will track your score.');
-},
+    checkAnswer(index) {
+        // Simple visual feedback for now
+        const options = document.querySelectorAll('.option-btn');
+        options.forEach((btn, i) => {
+            if (i === index) {
+                btn.style.background = '#d1fae5';
+                btn.style.borderColor = '#10b981';
+            }
+        });
+        alert('Good job! In the full version, this will track your score.');
+    },
 
-renderUnitPage() {
-    const unit = courseData.units.find(u => u.id === this.state.currentUnitId);
-    if (!unit) return;
+    renderUnitPage() {
+        const unit = courseData.units.find(u => u.id === this.state.currentUnitId);
+        if (!unit) return;
 
-    let html = `
+        let html = `
             <div class="unit-view">
                 <div class="card welcome-card" style="background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border);">
                     <h2>Unit ${unit.id}: ${unit.title}</h2>
@@ -346,38 +345,38 @@ renderUnitPage() {
                 </div>
             </div>
         `;
-    this.nodes.contentDisplay.innerHTML = html;
-},
+        this.nodes.contentDisplay.innerHTML = html;
+    },
 
-renderTopicPage() {
-    const unit = courseData.units.find(u => u.topics.some(t => t.id === this.state.currentTopicId));
-    const topic = unit ? unit.topics.find(t => t.id === this.state.currentTopicId) : null;
+    renderTopicPage() {
+        const unit = courseData.units.find(u => u.topics.some(t => t.id === this.state.currentTopicId));
+        const topic = unit ? unit.topics.find(t => t.id === this.state.currentTopicId) : null;
 
-    if (!topic) {
-        this.nodes.contentDisplay.innerHTML = `
+        if (!topic) {
+            this.nodes.contentDisplay.innerHTML = `
                 <div class="card">
                     <h2>Topic not found!</h2>
                     <p>The requested topic could not be found.</p>
                     <button class="icon-btn" style="background: var(--primary); color: white; margin-top: 20px; padding: 10px 20px;" onclick="app.navigateTo('dashboard')">Back to Dashboard</button>
                 </div>
             `;
-        return;
-    }
+            return;
+        }
 
-    // Get content using the helper function
-    const content = courseData.getTopicContent(topic);
+        // Get content using the helper function
+        const content = courseData.getTopicContent(topic);
 
-    // Check if content exists and is properly loaded
-    const hasValidContent = content &&
-        content.length > 0 &&
-        content[0] &&
-        typeof content[0] === 'object' &&
-        content[0].type;
+        // Check if content exists and is properly loaded
+        const hasValidContent = content &&
+            content.length > 0 &&
+            content[0] &&
+            typeof content[0] === 'object' &&
+            content[0].type;
 
-    console.log('Topic:', topic.id, 'Has valid content:', hasValidContent);
+        console.log('Topic:', topic.id, 'Has valid content:', hasValidContent);
 
-    if (!hasValidContent) {
-        this.nodes.contentDisplay.innerHTML = `
+        if (!hasValidContent) {
+            this.nodes.contentDisplay.innerHTML = `
                 <div class="card">
                     <h2>Content Loading...</h2>
                     <p>This topic's content is being prepared. Please check back soon!</p>
@@ -400,13 +399,13 @@ renderTopicPage() {
                     </div>
                 </div>
             `;
-        return;
-    }
+            return;
+        }
 
-    const isCompleted = this.state.completedTopics.has(topic.id);
-    const isBookmarked = this.state.bookmarkedTopics.has(topic.id);
+        const isCompleted = this.state.completedTopics.has(topic.id);
+        const isBookmarked = this.state.bookmarkedTopics.has(topic.id);
 
-    let html = `
+        let html = `
             <div class="topic-view">
                 <div class="topic-title-bar">
                     <div>
@@ -453,97 +452,97 @@ renderTopicPage() {
                 </div>
             </div>
         `;
-    this.nodes.contentDisplay.innerHTML = html;
+        this.nodes.contentDisplay.innerHTML = html;
 
-    // Re-initialize icons after rendering
-    setTimeout(() => lucide.createIcons(), 0);
-},
+        // Re-initialize icons after rendering
+        setTimeout(() => lucide.createIcons(), 0);
+    },
 
-renderBlock(block) {
-    if (block.type === 'code-explanation') return Components.ThreePanelLayout(block);
-    if (block.type === 'concept') return Components.ConceptBlock(block);
-    if (block.type === 'error-slide') return Components.ErrorBlock(block);
-    if (block.type === 'visualization') return Components.VisualizationBlock(block);
-    if (block.type === 'activity') return Components.ActivityBlock(block);
-    if (block.type === 'handout') return Components.HandoutBlock(block);
-    return '';
-},
+    renderBlock(block) {
+        if (block.type === 'code-explanation') return Components.ThreePanelLayout(block);
+        if (block.type === 'concept') return Components.ConceptBlock(block);
+        if (block.type === 'error-slide') return Components.ErrorBlock(block);
+        if (block.type === 'visualization') return Components.VisualizationBlock(block);
+        if (block.type === 'activity') return Components.ActivityBlock(block);
+        if (block.type === 'handout') return Components.HandoutBlock(block);
+        return '';
+    },
 
-copyCode(e) {
-    // Find the nearest pre/code block to the clicked button
-    const btn = e.currentTarget;
-    const codeBlock = btn.closest('.code-workflow, .code-wrapper')?.querySelector('code');
+    copyCode(e) {
+        // Find the nearest pre/code block to the clicked button
+        const btn = e.currentTarget;
+        const codeBlock = btn.closest('.code-workflow, .code-wrapper')?.querySelector('code');
 
-    if (codeBlock) {
-        navigator.clipboard.writeText(codeBlock.innerText);
-        const originalText = btn.innerText;
-        btn.innerText = 'Copied!';
-        btn.classList.add('copied');
-        setTimeout(() => {
-            btn.innerText = originalText;
-            btn.classList.remove('copied');
-        }, 2000);
-    }
-},
+        if (codeBlock) {
+            navigator.clipboard.writeText(codeBlock.innerText);
+            const originalText = btn.innerText;
+            btn.innerText = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.remove('copied');
+            }, 2000);
+        }
+    },
 
-revealOutcome() {
-    const reveal = document.getElementById('outcome-reveal');
-    reveal.classList.remove('hidden');
-    lucide.createIcons();
-},
+    revealOutcome() {
+        const reveal = document.getElementById('outcome-reveal');
+        reveal.classList.remove('hidden');
+        lucide.createIcons();
+    },
 
-runAudit() {
-    console.log("Starting Pedagogical Audit...");
-    let report = "--- CONTENT AUDIT REPORT ---\n\n";
-    let score = 0;
-    let total = 0;
+    runAudit() {
+        console.log("Starting Pedagogical Audit...");
+        let report = "--- CONTENT AUDIT REPORT ---\n\n";
+        let score = 0;
+        let total = 0;
 
-    courseData.units.forEach(u => {
-        report += `Unit ${u.id}: ${u.title}\n`;
-        u.topics.forEach(t => {
-            total++;
-            let hasInteractive = t.content && t.content.some(b => b.type === 'activity' || b.type === 'code-explanation');
-            let blocks = t.content ? t.content.length : 0;
+        courseData.units.forEach(u => {
+            report += `Unit ${u.id}: ${u.title}\n`;
+            u.topics.forEach(t => {
+                total++;
+                let hasInteractive = t.content && t.content.some(b => b.type === 'activity' || b.type === 'code-explanation');
+                let blocks = t.content ? t.content.length : 0;
 
-            if (hasInteractive && blocks > 0) {
-                report += `  ✅ ${t.title} (${blocks} blocks)\n`;
-                score++;
-            } else {
-                report += `  ❌ ${t.title} - MISSING CONTENT OR INTERACTIVITY\n`;
+                if (hasInteractive && blocks > 0) {
+                    report += `  ✅ ${t.title} (${blocks} blocks)\n`;
+                    score++;
+                } else {
+                    report += `  ❌ ${t.title} - MISSING CONTENT OR INTERACTIVITY\n`;
+                }
+            });
+        });
+
+        const finalScore = Math.round((score / total) * 100);
+        report += `\nFINAL QUALITY SCORE: ${finalScore}%\n`;
+        alert(report);
+    },
+
+    toggleBookmark(topicId) {
+        if (this.state.bookmarkedTopics.has(topicId)) {
+            this.state.bookmarkedTopics.delete(topicId);
+        } else {
+            this.state.bookmarkedTopics.add(topicId);
+        }
+        this.saveUserData();
+        this.render();
+    },
+
+    markTopicCompleted(topicId) {
+        this.state.completedTopics.add(topicId);
+
+        // Update topic status in courseData
+        courseData.units.forEach(unit => {
+            const topic = unit.topics.find(t => t.id === topicId);
+            if (topic) {
+                topic.status = 'completed';
             }
         });
-    });
 
-    const finalScore = Math.round((score / total) * 100);
-    report += `\nFINAL QUALITY SCORE: ${finalScore}%\n`;
-    alert(report);
-},
-
-toggleBookmark(topicId) {
-    if (this.state.bookmarkedTopics.has(topicId)) {
-        this.state.bookmarkedTopics.delete(topicId);
-    } else {
-        this.state.bookmarkedTopics.add(topicId);
+        this.calculateProgress();
+        this.saveUserData();
+        this.render();
     }
-    this.saveUserData();
-    this.render();
-},
-
-markTopicCompleted(topicId) {
-    this.state.completedTopics.add(topicId);
-
-    // Update topic status in courseData
-    courseData.units.forEach(unit => {
-        const topic = unit.topics.find(t => t.id === topicId);
-        if (topic) {
-            topic.status = 'completed';
-        }
-    });
-
-    this.calculateProgress();
-    this.saveUserData();
-    this.render();
-}
 };
 
 // Start the app
