@@ -1,0 +1,26 @@
+{
+    "name": "Data Analytics using R - Teaching Toolkit",
+    "short_name": "R Analytics",
+    "description": "A pedagogy-first teaching toolkit for Data Analytics using R, optimized for non-CSE students",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f8fafc",
+    "theme_color": "#4f46e5",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "assets/logo.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "education",
+        "productivity"
+    ],
+    "lang": "en-US",
+    "dir": "ltr",
+    "scope": "/",
+    "prefer_related_applications": false
+}

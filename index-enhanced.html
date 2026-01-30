@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analytics using R | Advanced Teaching Toolkit</title>
+    <meta name="description"
+        content="A comprehensive, pedagogy-first teaching toolkit for Data Analytics using R, optimized for non-CSE students with advanced learning features.">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4f46e5">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Prism.js for code highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-r.min.js"></script>
+
+    <!-- Enhanced Styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/enhanced.css">
+</head>
+
+<body class="light-mode">
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Loading R Analytics Toolkit...</h2>
+            <p>Preparing your personalized learning experience</p>
+        </div>
+    </div>
+
+    <div id="app-container">
+        <!-- Enhanced Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i data-lucide="bar-chart-3"></i>
+                    <span>R-Analytics Pro</span>
+                </div>
+                <div class="user-streak" id="streak-counter">
+                    <i data-lucide="flame"></i>
+                    <span id="streak-number">0</span>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions" id="quick-actions">
+                <button class="quick-action-btn" onclick="app.showBookmarks()" title="Bookmarks (Ctrl+B)">
+                    <i data-lucide="bookmark"></i>
+                </button>
+                <button class="quick-action-btn" onclick="app.showNotes()" title="Notes">
+                    <i data-lucide="sticky-note"></i>
+                </button>
+                <button class="quick-action-btn" onclick="app.showAchievements()" title="Achievements">
+                    <i data-lucide="trophy"></i>
+                </button>
+                <button class="quick-action-btn" onclick="app.showAnalytics()" title="Analytics">
+                    <i data-lucide="bar-chart"></i>
+                </button>
+            </div>
+
+            <nav id="sidebar-nav" class="sidebar-nav">
+                <!-- Navigation items dynamically injected -->
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="progress-simple">
+                    <span class="label">Course Progress</span>
+                    <div class="progress-bar-sm">
+                        <div id="sidebar-progress-fill" class="fill" style="width: 0%"></div>
+                    </div>
+                    <span id="sidebar-progress-text" class="value">0%</span>
+                </div>
+
+                <!-- Study Timer -->
+                <div class="study-timer" id="study-timer">
+                    <i data-lucide="clock"></i>
+                    <span id="session-time">0m</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="main-content">
+            <!-- Enhanced Top Navigation -->
+            <header class="top-nav">
+                <div class="nav-left">
+                    <button id="toggle-sidebar" class="icon-btn" title="Toggle Sidebar">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <img src="assets/logo.png" alt="University Logo" class="header-logo">
+                    <div class="course-info">
+                        <h1>Data Analytics using R</h1>
+                        <span class="branch-info">2025-26 Even Semester | Advanced Non-CSE Toolkit</span>
+                    </div>
+                </div>
+
+                <!-- Breadcrumbs -->
+                <div class="nav-center">
+                    <nav id="breadcrumbs" class="breadcrumbs" aria-label="Breadcrumb navigation">
+                        <!-- Breadcrumbs dynamically injected -->
+                    </nav>
+
+                    <div class="search-container">
+                        <input type="text" id="search-input" placeholder="Search topics... (Ctrl+K)"
+                            class="search-input" aria-label="Search topics and projects" role="searchbox">
+                        <button id="search-btn" class="search-btn" aria-label="Search">
+                            <i data-lucide="search"></i>
+                        </button>
+                        <div id="search-suggestions" class="search-suggestions hidden">
+                            <!-- Search suggestions dynamically injected -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-right">
+                    <!-- Achievement Badges -->
+                    <div class="achievement-badges" id="achievement-badges">
+                        <!-- Achievement badges dynamically injected -->
+                    </div>
+
+                    <div class="instructor-badge">
+                        <span class="version-label">Instructor</span>
+                        <a href="https://www.linkedin.com/in/muzamil-basha-syed-19612a25/" target="_blank"
+                            class="instructor-link">Dr. Syed Muzamil Basha</a>
+                    </div>
+
+                    <div class="r-version-badge">
+                        <span class="version-label">R Version</span>
+                        <span class="version-value">4.3.3</span>
+                    </div>
+
+                    <!-- Offline Indicator -->
+                    <div id="offline-indicator" class="offline-indicator hidden">
+                        <i data-lucide="wifi-off"></i>
+                        <span>Offline</span>
+                    </div>
+
+                    <button id="notes-btn" class="icon-btn" title="Notes">
+                        <i data-lucide="sticky-note"></i>
+                    </button>
+
+                    <button id="settings-btn" class="icon-btn" title="Settings (Ctrl+,)">
+                        <i data-lucide="settings"></i>
+                    </button>
+
+                    <button id="theme-toggle" class="icon-btn" title="Toggle Theme">
+                        <i data-lucide="moon" class="moon-icon"></i>
+                        <i data-lucide="sun" class="sun-icon hidden"></i>
+                    </button>
+
+                    <button id="help-btn" class="icon-btn" title="Help Guide (Ctrl+H)">
+                        <i data-lucide="help-circle"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dynamic Content Area -->
+            <div id="content-display" class="content-display">
+                <!-- Content injected here -->
+            </div>
+
+            <!-- Enhanced Global Footer -->
+            <footer class="app-footer">
+                <div class="footer-info">
+                    <span>R Version: 4.3.3 (Angel Food Cake)</span>
+                    <span class="separator">|</span>
+                    <span>Platform: x86_64-w64-mingw32 (ucrt)</span>
+                    <span class="separator">|</span>
+                    <span id="online-status">Online</span>
+                </div>
+                <div class="footer-progress">
+                    <span>Overall Progress: </span>
+                    <span id="footer-progress-val">0%</span>
+                    <span class="separator">|</span>
+                    <span>Study Time: </span>
+                    <span id="total-study-time">0h 0m</span>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Enhanced Modals -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <!-- Help Modal -->
+        <div id="help-modal" class="modal hidden">
+            <div class="modal-header">
+                <h2>📚 Learning Guide & Shortcuts</h2>
+                <button class="close-modal" aria-label="Close help modal"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="help-sections">
+                    <div class="help-section">
+                        <h3>🎯 How to Read Code & Output</h3>
+                        <div class="guide-item">
+                            <div class="guide-icon code"><i data-lucide="code"></i></div>
+                            <div class="guide-text">
+                                <h4>R Code</h4>
+                                <p>This is what we tell the computer to do. Focus on the logic, not memorization!</p>
+                            </div>
+                        </div>
+                        <div class="guide-item">
+                            <div class="guide-icon explanation"><i data-lucide="info"></i></div>
+                            <div class="guide-text">
+                                <h4>Explanation</h4>
+                                <p>Line-by-line breakdown in plain English. We explain the "Why" and "How".</p>
+                            </div>
+                        </div>
+                        <div class="guide-item">
+                            <div class="guide-icon output"><i data-lucide="terminal"></i></div>
+                            <div class="guide-text">
+                                <h4>Interpretation</h4>
+                                <p>The crucial part! This explains what the output means for your analysis.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="help-section">
+                        <h3>⌨️ Keyboard Shortcuts</h3>
+                        <div class="shortcuts-grid">
+                            <div class="shortcut-item">
+                                <kbd>Ctrl</kbd> + <kbd>K</kbd>
+                                <span>Search</span>
+                            </div>
+                            <div class="shortcut-item">
+                                <kbd>Ctrl</kbd> + <kbd>B</kbd>
+                                <span>Bookmarks</span>
+                            </div>
+                            <div class="shortcut-item">
+                                <kbd>Ctrl</kbd> + <kbd>H</kbd>
+                                <span>Help</span>
+                            </div>
+                            <div class="shortcut-item">
+                                <kbd>Ctrl</kbd> + <kbd>,</kbd>
+                                <span>Settings</span>
+                            </div>
+                            <div class="shortcut-item">
+                                <kbd>Alt</kbd> + <kbd>←</kbd>
+                                <span>Previous Topic</span>
+                            </div>
+                            <div class="shortcut-item">
+                                <kbd>Alt</kbd> + <kbd>→</kbd>
+                                <span>Next Topic</span>
+                            </div>
+                            <div class="shortcut-item">
+                                <kbd>Esc</kbd>
+                                <span>Close Modals</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="help-section">
+                        <h3>🏆 Achievement System</h3>
+                        <p>Complete topics, maintain learning streaks, and unlock achievements to track your progress!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Settings Panel -->
+    <div id="settings-panel" class="settings-panel">
+        <div class="settings-header">
+            <h2>⚙️ Settings & Analytics</h2>
+            <button id="close-settings" class="icon-btn" aria-label="Close settings">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <div class="settings-content">
+            <!-- Progress Statistics -->
+            <div class="settings-section">
+                <h3>📊 Learning Analytics</h3>
+                <div class="progress-stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="completed-topics">0</div>
+                        <div class="stat-label">Topics Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="bookmarked-topics">0</div>
+                        <div class="stat-label">Bookmarked</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-progress">0%</div>
+                        <div class="stat-label">Overall Progress</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="learning-streak">0</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="study-time-stat">0h</div>
+                        <div class="stat-label">Study Time</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="achievements-count">0</div>
+                        <div class="stat-label">Achievements</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Preferences -->
+            <div class="settings-section">
+                <h3>🎨 Preferences</h3>
+                <div class="setting-item">
+                    <span>Dark Mode</span>
+                    <button id="theme-toggle-settings" class="toggle-btn">
+                        <i data-lucide="moon" class="moon-icon"></i>
+                        <i data-lucide="sun" class="sun-icon hidden"></i>
+                    </button>
+                </div>
+                <div class="setting-item">
+                    <span>Notifications</span>
+                    <button id="notifications-toggle" class="toggle-btn active">
+                        <i data-lucide="bell"></i>
+                    </button>
+                </div>
+                <div class="setting-item">
+                    <span>Animations</span>
+                    <button id="animations-toggle" class="toggle-btn active">
+                        <i data-lucide="zap"></i>
+                    </button>
+                </div>
+                <div class="setting-item">
+                    <span>Font Size</span>
+                    <select id="font-size-select" class="setting-select">
+                        <option value="small">Small</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="large">Large</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <span>Code Theme</span>
+                    <select id="code-theme-select" class="setting-select">
+                        <option value="dark" selected>Dark</option>
+                        <option value="light">Light</option>
+                        <option value="high-contrast">High Contrast</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Study Goals -->
+            <div class="settings-section">
+                <h3>🎯 Study Goals</h3>
+                <div class="setting-item">
+                    <span>Daily Study Goal</span>
+                    <select id="daily-goal-select" class="setting-select">
+                        <option value="15">15 minutes</option>
+                        <option value="30" selected>30 minutes</option>
+                        <option value="60">1 hour</option>
+                        <option value="120">2 hours</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <span>Weekly Topics Goal</span>
+                    <select id="weekly-goal-select" class="setting-select">
+                        <option value="3">3 topics</option>
+                        <option value="5" selected>5 topics</option>
+                        <option value="7">7 topics</option>
+                        <option value="10">10 topics</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Data Management -->
+            <div class="settings-section">
+                <h3>💾 Data Management</h3>
+                <div class="data-actions">
+                    <button class="action-btn export-btn" onclick="app.exportUserData()">
+                        <i data-lucide="download"></i>
+                        Export Progress
+                    </button>
+                    <button class="action-btn import-btn" onclick="app.importUserData()">
+                        <i data-lucide="upload"></i>
+                        Import Progress
+                    </button>
+                    <button class="action-btn backup-btn" onclick="app.createBackup()">
+                        <i data-lucide="shield"></i>
+                        Create Backup
+                    </button>
+                    <button class="action-btn danger-btn" onclick="app.resetProgress()">
+                        <i data-lucide="trash-2"></i>
+                        Reset All Data
+                    </button>
+                </div>
+                <p class="data-info">
+                    Your data is stored locally and never sent to external servers.
+                    Export regularly to backup your progress.
+                </p>
+            </div>
+
+            <!-- About -->
+            <div class="settings-section">
+                <h3>ℹ️ About</h3>
+                <div class="about-info">
+                    <p><strong>Data Analytics using R</strong><br>
+                        Advanced Teaching Toolkit v2.0<br>
+                        Enhanced for Non-CSE Students</p>
+
+                    <p><strong>Instructor:</strong> Dr. Syed Muzamil Basha<br>
+                        <strong>Semester:</strong> Even 2025-26<br>
+                        <strong>Features:</strong> 23 Advanced Learning Tools
+                    </p>
+
+                    <div class="feature-badges">
+                        <span class="feature-badge">🎯 Progress Tracking</span>
+                        <span class="feature-badge">🔍 Smart Search</span>
+                        <span class="feature-badge">📝 Note Taking</span>
+                        <span class="feature-badge">🏆 Achievements</span>
+                        <span class="feature-badge">📊 Analytics</span>
+                        <span class="feature-badge">♿ Accessible</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notes Panel -->
+    <div id="notes-panel" class="side-panel">
+        <div class="panel-header">
+            <h2>📝 My Notes</h2>
+            <button class="close-panel" onclick="app.closeNotesPanel()">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <div class="panel-content">
+            <div class="notes-content">
+                <!-- Notes content dynamically injected -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievements Panel -->
+    <div id="achievements-panel" class="side-panel">
+        <div class="panel-header">
+            <h2>🏆 Achievements</h2>
+            <button class="close-panel" onclick="app.closeAchievementsPanel()">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <div class="panel-content">
+            <div class="achievements-content">
+                <!-- Achievements content dynamically injected -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/unit1-content.js"></script>
+    <script src="js/unit2-content.js"></script>
+    <script src="js/unit3-content.js"></script>
+    <script src="js/unit4-content.js"></script>
+    <script src="js/projects-content.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/app-enhanced.js"></script>
+
+    <script>
+        // Initialize Lucide icons and hide loading screen
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+
+            // Hide loading screen after a short delay
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loading-screen');
+                if (loadingScreen) {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => loadingScreen.remove(), 500);
+                }
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>

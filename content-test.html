@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+        }
+
+        .pass {
+            color: #4caf50;
+        }
+
+        .fail {
+            color: #f44336;
+        }
+
+        pre {
+            background: #252526;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        .section {
+            background: #252526;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid #3e3e42;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🔍 Content Loading Test</h1>
+
+    <div id="results"></div>
+
+    <!-- Load scripts -->
+    <script src="js/unit1-content.js"></script>
+    <script src="js/unit2-content.js"></script>
+    <script src="js/unit3-content.js"></script>
+    <script src="js/unit4-content.js"></script>
+    <script src="js/projects-content.js"></script>
+    <script src="js/data.js"></script>
+
+    <script>
+        const results = document.getElementById('results');
+
+        function log(html) {
+            const div = document.createElement('div');
+            div.className = 'section';
+            div.innerHTML = html;
+            results.appendChild(div);
+        }
+
+        // Test 1: Check if content objects exist
+        log('<h2>Test 1: Content Objects</h2>');
+
+        const contentTests = [
+            { name: 'unit1Content', obj: window.unit1Content },
+            { name: 'unit2Content', obj: window.unit2Content },
+            { name: 'unit3Content', obj: window.unit3Content },
+            { name: 'unit4Content', obj: window.unit4Content },
+            { name: 'projectsList', obj: window.projectsList },
+            { name: 'courseData', obj: window.courseData }
+        ];
+
+        contentTests.forEach(test => {
+            if (test.obj) {
+                log(`<span class="pass">✅ ${test.name} exists</span>`);
+            } else {
+                log(`<span class="fail">❌ ${test.name} MISSING</span>`);
+            }
+        });
+
+        // Test 2: Check specific content items
+        log('<h2>Test 2: Specific Content Items</h2>');
+
+        if (window.unit1Content) {
+            const items = ['u1-prereq', 'u1-t1', 'u1-t2', 'u1-t3', 'u1-t4'];
+            items.forEach(id => {
+                const content = window.unit1Content[id];
+                if (content) {
+                    log(`<span class="pass">✅ ${id} exists</span><pre>Type: ${content.type}\nHas rCode: ${!!content.rCode}</pre>`);
+                } else {
+                    log(`<span class="fail">❌ ${id} MISSING</span>`);
+                }
+            });
+        }
+
+        // Test 3: Check courseData topics
+        log('<h2>Test 3: CourseData Topics</h2>');
+
+        if (window.courseData && window.courseData.units) {
+            window.courseData.units.forEach(unit => {
+                log(`<h3>Unit ${unit.id}: ${unit.title}</h3>`);
+
+                unit.topics.forEach(topic => {
+                    const hasContent = topic.content && topic.content.length > 0;
+                    const firstContent = hasContent ? topic.content[0] : null;
+                    const contentType = firstContent ? typeof firstContent : 'undefined';
+                    const isObject = firstContent && typeof firstContent === 'object';
+                    const hasType = isObject && firstContent.type;
+
+                    let status = 'fail';
+                    let message = '';
+
+                    if (!hasContent) {
+                        message = 'No content array';
+                    } else if (contentType === 'undefined') {
+                        message = 'Content[0] is undefined';
+                    } else if (!isObject) {
+                        message = `Content[0] is ${contentType}, not object`;
+                    } else if (!hasType) {
+                        message = 'Content object has no type property';
+                    } else {
+                        status = 'pass';
+                        message = `Type: ${firstContent.type}`;
+                    }
+
+                    log(`<span class="${status}">${status === 'pass' ? '✅' : '❌'} ${topic.title}</span><pre>  ${message}</pre>`);
+                });
+            });
+        }
+
+        // Test 4: Simulate what app.js does
+        log('<h2>Test 4: Simulate Rendering Logic</h2>');
+
+        if (window.courseData) {
+            const testTopicId = 'u1-prereq';
+            const unit = courseData.units.find(u => u.topics.some(t => t.id === testTopicId));
+            const topic = unit ? unit.topics.find(t => t.id === testTopicId) : null;
+
+            if (topic) {
+                log(`<span class="pass">✅ Found topic: ${topic.title}</span>`);
+
+                const hasValidContent = topic.content &&
+                    topic.content.length > 0 &&
+                    topic.content[0] &&
+                    typeof topic.content[0] === 'object' &&
+                    topic.content[0].type;
+
+                if (hasValidContent) {
+                    log(`<span class="pass">✅ Topic has valid content</span><pre>${JSON.stringify({
+                        contentLength: topic.content.length,
+                        firstItemType: typeof topic.content[0],
+                        contentType: topic.content[0].type,
+                        hasRCode: !!topic.content[0].rCode,
+                        hasInterpretation: !!topic.content[0].rInterpretation
+                    }, null, 2)}</pre>`);
+                } else {
+                    log(`<span class="fail">❌ Topic content validation FAILED</span><pre>${JSON.stringify({
+                        hasContent: !!topic.content,
+                        contentLength: topic.content ? topic.content.length : 0,
+                        firstItem: topic.content && topic.content[0] ? typeof topic.content[0] : 'undefined',
+                        firstItemValue: topic.content && topic.content[0] ? topic.content[0] : null
+                    }, null, 2)}</pre>`);
+                }
+            } else {
+                log(`<span class="fail">❌ Could not find topic ${testTopicId}</span>`);
+            }
+        }
+
+        // Test 5: Check what's actually in the content array
+        log('<h2>Test 5: Deep Content Inspection</h2>');
+
+        if (window.courseData && window.courseData.units[0]) {
+            const firstTopic = window.courseData.units[0].topics[0];
+            log(`<h3>Inspecting: ${firstTopic.title}</h3>`);
+            log(`<pre>${JSON.stringify({
+                id: firstTopic.id,
+                hasContent: !!firstTopic.content,
+                contentIsArray: Array.isArray(firstTopic.content),
+                contentLength: firstTopic.content ? firstTopic.content.length : 0,
+                content: firstTopic.content
+            }, null, 2)}</pre>`);
+        }
+    </script>
+</body>
+
+</html>

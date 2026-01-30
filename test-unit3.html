@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 3 Content Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .test-result {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+        }
+
+        .test-result.fail {
+            border-left-color: #ef4444;
+        }
+
+        .success {
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .fail {
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        pre {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🧪 Unit 3 Content Validation Test</h1>
+    <div id="results"></div>
+
+    <script src="js/unit3-content.js"></script>
+    <script>
+        const results = document.getElementById('results');
+
+        function addResult(title, passed, details) {
+            const div = document.createElement('div');
+            div.className = `test-result ${passed ? '' : 'fail'}`;
+            div.innerHTML = `
+                <h3>${passed ? '✅' : '❌'} ${title}</h3>
+                <p class="${passed ? 'success' : 'fail'}">${details}</p>
+            `;
+            results.appendChild(div);
+        }
+
+        // Test 1: Check if unit3Content is defined
+        if (typeof window.unit3Content !== 'undefined') {
+            addResult('Unit 3 Content Object Loaded', true, 'window.unit3Content is defined');
+        } else {
+            addResult('Unit 3 Content Object Loaded', false, 'window.unit3Content is NOT defined');
+        }
+
+        // Test 2: Check all topics
+        const expectedTopics = ['u3-prereq', 'u3-t1', 'u3-t2'];
+        let allTopicsPresent = true;
+        let missingTopics = [];
+
+        expectedTopics.forEach(topicId => {
+            if (!window.unit3Content[topicId]) {
+                allTopicsPresent = false;
+                missingTopics.push(topicId);
+            }
+        });
+
+        if (allTopicsPresent) {
+            addResult('All Topics Present', true, `All 3 topics found: ${expectedTopics.join(', ')}`);
+        } else {
+            addResult('All Topics Present', false, `Missing topics: ${missingTopics.join(', ')}`);
+        }
+
+        // Test 3: Check each topic has required properties
+        expectedTopics.forEach(topicId => {
+            const topic = window.unit3Content[topicId];
+            if (topic) {
+                const hasType = topic.type === 'handout';
+                const hasRCode = topic.rCode && topic.rCode.length > 0;
+                const hasInterpretation = topic.rInterpretation && topic.rInterpretation.length > 0;
+
+                if (hasType && hasRCode && hasInterpretation) {
+                    addResult(`Topic ${topicId} Structure`, true,
+                        `Type: ${topic.type}, R Code: ${topic.rCode.length} chars, Interpretation: ${topic.rInterpretation.length} chars`);
+                } else {
+                    addResult(`Topic ${topicId} Structure`, false,
+                        `Missing properties - Type: ${hasType}, R Code: ${hasRCode}, Interpretation: ${hasInterpretation}`);
+                }
+            }
+        });
+
+        // Test 4: Display topic titles
+        const topicTitles = expectedTopics.map(id => {
+            const topic = window.unit3Content[id];
+            return topic ? `${id}: "${topic.unitAndTopic}"` : `${id}: NOT FOUND`;
+        });
+
+        addResult('Topic Titles', true, `<pre>${topicTitles.join('\n')}</pre>`);
+
+        // Test 5: Summary
+        const totalTests = 3 + expectedTopics.length;
+        const passedTests = document.querySelectorAll('.test-result:not(.fail)').length;
+
+        const summary = document.createElement('div');
+        summary.style.cssText = 'background: #3b82f6; color: white; padding: 20px; border-radius: 8px; margin-top: 20px; text-align: center;';
+        summary.innerHTML = `
+            <h2>Test Summary</h2>
+            <p style="font-size: 24px; margin: 10px 0;">${passedTests} / ${totalTests} Tests Passed</p>
+            <p>${passedTests === totalTests ? '🎉 All tests passed! Unit 3 content is ready!' : '⚠️ Some tests failed. Check the results above.'}</p>
+        `;
+        results.appendChild(summary);
+    </script>
+</body>
+
+</html>

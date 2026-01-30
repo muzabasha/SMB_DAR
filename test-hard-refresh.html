@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hard Refresh Test - Content Rendering</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .test-item {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            background: #f9f9f9;
+        }
+
+        .test-item.pass {
+            border-left-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .test-item.fail {
+            border-left-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .status {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .status.pass {
+            color: #10b981;
+        }
+
+        .status.fail {
+            color: #ef4444;
+        }
+
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .instructions {
+            background: #e0e7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px 10px 0;
+        }
+
+        button:hover {
+            background: #764ba2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <h1>🧪 Hard Refresh Test - Content Rendering</h1>
+
+        <div class="instructions">
+            <h3>📋 Test Instructions:</h3>
+            <ol>
+                <li>Click "Run Tests" button below</li>
+                <li>Check all test results</li>
+                <li>If all pass, hard refresh is working correctly</li>
+                <li>If any fail, check browser console for errors</li>
+            </ol>
+        </div>
+
+        <div>
+            <button onclick="runTests()">Run Tests</button>
+            <button onclick="location.reload()">Reload Page</button>
+            <button onclick="window.location.href='http://localhost:49231'">Go to App</button>
+        </div>
+
+        <div id="test-results"></div>
+    </div>
+
+    <script>
+        function runTests() {
+            const results = document.getElementById('test-results');
+            results.innerHTML = '';
+
+            const tests = [
+                {
+                    name: 'Projects Content Loaded',
+                    test: () => typeof window.projectsList !== 'undefined',
+                    description: 'Checks if projectsList is available'
+                },
+                {
+                    name: 'Unit 1 Content Loaded',
+                    test: () => typeof window.unit1Content !== 'undefined',
+                    description: 'Checks if unit1Content is available'
+                },
+                {
+                    name: 'Unit 2 Content Loaded',
+                    test: () => typeof window.unit2Content !== 'undefined',
+                    description: 'Checks if unit2Content is available'
+                },
+                {
+                    name: 'Unit 3 Content Loaded',
+                    test: () => typeof window.unit3Content !== 'undefined',
+                    description: 'Checks if unit3Content is available'
+                },
+                {
+                    name: 'Unit 4 Content Loaded',
+                    test: () => typeof window.unit4Content !== 'undefined',
+                    description: 'Checks if unit4Content is available'
+                },
+                {
+                    name: 'Course Data Available',
+                    test: () => typeof window.courseData !== 'undefined',
+                    description: 'Checks if courseData object is available'
+                },
+                {
+                    name: 'App Object Available',
+                    test: () => typeof window.app !== 'undefined',
+                    description: 'Checks if app object is available'
+                },
+                {
+                    name: 'Projects Accessible',
+                    test: () => {
+                        try {
+                            return window.courseData && window.courseData.projects && window.courseData.projects.length > 0;
+                        } catch (e) {
+                            return false;
+                        }
+                    },
+                    description: 'Checks if projects can be accessed from courseData'
+                },
+                {
+                    name: 'Unit 1 Topics Accessible',
+                    test: () => {
+                        try {
+                            return window.courseData && window.courseData.units[0] && window.courseData.units[0].topics.length > 0;
+                        } catch (e) {
+                            return false;
+                        }
+                    },
+                    description: 'Checks if Unit 1 topics are accessible'
+                },
+                {
+                    name: 'Content Helper Function Works',
+                    test: () => {
+                        try {
+                            const topic = window.courseData.units[0].topics[0];
+                            const content = window.courseData.getTopicContent(topic);
+                            return content && content.length > 0;
+                        } catch (e) {
+                            return false;
+                        }
+                    },
+                    description: 'Checks if getTopicContent helper function works'
+                }
+            ];
+
+            let passCount = 0;
+            let failCount = 0;
+
+            tests.forEach((test, index) => {
+                try {
+                    const passed = test.test();
+                    if (passed) passCount++;
+                    else failCount++;
+
+                    const testDiv = document.createElement('div');
+                    testDiv.className = `test-item ${passed ? 'pass' : 'fail'}`;
+                    testDiv.innerHTML = `
+                        <strong>${index + 1}. ${test.name}</strong>
+                        <p>${test.description}</p>
+                        <div class="status ${passed ? 'pass' : 'fail'}">
+                            ${passed ? '✅ PASS' : '❌ FAIL'}
+                        </div>
+                    `;
+                    results.appendChild(testDiv);
+                } catch (e) {
+                    failCount++;
+                    const testDiv = document.createElement('div');
+                    testDiv.className = 'test-item fail';
+                    testDiv.innerHTML = `
+                        <strong>${index + 1}. ${test.name}</strong>
+                        <p>${test.description}</p>
+                        <div class="status fail">
+                            ❌ ERROR: ${e.message}
+                        </div>
+                    `;
+                    results.appendChild(testDiv);
+                }
+            });
+
+            // Summary
+            const summary = document.createElement('div');
+            summary.className = `test-item ${failCount === 0 ? 'pass' : 'fail'}`;
+            summary.innerHTML = `
+                <h3>📊 Test Summary</h3>
+                <p><strong>Total Tests:</strong> ${tests.length}</p>
+                <p><strong>Passed:</strong> <span style="color: #10b981; font-weight: bold;">${passCount}</span></p>
+                <p><strong>Failed:</strong> <span style="color: #ef4444; font-weight: bold;">${failCount}</span></p>
+                <div class="status ${failCount === 0 ? 'pass' : 'fail'}">
+                    ${failCount === 0 ? '✅ ALL TESTS PASSED - Hard refresh is working!' : '❌ Some tests failed - Check console for details'}
+                </div>
+            `;
+            results.appendChild(summary);
+
+            // Log to console
+            console.log('=== HARD REFRESH TEST RESULTS ===');
+            console.log(`Total Tests: ${tests.length}`);
+            console.log(`Passed: ${passCount}`);
+            console.log(`Failed: ${failCount}`);
+            console.log(`Status: ${failCount === 0 ? 'ALL TESTS PASSED ✅' : 'SOME TESTS FAILED ❌'}`);
+        }
+
+        // Auto-run tests on page load
+        window.addEventListener('load', () => {
+            console.log('Test page loaded. Click "Run Tests" to verify hard refresh functionality.');
+        });
+    </script>
+</body>
+
+</html>

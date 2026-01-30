@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analytics using R | Teaching Toolkit</title>
+    <meta name="description"
+        content="A pedagogy-first teaching toolkit for Data Analytics using R, optimized for non-CSE students.">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="R Analytics">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Prism.js for code highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-r.min.js"></script>
+
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body class="light-mode">
+    <div id="app-container">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i data-lucide="bar-chart-3"></i>
+                    <span>R-Analytics</span>
+                </div>
+            </div>
+            <nav id="sidebar-nav" class="sidebar-nav">
+                <!-- Navigation items dynamically injected -->
+            </nav>
+            <div class="sidebar-footer">
+                <div class="progress-simple">
+                    <span class="label">Course Progress</span>
+                    <div class="progress-bar-sm">
+                        <div id="sidebar-progress-fill" class="fill" style="width: 0%"></div>
+                    </div>
+                    <span id="sidebar-progress-text" class="value">0%</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="main-content">
+            <!-- Top Navigation -->
+            <header class="top-nav">
+                <div class="nav-left">
+                    <button id="toggle-sidebar" class="icon-btn">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <img src="assets/logo.png" alt="University Logo" class="header-logo">
+                    <div class="course-info">
+                        <h1>Data Analytics using R</h1>
+                        <span class="branch-info">2025-26 Even Semester | Non-CSE Teaching Toolkit</span>
+                    </div>
+                </div>
+                <div class="nav-right">
+                    <div class="instructor-badge">
+                        <span class="version-label">Instructor</span>
+                        <a href="https://www.linkedin.com/in/muzamil-basha-syed-19612a25/" target="_blank"
+                            class="instructor-link">Dr. Syed Muzamil Basha</a>
+                    </div>
+                    <div class="r-version-badge">
+                        <span class="version-label">R Version</span>
+                        <span class="version-value">4.3.3</span>
+                    </div>
+                    <button id="theme-toggle" class="icon-btn" title="Toggle Theme">
+                        <i data-lucide="moon" class="moon-icon"></i>
+                        <i data-lucide="sun" class="sun-icon hidden"></i>
+                    </button>
+                    <button id="help-btn" class="icon-btn" title="Help Guide">
+                        <i data-lucide="help-circle"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dynamic Content Area -->
+            <div id="content-display" class="content-display">
+                <!-- Content injected here -->
+            </div>
+
+            <!-- Global Footer -->
+            <footer class="app-footer">
+                <div class="footer-info">
+                    <span>R Version: 4.3.3 (Angel Food Cake)</span>
+                    <span class="separator">|</span>
+                    <span>Platform: x86_64-w64-mingw32 (ucrt)</span>
+                </div>
+                <div class="footer-progress">
+                    <span>Overall Progress: </span>
+                    <span id="footer-progress-val">0%</span>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div id="help-modal" class="modal hidden">
+            <div class="modal-header">
+                <h2>How to Read Code & Output</h2>
+                <button class="close-modal"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="guide-item">
+                    <div class="guide-icon code"><i data-lucide="code"></i></div>
+                    <div class="guide-text">
+                        <h3>R Code</h3>
+                        <p>This is what we tell the computer to do. Don't worry about memorizing it; focus on the logic!
+                        </p>
+                    </div>
+                </div>
+                <div class="guide-item">
+                    <div class="guide-icon explanation"><i data-lucide="info"></i></div>
+                    <div class="guide-text">
+                        <h3>Explanation</h3>
+                        <p>Line-by-line breakdown in plain English. We explain the "Why" and "How".</p>
+                    </div>
+                </div>
+                <div class="guide-item">
+                    <div class="guide-icon output"><i data-lucide="terminal"></i></div>
+                    <div class="guide-text">
+                        <h3>Interpretation</h3>
+                        <p>Crucial part! This explains what the output means for your data analysis or business.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load content files first (required by data.js) -->
+    <script src="js/projects-content.js"></script>
+    <script src="js/unit1-content.js"></script>
+    <script src="js/unit2-content.js"></script>
+    <script src="js/unit3-content.js"></script>
+    <script src="js/unit4-content.js"></script>
+
+    <!-- Load core application files -->
+    <script src="js/data.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/quizzes.js"></script>
+    <script src="js/quizzes-enhanced.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Register Service Worker for offline support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registered:', registration.scope);
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed:', err);
+                    });
+            });
+        }
+    </script>
+</body>
+
+</html>

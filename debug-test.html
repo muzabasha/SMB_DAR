@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Test - R Analytics Toolkit</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+        }
+
+        .test-section {
+            background: #252526;
+            border: 1px solid #3e3e42;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .test-section h2 {
+            color: #4fc3f7;
+            margin-top: 0;
+        }
+
+        .pass {
+            color: #4caf50;
+        }
+
+        .fail {
+            color: #f44336;
+        }
+
+        .warn {
+            color: #ff9800;
+        }
+
+        pre {
+            background: #1e1e1e;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        button {
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #005a9e;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🔍 R Analytics Toolkit - Debug Test Suite</h1>
+
+    <div class="test-section">
+        <h2>Test Controls</h2>
+        <button onclick="runAllTests()">Run All Tests</button>
+        <button onclick="clearResults()">Clear Results</button>
+        <button onclick="location.href='index.html'">Go to Main App</button>
+    </div>
+
+    <div id="results"></div>
+
+    <!-- Load all scripts in order -->
+    <script src="js/unit1-content.js"></script>
+    <script src="js/unit2-content.js"></script>
+    <script src="js/unit3-content.js"></script>
+    <script src="js/unit4-content.js"></script>
+    <script src="js/projects-content.js"></script>
+    <script src="js/data.js"></script>
+
+    <script>
+        const results = document.getElementById('results');
+
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `test-section ${type}`;
+            div.innerHTML = message;
+            results.appendChild(div);
+        }
+
+        function clearResults() {
+            results.innerHTML = '';
+        }
+
+        function runAllTests() {
+            clearResults();
+            log('<h2>🚀 Starting Test Suite...</h2>');
+
+            // Test 1: Check if content files loaded
+            log('<h2>Test 1: Content Files Loading</h2>');
+
+            const tests = [
+                { name: 'unit1Content', obj: window.unit1Content },
+                { name: 'unit2Content', obj: window.unit2Content },
+                { name: 'unit3Content', obj: window.unit3Content },
+                { name: 'unit4Content', obj: window.unit4Content },
+                { name: 'projectsList', obj: window.projectsList },
+                { name: 'courseData', obj: window.courseData }
+            ];
+
+            tests.forEach(test => {
+                if (test.obj) {
+                    log(`<span class="pass">✅ ${test.name} loaded successfully</span>`);
+                } else {
+                    log(`<span class="fail">❌ ${test.name} FAILED TO LOAD</span>`);
+                }
+            });
+
+            // Test 2: Check courseData structure
+            log('<h2>Test 2: Course Data Structure</h2>');
+
+            if (courseData) {
+                log(`<span class="pass">✅ courseData exists</span>`);
+                log(`<pre>Title: ${courseData.title}\nSemester: ${courseData.semester}\nUnits: ${courseData.units ? courseData.units.length : 0}</pre>`);
+
+                if (courseData.units) {
+                    courseData.units.forEach((unit, idx) => {
+                        log(`<h3>Unit ${unit.id}: ${unit.title}</h3>`);
+                        log(`<pre>Topics: ${unit.topics ? unit.topics.length : 0}</pre>`);
+
+                        if (unit.topics) {
+                            unit.topics.forEach(topic => {
+                                const hasContent = topic.content && topic.content.length > 0 && topic.content[0];
+                                const contentType = hasContent ? typeof topic.content[0] : 'undefined';
+                                const status = hasContent ? 'pass' : 'fail';
+
+                                log(`<span class="${status}">${hasContent ? '✅' : '❌'} ${topic.title} - Content: ${contentType}</span>`);
+
+                                if (hasContent && typeof topic.content[0] === 'object') {
+                                    log(`<pre>  Type: ${topic.content[0].type || 'unknown'}</pre>`);
+                                } else if (!hasContent) {
+                                    log(`<pre class="fail">  ERROR: Content is ${contentType}</pre>`);
+                                }
+                            });
+                        }
+                    });
+                }
+            } else {
+                log(`<span class="fail">❌ courseData does NOT exist</span>`);
+            }
+
+            // Test 3: Check specific content objects
+            log('<h2>Test 3: Content Object Validation</h2>');
+
+            const contentChecks = [
+                { name: 'u1-prereq', source: window.unit1Content },
+                { name: 'u1-t1', source: window.unit1Content },
+                { name: 'u2-prereq', source: window.unit2Content },
+                { name: 'u2-t1', source: window.unit2Content }
+            ];
+
+            contentChecks.forEach(check => {
+                if (check.source && check.source[check.name]) {
+                    const content = check.source[check.name];
+                    log(`<span class="pass">✅ ${check.name} exists</span>`);
+                    log(`<pre>  Type: ${content.type}\n  Has rCode: ${!!content.rCode}\n  Has interpretation: ${!!content.rInterpretation}</pre>`);
+                } else {
+                    log(`<span class="fail">❌ ${check.name} NOT FOUND</span>`);
+                }
+            });
+
+            // Test 4: Check projects
+            log('<h2>Test 4: Projects Validation</h2>');
+
+            if (window.projectsList) {
+                log(`<span class="pass">✅ projectsList exists with ${projectsList.length} projects</span>`);
+                projectsList.forEach(project => {
+                    log(`<pre>Project: ${project.title}\n  Difficulty: ${project.difficulty}\n  Tags: ${project.tags.join(', ')}</pre>`);
+                });
+            } else {
+                log(`<span class="fail">❌ projectsList NOT FOUND</span>`);
+            }
+
+            // Test 5: Check for undefined references
+            log('<h2>Test 5: Undefined Reference Check</h2>');
+
+            let undefinedCount = 0;
+            if (courseData && courseData.units) {
+                courseData.units.forEach(unit => {
+                    if (unit.topics) {
+                        unit.topics.forEach(topic => {
+                            if (!topic.content || topic.content.length === 0 || !topic.content[0]) {
+                                undefinedCount++;
+                                log(`<span class="warn">⚠️ ${topic.id} (${topic.title}) has undefined/empty content</span>`);
+                            }
+                        });
+                    }
+                });
+            }
+
+            if (undefinedCount === 0) {
+                log(`<span class="pass">✅ No undefined content references found!</span>`);
+            } else {
+                log(`<span class="warn">⚠️ Found ${undefinedCount} topics with undefined/empty content</span>`);
+            }
+
+            // Test 6: LocalStorage test
+            log('<h2>Test 6: LocalStorage Functionality</h2>');
+
+            try {
+                localStorage.setItem('test-key', 'test-value');
+                const value = localStorage.getItem('test-key');
+                localStorage.removeItem('test-key');
+
+                if (value === 'test-value') {
+                    log(`<span class="pass">✅ LocalStorage is working</span>`);
+                } else {
+                    log(`<span class="fail">❌ LocalStorage read/write failed</span>`);
+                }
+            } catch (e) {
+                log(`<span class="fail">❌ LocalStorage error: ${e.message}</span>`);
+            }
+
+            // Summary
+            log('<h2>📊 Test Summary</h2>');
+            log(`<pre>Tests completed at: ${new Date().toLocaleString()}\nCheck results above for any failures or warnings.</pre>`);
+            log(`<button onclick="location.href='index.html'">Tests Look Good? Go to Main App →</button>`);
+        }
+
+        // Auto-run tests on load
+        window.addEventListener('load', () => {
+            setTimeout(runAllTests, 500);
+        });
+    </script>
+</body>
+
+</html>

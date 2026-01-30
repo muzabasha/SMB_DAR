@@ -1,0 +1,13 @@
+{
+  "name": "r-analytics-toolkit",
+  "version": "1.0.0",
+  "description": "Data Analytics using R Teaching Toolkit for Non-CSE Students",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
