@@ -9,15 +9,36 @@ const app = {
         progress: 0,
         completedTopics: new Set(),
         bookmarkedTopics: new Set(),
-        userSettings: {}
+        userSettings: {},
+        initRetries: 0,
+        maxInitRetries: 50
     },
 
     init() {
         // Verify all content is loaded
         if (!window.unit1Content || !window.unit2Content || !window.unit3Content || !window.unit4Content) {
-            console.error('Content files not loaded. Waiting...');
-            setTimeout(() => this.init(), 100);
-            return;
+            if (this.state.initRetries < this.state.maxInitRetries) {
+                this.state.initRetries++;
+                console.log(`Content files not loaded. Retry ${this.state.initRetries}/${this.state.maxInitRetries}...`);
+                setTimeout(() => this.init(), 100);
+                return;
+            } else {
+                console.error('Content files failed to load after maximum retries');
+                this.nodes.contentDisplay.innerHTML = `
+                    <div class="card" style="background: #fef2f2; border: 2px solid #ef4444; padding: 30px; border-radius: 12px;">
+                        <h2 style="color: #991b1b; margin-bottom: 15px;">⚠️ Content Loading Error</h2>
+                        <p style="color: #7f1d1d; margin-bottom: 15px;">The application content failed to load. Please try:</p>
+                        <ul style="color: #7f1d1d; padding-left: 20px; margin-bottom: 15px;">
+                            <li>Refreshing the page (F5 or Ctrl+R)</li>
+                            <li>Clearing browser cache (Ctrl+Shift+Delete)</li>
+                            <li>Hard refresh (Ctrl+Shift+R)</li>
+                            <li>Trying a different browser</li>
+                        </ul>
+                        <button onclick="location.reload()" style="background: #ef4444; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">Reload Page</button>
+                    </div>
+                `;
+                return;
+            }
         }
 
         this.loadUserData();
@@ -170,8 +191,18 @@ const app = {
         }
 
         // Re-initialize icons and code highlighting after render
-        lucide.createIcons();
-        if (window.Prism) window.Prism.highlightAll();
+        setTimeout(() => {
+            try {
+                lucide.createIcons();
+            } catch (e) {
+                console.error('Error initializing Lucide icons:', e);
+            }
+            try {
+                if (window.Prism) window.Prism.highlightAll();
+            } catch (e) {
+                console.error('Error highlighting code:', e);
+            }
+        }, 0);
     },
 
     renderQuizPage() {
@@ -425,7 +456,7 @@ renderTopicPage() {
     this.nodes.contentDisplay.innerHTML = html;
 
     // Re-initialize icons after rendering
-    lucide.createIcons();
+    setTimeout(() => lucide.createIcons(), 0);
 },
 
 renderBlock(block) {
