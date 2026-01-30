@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Text Rendering Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=block"
+        rel="stylesheet">
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            padding: 40px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            color: #1e293b;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-result {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #4f46e5;
+            background: #f8fafc;
+        }
+
+        .success {
+            border-left-color: #10b981;
+            background: #f0fdf4;
+            color: #065f46;
+        }
+
+        .error {
+            border-left-color: #ef4444;
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+        }
+
+        button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background: #4338ca;
+        }
+    </style>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+    <div class="card">
+        <h1>📊 Application Text Rendering Test</h1>
+        <p>This page tests if the main application renders text correctly.</p>
+    </div>
+
+    <div class="card">
+        <h2>Test 1: Load Application Files</h2>
+        <div id="test1-result" class="test-result">Loading...</div>
+    </div>
+
+    <div class="card">
+        <h2>Test 2: Check Content Files</h2>
+        <div id="test2-result" class="test-result">Loading...</div>
+    </div>
+
+    <div class="card">
+        <h2>Test 3: Render Dashboard</h2>
+        <div id="test3-result" class="test-result">Loading...</div>
+    </div>
+
+    <div class="card">
+        <h2>Test 4: Check Text Visibility</h2>
+        <div id="test4-result" class="test-result">Loading...</div>
+    </div>
+
+    <div class="card">
+        <h2>Test 5: Render Sample Component</h2>
+        <div id="test5-result" class="test-result">Loading...</div>
+    </div>
+
+    <div class="card">
+        <h2>Debug Console</h2>
+        <button onclick="runFullTest()">Run Full Test</button>
+        <button onclick="testAppInit()">Test App Init</button>
+        <button onclick="testComponentRendering()">Test Component Rendering</button>
+        <pre id="debug-output"
+            style="background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 8px; overflow-x: auto; margin-top: 15px; font-size: 0.85rem;"></pre>
+    </div>
+
+    <!-- Load content files -->
+    <script src="js/projects-content.js"></script>
+    <script src="js/unit1-content.js"></script>
+    <script src="js/unit2-content.js"></script>
+    <script src="js/unit3-content.js"></script>
+    <script src="js/unit4-content.js"></script>
+
+    <!-- Load core files -->
+    <script src="js/data.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/quizzes.js"></script>
+    <script src="js/quizzes-enhanced.js"></script>
+
+    <script>
+        const debugLog = [];
+
+        function log(message) {
+            console.log(message);
+            debugLog.push(message);
+            document.getElementById('debug-output').textContent = debugLog.join('\n');
+        }
+
+        function runFullTest() {
+            log('=== FULL TEST STARTED ===');
+
+            // Test 1: Check content files
+            log('\n[TEST 1] Checking content files...');
+            if (window.unit1Content) log('✓ unit1Content loaded');
+            else log('✗ unit1Content NOT loaded');
+
+            if (window.unit2Content) log('✓ unit2Content loaded');
+            else log('✗ unit2Content NOT loaded');
+
+            if (window.unit3Content) log('✓ unit3Content loaded');
+            else log('✗ unit3Content NOT loaded');
+
+            if (window.unit4Content) log('✓ unit4Content loaded');
+            else log('✗ unit4Content NOT loaded');
+
+            // Test 2: Check courseData
+            log('\n[TEST 2] Checking courseData...');
+            if (window.courseData) {
+                log('✓ courseData exists');
+                log(`  - Units: ${courseData.units.length}`);
+                log(`  - Projects: ${courseData.projects.length}`);
+
+                courseData.units.forEach(u => {
+                    log(`  - Unit ${u.id}: ${u.topics.length} topics`);
+                });
+            } else {
+                log('✗ courseData NOT found');
+            }
+
+            // Test 3: Check Components
+            log('\n[TEST 3] Checking Components...');
+            if (window.Components) {
+                log('✓ Components object exists');
+                const methods = Object.keys(Components);
+                log(`  - Available methods: ${methods.length}`);
+                methods.slice(0, 5).forEach(m => log(`    - ${m}`));
+            } else {
+                log('✗ Components NOT found');
+            }
+
+            // Test 4: Test rendering
+            log('\n[TEST 4] Testing component rendering...');
+            try {
+                const welcomeCard = Components.WelcomeCard(50);
+                if (welcomeCard && welcomeCard.includes('Welcome')) {
+                    log('✓ WelcomeCard renders successfully');
+                    log(`  - HTML length: ${welcomeCard.length} chars`);
+                } else {
+                    log('✗ WelcomeCard rendering failed');
+                }
+            } catch (e) {
+                log(`✗ Error rendering WelcomeCard: ${e.message}`);
+            }
+
+            // Test 5: Check text visibility
+            log('\n[TEST 5] Checking text visibility...');
+            const testDiv = document.createElement('div');
+            testDiv.innerHTML = '<p>Test Text</p>';
+            document.body.appendChild(testDiv);
+            const textElement = testDiv.querySelector('p');
+            const computedStyle = window.getComputedStyle(textElement);
+            log(`  - Color: ${computedStyle.color}`);
+            log(`  - Font-family: ${computedStyle.fontFamily}`);
+            log(`  - Font-size: ${computedStyle.fontSize}`);
+            log(`  - Visibility: ${computedStyle.visibility}`);
+            log(`  - Display: ${computedStyle.display}`);
+            document.body.removeChild(testDiv);
+
+            log('\n=== FULL TEST COMPLETED ===');
+        }
+
+        function testAppInit() {
+            log('\n=== APP INITIALIZATION TEST ===');
+
+            try {
+                // Check if all content is loaded
+                if (!window.unit1Content || !window.unit2Content || !window.unit3Content || !window.unit4Content) {
+                    log('✗ Content files not loaded');
+                    return;
+                }
+                log('✓ All content files loaded');
+
+                // Check courseData
+                if (!window.courseData) {
+                    log('✗ courseData not available');
+                    return;
+                }
+                log('✓ courseData available');
+
+                // Try to render dashboard
+                const dashboardHTML = `
+                    <div class="dashboard-grid">
+                        ${Components.WelcomeCard(50)}
+                        <div class="card">
+                            <h3>Test Card</h3>
+                            <p>This is a test paragraph with text content.</p>
+                        </div>
+                    </div>
+                `;
+
+                log('✓ Dashboard HTML generated');
+                log(`  - HTML length: ${dashboardHTML.length} chars`);
+
+                // Check if text is in HTML
+                if (dashboardHTML.includes('Welcome')) {
+                    log('✓ "Welcome" text found in HTML');
+                } else {
+                    log('✗ "Welcome" text NOT found in HTML');
+                }
+
+            } catch (e) {
+                log(`✗ Error: ${e.message}`);
+                log(`  Stack: ${e.stack}`);
+            }
+
+            log('=== APP INITIALIZATION TEST COMPLETED ===');
+        }
+
+        function testComponentRendering() {
+            log('\n=== COMPONENT RENDERING TEST ===');
+
+            try {
+                // Test each component
+                const components = [
+                    { name: 'WelcomeCard', fn: () => Components.WelcomeCard(50) },
+                    { name: 'UnitCard', fn: () => Components.UnitCard(courseData.units[0]) },
+                    { name: 'SidebarNavItem', fn: () => Components.SidebarNavItem(courseData.units[0].topics[0], false) },
+                ];
+
+                components.forEach(comp => {
+                    try {
+                        const html = comp.fn();
+                        if (html && html.length > 0) {
+                            log(`✓ ${comp.name}: ${html.length} chars`);
+                            // Check for text content
+                            const hasText = /[a-zA-Z0-9]/.test(html);
+                            if (hasText) {
+                                log(`  - Contains text: YES`);
+                            } else {
+                                log(`  - Contains text: NO`);
+                            }
+                        } else {
+                            log(`✗ ${comp.name}: Empty or null`);
+                        }
+                    } catch (e) {
+                        log(`✗ ${comp.name}: ${e.message}`);
+                    }
+                });
+
+            } catch (e) {
+                log(`✗ Error: ${e.message}`);
+            }
+
+            log('=== COMPONENT RENDERING TEST COMPLETED ===');
+        }
+
+        // Run initial tests on page load
+        window.addEventListener('load', () => {
+            log('Page loaded. Running initial tests...');
+
+            // Check fonts
+            if (document.fonts) {
+                document.fonts.ready.then(() => {
+                    log('✓ Fonts loaded');
+                }).catch(err => {
+                    log(`✗ Font loading error: ${err}`);
+                });
+            }
+
+            // Check CSS variables
+            const root = document.documentElement;
+            const textMain = getComputedStyle(root).getPropertyValue('--text-main').trim();
+            if (textMain) {
+                log(`✓ CSS variables available: --text-main=${textMain}`);
+            } else {
+                log('✗ CSS variables not found');
+            }
+
+            // Check body styles
+            const bodyStyle = window.getComputedStyle(document.body);
+            log(`Body color: ${bodyStyle.color}`);
+            log(`Body font: ${bodyStyle.fontFamily}`);
+
+            log('\nReady for testing. Click buttons above to run tests.');
+        });
+    </script>
+</body>
+
+</html>

@@ -486,6 +486,32 @@ runAudit() {
     const finalScore = Math.round((score / total) * 100);
     report += `\nFINAL QUALITY SCORE: ${finalScore}%\n`;
     alert(report);
+},
+
+toggleBookmark(topicId) {
+    if (this.state.bookmarkedTopics.has(topicId)) {
+        this.state.bookmarkedTopics.delete(topicId);
+    } else {
+        this.state.bookmarkedTopics.add(topicId);
+    }
+    this.saveUserData();
+    this.render();
+},
+
+markTopicCompleted(topicId) {
+    this.state.completedTopics.add(topicId);
+
+    // Update topic status in courseData
+    courseData.units.forEach(unit => {
+        const topic = unit.topics.find(t => t.id === topicId);
+        if (topic) {
+            topic.status = 'completed';
+        }
+    });
+
+    this.calculateProgress();
+    this.saveUserData();
+    this.render();
 }
 };
 

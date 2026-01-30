@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Rendering Debug</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=block"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --primary: #4f46e5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            padding: 40px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+
+        .test-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .test-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+        }
+
+        p,
+        span,
+        div,
+        a,
+        button,
+        label,
+        li {
+            color: inherit;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .debug-info {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .success {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .error {
+            color: #ef4444;
+            font-weight: 600;
+        }
+    </style>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+    <div class="test-section">
+        <h1>🔍 Text Rendering Debug Report</h1>
+        <p>This page tests if text is rendering correctly with the current CSS and font configuration.</p>
+    </div>
+
+    <div class="test-section">
+        <h2>1. Basic Text Rendering</h2>
+        <div class="test-item">
+            <p>This is a paragraph with <strong>bold text</strong> and <em>italic text</em>.</p>
+        </div>
+        <div class="test-item">
+            <span>This is a span element with text.</span>
+        </div>
+        <div class="test-item">
+            <a href="#">This is a link</a>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Font Family Test</h2>
+        <div class="test-item">
+            <p style="font-family: 'Inter', sans-serif;">Inter Font: The quick brown fox jumps over the lazy dog</p>
+        </div>
+        <div class="test-item">
+            <p style="font-family: 'Outfit', sans-serif;">Outfit Font: The quick brown fox jumps over the lazy dog</p>
+        </div>
+        <div class="test-item">
+            <p style="font-family: 'Fira Code', monospace;">Fira Code Font: The quick brown fox jumps over the lazy dog
+            </p>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Color Variable Test</h2>
+        <div class="test-item">
+            <p style="color: var(--text-main);">Text with --text-main variable (should be dark)</p>
+        </div>
+        <div class="test-item">
+            <p style="color: var(--text-muted);">Text with --text-muted variable (should be gray)</p>
+        </div>
+        <div class="test-item">
+            <p style="color: #1e293b;">Text with direct hex color #1e293b (should be dark)</p>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Component Rendering Test</h2>
+        <div id="component-test"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>5. CSS Computed Styles</h2>
+        <div id="computed-styles"></div>
+    </div>
+
+    <div class="debug-info">
+        <h3>Debug Information:</h3>
+        <p><strong>Page Load Time:</strong> <span id="load-time">Calculating...</span></p>
+        <p><strong>Fonts Loaded:</strong> <span id="fonts-loaded">Checking...</span></p>
+        <p><strong>CSS Variables:</strong> <span id="css-vars">Checking...</span></p>
+        <p><strong>Body Color:</strong> <span id="body-color">Checking...</span></p>
+        <p><strong>Body Font:</strong> <span id="body-font">Checking...</span></p>
+    </div>
+
+    <script>
+        // Test 1: Check if fonts are loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const startTime = performance.now();
+
+            // Check fonts
+            if (document.fonts) {
+                document.fonts.ready.then(() => {
+                    const endTime = performance.now();
+                    document.getElementById('load-time').textContent = `${(endTime - startTime).toFixed(2)}ms`;
+                    document.getElementById('fonts-loaded').innerHTML = '<span class="success">✓ Fonts loaded successfully</span>';
+                }).catch(err => {
+                    document.getElementById('fonts-loaded').innerHTML = `<span class="error">✗ Font loading failed: ${err}</span>`;
+                });
+            }
+
+            // Check CSS variables
+            const root = document.documentElement;
+            const textMain = getComputedStyle(root).getPropertyValue('--text-main').trim();
+            const textMuted = getComputedStyle(root).getPropertyValue('--text-muted').trim();
+
+            if (textMain && textMuted) {
+                document.getElementById('css-vars').innerHTML = `<span class="success">✓ CSS variables defined: --text-main=${textMain}, --text-muted=${textMuted}</span>`;
+            } else {
+                document.getElementById('css-vars').innerHTML = `<span class="error">✗ CSS variables not found</span>`;
+            }
+
+            // Check body computed styles
+            const bodyStyle = window.getComputedStyle(document.body);
+            const bodyColor = bodyStyle.color;
+            const bodyFont = bodyStyle.fontFamily;
+
+            document.getElementById('body-color').textContent = bodyColor;
+            document.getElementById('body-font').textContent = bodyFont;
+
+            // Test component rendering
+            const componentTest = document.getElementById('component-test');
+            componentTest.innerHTML = `
+                <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                    <h3>Sample Component</h3>
+                    <p>This is a test component with multiple text elements.</p>
+                    <ul>
+                        <li>List item 1</li>
+                        <li>List item 2</li>
+                        <li>List item 3</li>
+                    </ul>
+                    <button style="background: #4f46e5; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;">Test Button</button>
+                </div>
+            `;
+
+            // Test computed styles
+            const computedDiv = document.getElementById('computed-styles');
+            const testElement = document.querySelector('.test-item');
+            const testStyle = window.getComputedStyle(testElement);
+
+            computedDiv.innerHTML = `
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 8px; font-weight: 600;">Property</td>
+                        <td style="padding: 8px; font-weight: 600;">Value</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 8px;">color</td>
+                        <td style="padding: 8px;"><code>${testStyle.color}</code></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 8px;">font-family</td>
+                        <td style="padding: 8px;"><code>${testStyle.fontFamily}</code></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 8px;">font-size</td>
+                        <td style="padding: 8px;"><code>${testStyle.fontSize}</code></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 8px;">line-height</td>
+                        <td style="padding: 8px;"><code>${testStyle.lineHeight}</code></td>
+                    </tr>
+                </table>
+            `;
+
+            console.log('Debug Report:');
+            console.log('- Body color:', bodyColor);
+            console.log('- Body font:', bodyFont);
+            console.log('- CSS variables:', { textMain, textMuted });
+            console.log('- Fonts ready:', document.fonts.ready);
+        });
+    </script>
+</body>
+
+</html>
