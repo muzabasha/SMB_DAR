@@ -18,6 +18,66 @@ const Components = {
         </div>
     `,
 
+    CourseVideoSection: () => {
+        const video = courseData.courseVideo;
+        return `
+            <div class="course-video-section card" style="border: none; padding: 0; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15); animation: slideUp 0.6s ease-out;">
+                <div class="video-container" style="position: relative; width: 100%; padding-bottom: 56.25%; background: #000; overflow: hidden; transition: all 0.3s ease;">
+                    <div id="video-placeholder" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; flex-direction: column; gap: 20px;">
+                        <div style="font-size: 3rem;">🎬</div>
+                        <h3 style="margin: 0; font-size: 1.5rem;">Welcome to Data Analytics using R</h3>
+                        <p style="margin: 0; font-size: 1rem; opacity: 0.9;">Course Overview Video</p>
+                        <button id="video-setup-btn" style="margin-top: 20px; padding: 12px 24px; background: white; color: #667eea; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: all 0.2s;">
+                            📹 Setup Video
+                        </button>
+                        <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">Video files not found. Click above to setup.</p>
+                    </div>
+                    <video 
+                        id="course-video"
+                        class="course-video-player"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; display: none;"
+                        controls
+                        controlsList="nodownload"
+                        poster="${video.poster}"
+                        ${video.autoplay ? 'autoplay' : ''}
+                        ${video.muted ? 'muted' : ''}
+                        preload="metadata"
+                    >
+                        <source src="${video.videoUrl}" type="video/mp4">
+                        <source src="${video.videoWebM}" type="video/webm">
+                        <p style="color: white; padding: 20px; text-align: center;">Your browser does not support the video tag. Please use a modern browser like Chrome, Firefox, Safari, or Edge.</p>
+                    </video>
+                    <div class="video-overlay" style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.7); color: white; padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; z-index: 10; backdrop-filter: blur(4px); display: none;">
+                        ⏱️ ${video.duration}
+                    </div>
+                    <div id="video-loading" class="video-loading-indicator" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none; z-index: 5; text-align: center;">
+                        <div class="spinner" style="width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid white; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+                        <p style="color: white; margin-top: 15px; font-size: 0.9rem;">Loading video...</p>
+                    </div>
+                </div>
+                <div class="video-info" style="padding: 24px; background: var(--bg-card); border-top: 1px solid var(--border);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; gap: 15px;">
+                        <div style="flex: 1;">
+                            <h3 style="margin: 0 0 8px 0; color: var(--text-main); font-size: 1.2rem;">${video.title}</h3>
+                            <p style="margin: 0; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">${video.description}</p>
+                        </div>
+                        <button id="video-help-btn" class="icon-btn" style="background: rgba(79, 70, 229, 0.1); color: var(--primary); padding: 8px 12px; border-radius: 6px; border: none; cursor: pointer; font-size: 0.9rem; transition: all 0.2s;" title="Video help">
+                            <i data-lucide="help-circle" style="width: 18px; height: 18px;"></i>
+                        </button>
+                    </div>
+                    <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
+                        <span class="badge" style="background: rgba(79, 70, 229, 0.1); color: var(--primary); font-size: 0.75rem; padding: 6px 12px; border-radius: 6px;">📹 Course Overview</span>
+                        <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: var(--secondary); font-size: 0.75rem; padding: 6px 12px; border-radius: 6px;">✓ Beginner Friendly</span>
+                        <span class="badge" style="background: rgba(245, 158, 11, 0.1); color: var(--accent); font-size: 0.75rem; padding: 6px 12px; border-radius: 6px;">⭐ Recommended</span>
+                    </div>
+                    <div id="video-status" style="margin-top: 12px; padding: 10px 12px; background: rgba(79, 70, 229, 0.05); border-left: 3px solid var(--primary); border-radius: 4px; font-size: 0.85rem; color: var(--text-muted); display: none;">
+                        <span id="video-status-text"></span>
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+
     UnitCard: (unit) => {
         const completedTopics = unit.topics.filter(t => t.status === 'completed').length;
         const totalTopics = unit.topics.length || 1;

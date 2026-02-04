@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create Video Thumbnail</title>
+</head>
+
+<body>
+    <h1>Video Thumbnail Generator</h1>
+    <p>This page creates a thumbnail from your video file.</p>
+
+    <video id="video" width="1920" height="1080" style="display:none;">
+        <source src="assets/Making_Data_Memorable.mp4" type="video/mp4">
+    </video>
+
+    <canvas id="canvas" width="1920" height="1080" style="border: 1px solid black; max-width: 100%;"></canvas>
+
+    <br><br>
+
+    <button onclick="captureThumbnail()">Capture Thumbnail at 5 seconds</button>
+    <button onclick="downloadThumbnail()">Download Thumbnail</button>
+
+    <script>
+        let thumbnailData = null;
+
+        function captureThumbnail() {
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            video.currentTime = 5; // Capture at 5 seconds
+
+            video.addEventListener('seeked', function () {
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                thumbnailData = canvas.toDataURL('image/jpeg', 0.9);
+                alert('Thumbnail captured! Click "Download Thumbnail" to save it.');
+            }, { once: true });
+        }
+
+        function downloadThumbnail() {
+            if (!thumbnailData) {
+                alert('Please capture thumbnail first!');
+                return;
+            }
+
+            const link = document.createElement('a');
+            link.href = thumbnailData;
+            link.download = 'video-thumbnail.jpg';
+            link.click();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player Demo - Data Analytics using R</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+
+        .video-info {
+            padding: 30px;
+        }
+
+        .video-info h2 {
+            font-size: 1.5rem;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .video-info p {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .badges {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-primary {
+            background: rgba(79, 70, 229, 0.1);
+            color: #4f46e5;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .badge-accent {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .instructions {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .instructions h3 {
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .instruction-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .instruction-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .instruction-item h4 {
+            color: #4f46e5;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .instruction-item p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .video-info {
+                padding: 20px;
+            }
+
+            .badges {
+                flex-direction: column;
+            }
+
+            .badge {
+                display: block;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📹 Course Overview Video</h1>
+            <p>Data Analytics using R - Teaching Toolkit</p>
+        </div>
+
+        <div class="video-card">
+            <div class="video-wrapper">
+                <video id="demo-video" controls poster="assets/video-thumbnail.jpg">
+                    <source src="assets/course-overview.mp4" type="video/mp4">
+                    <source src="assets/course-overview.webm" type="video/webm">
+                    <p>Your browser does not support the video tag. Please use a modern browser to watch this video.</p>
+                </video>
+                <div class="video-overlay">⏱️ 3:45</div>
+            </div>
+
+            <div class="video-info">
+                <h2>Welcome to Data Analytics using R</h2>
+                <p>Get started with our comprehensive course on Data Analytics using R. Learn the fundamentals, explore
+                    real-world applications, and master the tools you need to become a data analyst.</p>
+                <div class="badges">
+                    <span class="badge badge-primary">📹 Course Overview</span>
+                    <span class="badge badge-success">✓ Beginner Friendly</span>
+                    <span class="badge badge-accent">⭐ Recommended</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>🎬 Video Setup Instructions</h3>
+
+            <div class="instruction-item">
+                <h4>1. Prepare Your Video Files</h4>
+                <p>Create MP4 and WebM versions of your video for maximum browser compatibility.</p>
+                <div class="code-block">
+                    # Using FFmpeg to create MP4<br>
+                    ffmpeg -i input.mov -c:v libx264 -preset medium -crf 23 course-overview.mp4<br>
+                    <br>
+                    # Using FFmpeg to create WebM<br>
+                    ffmpeg -i input.mov -c:v libvpx-vp9 -b:v 2M course-overview.webm
+                </div>
+            </div>
+
+            <div class="instruction-item">
+                <h4>2. Add Files to Assets Folder</h4>
+                <p>Place your video files in the assets directory:</p>
+                <div class="code-block">
+                    assets/<br>
+                    ├── course-overview.mp4<br>
+                    ├── course-overview.webm<br>
+                    └── video-thumbnail.jpg
+                </div>
+            </div>
+
+            <div class="instruction-item">
+                <h4>3. Update Video Configuration</h4>
+                <p>Edit the courseVideo object in js/data.js with your video details:</p>
+                <div class="code-block">
+                    courseVideo: {<br>
+                    &nbsp;&nbsp;title: "Your Video Title",<br>
+                    &nbsp;&nbsp;description: "Your video description",<br>
+                    &nbsp;&nbsp;duration: "3:45",<br>
+                    &nbsp;&nbsp;videoUrl: "assets/course-overview.mp4",<br>
+                    &nbsp;&nbsp;videoWebM: "assets/course-overview.webm",<br>
+                    &nbsp;&nbsp;poster: "assets/video-thumbnail.jpg"<br>
+                    }
+                </div>
+            </div>
+
+            <div class="instruction-item">
+                <h4>4. Create Thumbnail Image</h4>
+                <p>Generate a thumbnail from your video (1920x1080 recommended):</p>
+                <div class="code-block">
+                    ffmpeg -i course-overview.mp4 -ss 00:00:05 -vframes 1 -vf scale=1920:1080 video-thumbnail.jpg
+                </div>
+            </div>
+
+            <div class="instruction-item">
+                <h4>5. Test the Video</h4>
+                <p>Open the main application and navigate to the Dashboard. The video should appear after the Welcome
+                    Card with full controls.</p>
+            </div>
+
+            <div class="instruction-item">
+                <h4>6. Deploy</h4>
+                <p>Commit and push your video files to your repository:</p>
+                <div class="code-block">
+                    git add assets/course-overview.mp4 assets/course-overview.webm assets/video-thumbnail.jpg<br>
+                    git commit -m "Add course overview video"<br>
+                    git push origin main
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📚 Data Analytics using R - Teaching Toolkit | Version 1.0.0</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">For detailed setup instructions, see VIDEO_SETUP_GUIDE.md
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Optional: Add video event tracking
+        const video = document.getElementById('demo-video');
+
+        if (video) {
+            video.addEventListener('play', () => {
+                console.log('Video started playing');
+            });
+
+            video.addEventListener('pause', () => {
+                console.log('Video paused');
+            });
+
+            video.addEventListener('ended', () => {
+                console.log('Video completed');
+            });
+
+            video.addEventListener('timeupdate', () => {
+                const progress = (video.currentTime / video.duration) * 100;
+                console.log(`Video progress: ${progress.toFixed(2)}%`);
+            });
+        }
+    </script>
+</body>
+
+</html>

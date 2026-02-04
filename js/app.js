@@ -202,7 +202,165 @@ const app = {
             } catch (e) {
                 console.error('Error highlighting code:', e);
             }
+            // Initialize video player
+            this.initializeVideoPlayer();
         }, 0);
+    },
+
+    initializeVideoPlayer() {
+        const video = document.getElementById('course-video');
+        const placeholder = document.getElementById('video-placeholder');
+        const setupBtn = document.getElementById('video-setup-btn');
+        const statusDiv = document.getElementById('video-status');
+        const statusText = document.getElementById('video-status-text');
+        const loadingIndicator = document.getElementById('video-loading');
+        const videoOverlay = document.querySelector('.video-overlay');
+
+        // Setup button handler
+        if (setupBtn) {
+            setupBtn.addEventListener('click', () => {
+                alert(`
+📹 VIDEO SETUP GUIDE
+
+To add your video, follow these steps:
+
+1. CREATE VIDEO FILES:
+   ffmpeg -f lavfi -i color=c=blue:s=1920x1080:d=5 -f lavfi -i sine=f=1000:d=5 -pix_fmt yuv420p assets/course-overview.mp4
+   ffmpeg -i assets/course-overview.mp4 -c:v libvpx-vp9 -b:v 1M assets/course-overview.webm
+   ffmpeg -i assets/course-overview.mp4 -ss 00:00:01 -vframes 1 -vf scale=1920x1080 assets/video-thumbnail.jpg
+
+2. ADD FILES TO ASSETS FOLDER:
+   assets/
+   ├── course-overview.mp4
+   ├── course-overview.webm
+   └── video-thumbnail.jpg
+
+3. REFRESH BROWSER:
+   Ctrl+R (or Ctrl+Shift+R for hard refresh)
+
+4. VIDEO SHOULD NOW PLAY!
+
+For detailed help, see CREATE_TEST_VIDEO.md
+                `);
+            });
+        }
+
+        if (!video) return;
+
+        // Check if video files exist by attempting to load
+        let videoFilesExist = false;
+
+        // Video event listeners
+        video.addEventListener('play', () => {
+            console.log('Video playing');
+            videoFilesExist = true;
+            if (placeholder) placeholder.style.display = 'none';
+            if (video) video.style.display = 'block';
+            if (loadingIndicator) loadingIndicator.style.display = 'none';
+            if (statusDiv) statusDiv.style.display = 'none';
+            if (videoOverlay) videoOverlay.style.display = 'block';
+        });
+
+        video.addEventListener('pause', () => {
+            console.log('Video paused');
+        });
+
+        video.addEventListener('ended', () => {
+            console.log('Video ended');
+            if (statusDiv) {
+                statusDiv.style.display = 'block';
+                statusText.textContent = '✓ Video completed! Great job!';
+                statusDiv.style.borderLeftColor = 'var(--secondary)';
+                statusDiv.style.background = 'rgba(16, 185, 129, 0.05)';
+            }
+        });
+
+        video.addEventListener('loadstart', () => {
+            console.log('Video loading started');
+            if (loadingIndicator) loadingIndicator.style.display = 'block';
+        });
+
+        video.addEventListener('canplay', () => {
+            console.log('Video can play');
+            videoFilesExist = true;
+            if (placeholder) placeholder.style.display = 'none';
+            if (video) video.style.display = 'block';
+            if (loadingIndicator) loadingIndicator.style.display = 'none';
+            if (videoOverlay) videoOverlay.style.display = 'block';
+        });
+
+        video.addEventListener('error', (e) => {
+            console.error('Video error:', e);
+            videoFilesExist = false;
+            if (loadingIndicator) loadingIndicator.style.display = 'none';
+            if (video) video.style.display = 'none';
+            if (placeholder) placeholder.style.display = 'flex';
+            if (statusDiv) {
+                statusDiv.style.display = 'block';
+                statusText.innerHTML = `
+                    <strong>⚠️ Video Files Not Found</strong><br>
+                    <small>Click "📹 Setup Video" button above to add your video files.</small>
+                `;
+                statusDiv.style.borderLeftColor = 'var(--accent)';
+                statusDiv.style.background = 'rgba(245, 158, 11, 0.05)';
+            }
+        });
+
+        video.addEventListener('stalled', () => {
+            console.log('Video stalled');
+            if (loadingIndicator) loadingIndicator.style.display = 'block';
+        });
+
+        // Help button
+        const helpBtn = document.getElementById('video-help-btn');
+        if (helpBtn) {
+            helpBtn.addEventListener('click', () => {
+                alert(`
+📹 VIDEO PLAYER HELP
+
+CONTROLS:
+• Play/Pause: Click play button or press Space
+• Volume: Use volume slider
+• Fullscreen: Click fullscreen button
+• Seek: Click on progress bar to jump to time
+
+KEYBOARD SHORTCUTS:
+• Space: Play/Pause
+• F: Fullscreen
+• M: Mute/Unmute
+• Arrow Keys: Seek forward/backward
+
+TROUBLESHOOTING:
+• If video won't play, click "📹 Setup Video" button
+• Ensure video files are in assets/ folder
+• Try refreshing page (Ctrl+R)
+• Try different browser if issues persist
+
+SETUP VIDEO:
+1. Create video files (see Setup Video button)
+2. Add to assets/ folder
+3. Refresh browser (Ctrl+R)
+4. Video should now play!
+                `);
+            });
+        }
+
+        // Initial check - if video files don't load within 3 seconds, show placeholder
+        setTimeout(() => {
+            if (!videoFilesExist && video && video.readyState === 0) {
+                console.log('Video files not found - showing placeholder');
+                if (placeholder) placeholder.style.display = 'flex';
+                if (video) video.style.display = 'none';
+                if (loadingIndicator) loadingIndicator.style.display = 'none';
+                if (statusDiv) {
+                    statusDiv.style.display = 'block';
+                    statusText.innerHTML = `
+                        <strong>📹 Ready for Your Video</strong><br>
+                        <small>Click "📹 Setup Video" button to add your video files.</small>
+                    `;
+                }
+            }
+        }, 3000);
     },
 
     renderQuizPage() {
@@ -233,6 +391,8 @@ const app = {
         let html = `
             <div class="dashboard-grid">
                 ${Components.WelcomeCard(this.state.progress)}
+
+                ${Components.CourseVideoSection()}
 
                 <section class="course-brief" style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="card" style="border-top: 4px solid var(--primary);">

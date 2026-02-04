@@ -3,6 +3,18 @@ const courseData = {
     semester: "Even Semester 2025-26",
     branch: "Non-CSE Students",
     rVersion: "4.3.3",
+    courseVideo: {
+        title: "Making Data Memorable",
+        description: "Learn how to transform raw data into compelling visual stories. This course overview video introduces you to the fundamentals of data analytics using R and shows you how to create memorable insights from data.",
+        duration: "3:45",
+        thumbnail: "assets/video-thumbnail.jpg",
+        videoUrl: "assets/Making_Data_Memorable.mp4",
+        videoWebM: "assets/Making_Data_Memorable.webm",
+        autoplay: false,
+        controls: true,
+        muted: false,
+        poster: "assets/video-thumbnail.jpg"
+    },
     courseObjectives: [
         "To provide a strong foundation in the principles and practices of data analytics.",
         "To equip students with the necessary skills to use R for data manipulation, visualization, and statistical analysis.",

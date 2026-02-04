@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create Thumbnail</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+            max-width: 100%;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Video Thumbnail Generator</h1>
+    <p>Click the button below to generate and download a thumbnail for your video.</p>
+
+    <button onclick="generateThumbnail()">Generate & Download Thumbnail</button>
+
+    <br><br>
+
+    <canvas id="canvas" width="1920" height="1080"></canvas>
+
+    <script>
+        function generateThumbnail() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Draw gradient background
+            const gradient = ctx.createLinearGradient(0, 0, 1920, 1080);
+            gradient.addColorStop(0, '#4f46e5');
+            gradient.addColorStop(1, '#764ba2');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 1920, 1080);
+
+            // Add overlay
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            ctx.fillRect(0, 0, 1920, 1080);
+
+            // Add play button
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.beginPath();
+            ctx.moveTo(960 - 80, 540 - 100);
+            ctx.lineTo(960 - 80, 540 + 100);
+            ctx.lineTo(960 + 100, 540);
+            ctx.fill();
+
+            // Add text
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 80px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Making Data Memorable', 960, 400);
+
+            ctx.font = '50px Arial';
+            ctx.fillText('Data Analytics using R', 960, 500);
+
+            // Download
+            canvas.toBlob(function (blob) {
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'video-thumbnail.jpg';
+                link.click();
+                alert('Thumbnail downloaded! Save it to: assets/video-thumbnail.jpg');
+            }, 'image/jpeg', 0.9);
+        }
+    </script>
+</body>
+
+</html>
