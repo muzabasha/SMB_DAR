@@ -18,85 +18,134 @@ const Components = {
         </div>
     `,
 
-    // Instructor Profile Component - Simplified with Better Image Handling
+    // Instructor Profile Component
     InstructorProfile: () => {
         const instructor = courseData.instructor;
         return `
-            <div class="instructor-profile card" style="border: none; padding: 0; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15); animation: slideUp 0.6s ease-out; background: var(--bg-card);">
-                <!-- Top Section with Photo Background -->
-                <div style="position: relative; width: 100%; height: 300px; background: linear-gradient(135deg, var(--primary), var(--secondary)); overflow: hidden;">
-                    <!-- Background Image -->
-                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('${instructor.photo}'); background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0.9;"></div>
+            <div class="instructor-profile-expanded card" style="border: none; padding: 0; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15); animation: slideUp 0.6s ease-out; background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);">
+                <!-- Header Section with Photo -->
+                <div style="display: grid; grid-template-columns: 280px 1fr; gap: 30px; padding: 30px; align-items: start; border-bottom: 1px solid var(--border);">
+                    <!-- Instructor Photo -->
+                    <div style="text-align: center; flex-shrink: 0;">
+                        <div style="width: 100%; max-width: 280px; aspect-ratio: 3/4; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2); border: 3px solid var(--primary); background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center;">
+                            <img src="${instructor.photo}" alt="${instructor.name}" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" onerror="this.style.display='none'">
+                            <div style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 4rem; position: absolute;">
+                                <i data-lucide="user" style="width: 80px; height: 80px;"></i>
+                            </div>
+                        </div>
+                        <h3 style="margin-top: 20px; color: var(--text-main); font-size: 1.3rem; margin-bottom: 5px; word-wrap: break-word;">${instructor.name}</h3>
+                        <p style="color: var(--primary); font-weight: 600; margin: 5px 0; font-size: 0.9rem; word-wrap: break-word;">${instructor.title}</p>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 10px; word-wrap: break-word;">${instructor.institution}</p>
+                    </div>
                     
-                    <!-- Overlay Gradient -->
-                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%);"></div>
-                    
-                    <!-- Fallback Avatar if Image Fails -->
-                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 5rem; z-index: 1;" class="instructor-avatar-fallback">
-                        <i data-lucide="user" style="width: 100px; height: 100px;"></i>
+                    <!-- Quick Info -->
+                    <div>
+                        <h2 style="color: var(--text-main); margin-bottom: 15px; font-size: 1.5rem;">Meet Your Instructor</h2>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 20px;">${instructor.bio}</p>
+                        
+                        <!-- Recognition Badge -->
+                        <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 12px 16px; border-radius: 8px; margin-bottom: 20px;">
+                            <p style="color: var(--accent); font-weight: 600; margin: 0 0 5px 0; font-size: 0.9rem;">🏆 ${instructor.recognition.ranking}</p>
+                            <p style="color: var(--text-muted); margin: 0; font-size: 0.85rem;">VIDWAN Score: <strong>${instructor.recognition.vidwanScore}</strong></p>
+                        </div>
+                        
+                        <!-- Contact Section -->
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--text-main); margin-bottom: 10px; font-size: 0.95rem; font-weight: 600;">Contact Information:</h4>
+                            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <i data-lucide="mail" style="width: 16px; height: 16px; color: var(--primary);"></i>
+                                    <a href="mailto:${instructor.email}" style="color: var(--primary); text-decoration: none;">${instructor.email}</a>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <i data-lucide="mail" style="width: 16px; height: 16px; color: var(--primary);"></i>
+                                    <a href="mailto:${instructor.alternateEmail}" style="color: var(--primary); text-decoration: none;">${instructor.alternateEmail}</a>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <i data-lucide="phone" style="width: 16px; height: 16px; color: var(--primary);"></i>
+                                    <span>${instructor.phone.join(', ')}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Social Links -->
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <a href="mailto:${instructor.email}" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: var(--primary); color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.2s;">
+                                <i data-lucide="mail" style="width: 16px; height: 16px;"></i> Email
+                            </a>
+                            <a href="${instructor.linkedin}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #0A66C2; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.2s;">
+                                <i data-lucide="linkedin" style="width: 16px; height: 16px;"></i> LinkedIn
+                            </a>
+                            <a href="${instructor.profiles.googleScholar}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #4285F4; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.2s;">
+                                <i data-lucide="book-open" style="width: 16px; height: 16px;"></i> Scholar
+                            </a>
+                            <a href="${instructor.profiles.researchGate}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #00D9FF; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.2s;">
+                                <i data-lucide="share2" style="width: 16px; height: 16px;"></i> ResearchGate
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Content Section -->
-                <div style="padding: 30px;">
-                    <h2 style="color: var(--text-main); margin-bottom: 5px; font-size: 1.8rem;">${instructor.name}</h2>
-                    <p style="color: var(--primary); font-weight: 600; margin-bottom: 15px; font-size: 1rem;">${instructor.title}</p>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">${instructor.institution}</p>
-                    
-                    <!-- Bio -->
-                    <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 20px;">${instructor.bio}</p>
-                    
-                    <!-- Recognition Badge -->
-                    <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 12px 16px; border-radius: 8px; margin-bottom: 20px;">
-                        <p style="color: var(--accent); font-weight: 600; margin: 0 0 5px 0; font-size: 0.9rem;">🏆 ${instructor.recognition.ranking}</p>
-                        <p style="color: var(--text-muted); margin: 0; font-size: 0.85rem;">VIDWAN Score: <strong>${instructor.recognition.vidwanScore}</strong></p>
+                <!-- Expertise Section -->
+                <div style="padding: 24px; border-bottom: 1px solid var(--border);">
+                    <h4 style="color: var(--text-main); margin-bottom: 12px; font-size: 1rem; font-weight: 600;">🎯 Expertise Areas:</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        ${instructor.expertise.slice(0, 13).map(exp => `
+                            <span style="background: rgba(79, 70, 229, 0.1); color: var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">
+                                ✓ ${exp}
+                            </span>
+                        `).join('')}
                     </div>
-                    
-                    <!-- Contact Section -->
-                    <div style="margin-bottom: 20px;">
-                        <h4 style="color: var(--text-main); margin-bottom: 10px; font-size: 0.95rem; font-weight: 600;">📧 Contact Information:</h4>
-                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem;">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <i data-lucide="mail" style="width: 16px; height: 16px; color: var(--primary); flex-shrink: 0;"></i>
-                                <a href="mailto:${instructor.email}" style="color: var(--primary); text-decoration: none; word-break: break-all;">${instructor.email}</a>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <i data-lucide="mail" style="width: 16px; height: 16px; color: var(--primary); flex-shrink: 0;"></i>
-                                <a href="mailto:${instructor.alternateEmail}" style="color: var(--primary); text-decoration: none; word-break: break-all;">${instructor.alternateEmail}</a>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <i data-lucide="phone" style="width: 16px; height: 16px; color: var(--primary); flex-shrink: 0;"></i>
-                                <span>${instructor.phone.join(', ')}</span>
-                            </div>
+                </div>
+
+                <!-- Research Portfolio Section -->
+                <div style="padding: 24px; border-bottom: 1px solid var(--border);">
+                    <h4 style="color: var(--text-main); margin-bottom: 15px; font-size: 1rem; font-weight: 600;">📊 Research Portfolio:</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.9rem;">
+                        <div>
+                            <p style="color: var(--text-muted); margin: 0 0 8px 0; font-weight: 600;">Publications:</p>
+                            <ul style="margin: 0; padding-left: 20px; color: var(--text-main);">
+                                <li>${instructor.research.publications.scopusIndexed}</li>
+                                <li>${instructor.research.publications.journals}</li>
+                                <li>${instructor.research.publications.conferences}</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-muted); margin: 0 0 8px 0; font-weight: 600;">Textbooks & Patents:</p>
+                            <ul style="margin: 0; padding-left: 20px; color: var(--text-main);">
+                                <li>${instructor.research.textbooks.authored}</li>
+                                <li>${instructor.research.textbooks.edited}</li>
+                                <li>Multiple patents & registrations</li>
+                            </ul>
                         </div>
                     </div>
-                    
-                    <!-- Social Links -->
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
-                        <a href="mailto:${instructor.email}" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; background: var(--primary); color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.2s; cursor: pointer;">
-                            <i data-lucide="mail" style="width: 16px; height: 16px;"></i> Email
-                        </a>
-                        <a href="${instructor.linkedin}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; background: #0A66C2; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.2s; cursor: pointer;">
-                            <i data-lucide="linkedin" style="width: 16px; height: 16px;"></i> LinkedIn
-                        </a>
-                        <a href="${instructor.profiles.googleScholar}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; background: #4285F4; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.2s; cursor: pointer;">
-                            <i data-lucide="book-open" style="width: 16px; height: 16px;"></i> Scholar
-                        </a>
-                        <a href="${instructor.profiles.researchGate}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; background: #00D9FF; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.2s; cursor: pointer;">
-                            <i data-lucide="share2" style="width: 16px; height: 16px;"></i> ResearchGate
-                        </a>
+                    <div style="margin-top: 15px; padding: 12px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; font-size: 0.85rem; color: var(--text-main);">
+                        <strong>PhD Scholars:</strong> ${instructor.research.phdScholars.awarded} awarded • ${instructor.research.phdScholars.submitted} submitted • ${instructor.research.phdScholars.ongoing} ongoing
                     </div>
-                    
-                    <!-- Expertise Section -->
-                    <div>
-                        <h4 style="color: var(--text-main); margin-bottom: 12px; font-size: 0.95rem; font-weight: 600;">🎯 Expertise Areas:</h4>
-                        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                            ${instructor.expertise.slice(0, 10).map(exp => `
-                                <span style="background: rgba(79, 70, 229, 0.1); color: var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">
-                                    ✓ ${exp}
-                                </span>
-                            `).join('')}
-                        </div>
+                </div>
+
+                <!-- Awards Section -->
+                <div style="padding: 24px; border-bottom: 1px solid var(--border);">
+                    <h4 style="color: var(--text-main); margin-bottom: 12px; font-size: 1rem; font-weight: 600;">🏆 Awards & Recognition:</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.85rem;">
+                        ${instructor.recognition.awards.slice(0, 8).map(award => `
+                            <div style="background: rgba(245, 158, 11, 0.05); padding: 10px; border-radius: 6px; border-left: 3px solid var(--accent); color: var(--text-main);">
+                                ✓ ${award}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <!-- Professional Links Section -->
+                <div style="padding: 24px;">
+                    <h4 style="color: var(--text-main); margin-bottom: 12px; font-size: 1rem; font-weight: 600;">🔗 Research Profiles:</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        <a href="${instructor.profiles.publons}" target="_blank" style="padding: 8px 14px; background: rgba(79, 70, 229, 0.1); color: var(--primary); border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">Publons</a>
+                        <a href="${instructor.profiles.googleScholar}" target="_blank" style="padding: 8px 14px; background: rgba(79, 70, 229, 0.1); color: var(--primary); border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">Google Scholar</a>
+                        <a href="${instructor.profiles.orcid}" target="_blank" style="padding: 8px 14px; background: rgba(79, 70, 229, 0.1); color: var(--primary); border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">ORCID</a>
+                        <a href="${instructor.profiles.scopus}" target="_blank" style="padding: 8px 14px; background: rgba(79, 70, 229, 0.1); color: var(--primary); border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">Scopus</a>
+                        <a href="${instructor.profiles.researchGate}" target="_blank" style="padding: 8px 14px; background: rgba(79, 70, 229, 0.1); color: var(--primary); border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">ResearchGate</a>
+                        <a href="${instructor.profiles.youtube}" target="_blank" style="padding: 8px 14px; background: rgba(79, 70, 229, 0.1); color: var(--primary); border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">YouTube</a>
                     </div>
                 </div>
             </div>
@@ -106,30 +155,30 @@ const Components = {
     CourseVideoSection: () => {
         const video = courseData.courseVideo;
         return `
-    < div class="course-video-section card" style = "border: none; padding: 0; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15); animation: slideUp 0.6s ease-out;" >
-        <div class="video-container" style="position: relative; width: 100%; padding-bottom: 56.25%; background: #000; overflow: hidden; transition: all 0.3s ease;">
-            <div id="video-placeholder" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; flex-direction: column; gap: 20px;">
-                <div style="font-size: 3rem;">🎬</div>
-                <h3 style="margin: 0; font-size: 1.5rem;">Welcome to Data Analytics using R</h3>
-                <p style="margin: 0; font-size: 1rem; opacity: 0.9;">Course Overview Video</p>
-                <button id="video-setup-btn" style="margin-top: 20px; padding: 12px 24px; background: white; color: #667eea; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: all 0.2s;">
-                    📹 Setup Video
-                </button>
-                <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">Video files not found. Click above to setup.</p>
-            </div>
-            <video
-                id="course-video"
-                class="course-video-player"
-                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; display: none;"
-                controls
-                controlsList="nodownload"
-                poster="${video.poster}"
-                ${video.autoplay ? 'autoplay' : ''}
-                ${video.muted ? 'muted' : ''}
-                preload="metadata"
-            >
-                <source src="${video.videoUrl}" type="video/mp4">
-                    <source src="${video.videoWebM}" type="video/webm">
+            <div class="course-video-section card" style="border: none; padding: 0; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15); animation: slideUp 0.6s ease-out;">
+                <div class="video-container" style="position: relative; width: 100%; padding-bottom: 56.25%; background: #000; overflow: hidden; transition: all 0.3s ease;">
+                    <div id="video-placeholder" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; flex-direction: column; gap: 20px;">
+                        <div style="font-size: 3rem;">🎬</div>
+                        <h3 style="margin: 0; font-size: 1.5rem;">Welcome to Data Analytics using R</h3>
+                        <p style="margin: 0; font-size: 1rem; opacity: 0.9;">Course Overview Video</p>
+                        <button id="video-setup-btn" style="margin-top: 20px; padding: 12px 24px; background: white; color: #667eea; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: all 0.2s;">
+                            📹 Setup Video
+                        </button>
+                        <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">Video files not found. Click above to setup.</p>
+                    </div>
+                    <video 
+                        id="course-video"
+                        class="course-video-player"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; display: none;"
+                        controls
+                        controlsList="nodownload"
+                        poster="${video.poster}"
+                        ${video.autoplay ? 'autoplay' : ''}
+                        ${video.muted ? 'muted' : ''}
+                        preload="metadata"
+                    >
+                        <source src="${video.videoUrl}" type="video/mp4">
+                        <source src="${video.videoWebM}" type="video/webm">
                         <p style="color: white; padding: 20px; text-align: center;">Your browser does not support the video tag. Please use a modern browser like Chrome, Firefox, Safari, or Edge.</p>
                     </video>
                     <div class="video-overlay" style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.7); color: white; padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; z-index: 10; backdrop-filter: blur(4px); display: none;">
@@ -159,8 +208,8 @@ const Components = {
                         <span id="video-status-text"></span>
                     </div>
                 </div>
-        </div>
-`;
+            </div>
+        `;
     },
 
     UnitCard: (unit) => {
@@ -173,7 +222,7 @@ const Components = {
         if (unit.id === 1) { statusClass = 'status-done'; statusText = 'In Progress'; }
 
         return `
-    < div class="card unit-card" onclick = "app.navigateTo('unit', ${unit.id})" >
+            <div class="card unit-card" onclick="app.navigateTo('unit', ${unit.id})">
                 <span class="unit-status-badge ${statusClass}">${statusText}</span>
                 <div class="unit-info">
                     <h3>Unit ${unit.id}: ${unit.title}</h3>
@@ -184,23 +233,23 @@ const Components = {
                         <div class="fill" style="width: ${progress}%"></div>
                     </div>
                 </div>
-            </div >
-    `;
+            </div>
+        `;
     },
 
     // Sidebar Components
     SidebarNavItem: (topic, isActive) => `
-    < div class="nav-item ${isActive ? 'active' : ''} ${topic.status === 'locked' ? 'locked' : ''}"
-onclick = "${topic.status !== 'locked' ? `app.navigateTo('topic', '${topic.id}')` : ''}" >
+        <div class="nav-item ${isActive ? 'active' : ''} ${topic.status === 'locked' ? 'locked' : ''}" 
+             onclick="${topic.status !== 'locked' ? `app.navigateTo('topic', '${topic.id}')` : ''}">
             <i data-lucide="${topic.status === 'completed' ? 'check-circle' : topic.status === 'pending' ? 'circle' : 'lock'}" 
                class="status-icon ${topic.status === 'completed' ? 'check' : topic.status === 'pending' ? 'pending' : 'locked'}"></i>
             <span>${topic.title}</span>
-        </div >
+        </div>
     `,
 
     // Interactive Block Components
     ThreePanelLayout: (block) => `
-    < div class="panel-container" >
+        <div class="panel-container">
             <div class="panel panel-code">
                 <div class="panel-header"><i data-lucide="code"></i> R Code (The Clues)</div>
                 <div class="panel-body">
@@ -226,25 +275,24 @@ onclick = "${topic.status !== 'locked' ? `app.navigateTo('topic', '${topic.id}')
                     </ul>
                 </div>
             </div>
-        </div >
+        </div>
     `,
 
     ConceptBlock: (block) => `
-    < div class="concept-view card" style = "display: flex; gap: 30px; align-items: center; margin: 20px 0;" >
-        <div class="concept-content" style="flex: 1;">
-            <h3>${block.title}</h3>
-            <p style="font-size: 1.1rem; margin-top: 15px;">${block.content}</p>
-        </div>
+        <div class="concept-view card" style="display: flex; gap: 30px; align-items: center; margin: 20px 0;">
+            <div class="concept-content" style="flex: 1;">
+                <h3>${block.title}</h3>
+                <p style="font-size: 1.1rem; margin-top: 15px;">${block.content}</p>
+            </div>
             ${block.visual ? `
             <div class="concept-visual" style="flex: 1; max-width: 400px;">
                 <img src="${block.visual}" alt="${block.title}" style="width: 100%; border-radius: 12px; box-shadow: var(--shadow);">
-            </div>` : ''
-        }
-        </div >
+            </div>` : ''}
+        </div>
     `,
 
     ErrorBlock: (block) => `
-    < div class="error-view" >
+        <div class="error-view">
             <div class="error-box">
                 <div class="error-title"><i data-lucide="alert-circle"></i> Oops! R got confused</div>
                 <pre><code>${block.error}</code></pre>
@@ -258,11 +306,11 @@ onclick = "${topic.status !== 'locked' ? `app.navigateTo('topic', '${topic.id}')
                     <pre><code class="language-r">${block.correction}</code></pre>
                 </div>
             </div>
-        </div >
+        </div>
     `,
 
     VisualizationBlock: (block) => `
-    < div class="viz-block" style = "background: var(--bg-card); border-radius: 20px; padding: 30px; border: 1px solid var(--border); margin: 20px 0;" >
+        <div class="viz-block" style="background: var(--bg-card); border-radius: 20px; padding: 30px; border: 1px solid var(--border); margin: 20px 0;">
             <h3>📊 ${block.title}</h3>
             <div class="viz-container">
                 <div class="panel panel-code">
@@ -286,27 +334,27 @@ onclick = "${topic.status !== 'locked' ? `app.navigateTo('topic', '${topic.id}')
                     </ul>
                 </div>
             </div>
-        </div >
+        </div>
     `,
 
     NextClassPreview: () => `
-    < div class="card next-class-card" style = "background: #f8fafc; border-left: 5px solid var(--accent);" >
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-            <div>
-                <h3 style="color: var(--accent);"><i data-lucide="calendar" style="display:inline-block; vertical-align:middle; margin-right:8px;"></i> Next Class Preview</h3>
-                <p style="font-weight: 600; margin-top: 8px;">Topic: Descriptive Statistics with R</p>
-                <p style="font-size: 0.9rem; color: var(--text-muted);">We will learn how to find the average (mean) and middle value (median) of your datasets.</p>
-            </div>
-            <div style="text-align: right;">
-                <span class="badge" style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem;">Suggested Prep</span>
-                <p style="font-size: 0.8rem; margin-top: 5px;">Review Basic Math: Mean/Median</p>
+        <div class="card next-class-card" style="background: #f8fafc; border-left: 5px solid var(--accent);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <h3 style="color: var(--accent);"><i data-lucide="calendar" style="display:inline-block; vertical-align:middle; margin-right:8px;"></i> Next Class Preview</h3>
+                    <p style="font-weight: 600; margin-top: 8px;">Topic: Descriptive Statistics with R</p>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">We will learn how to find the average (mean) and middle value (median) of your datasets.</p>
+                </div>
+                <div style="text-align: right;">
+                    <span class="badge" style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem;">Suggested Prep</span>
+                    <p style="font-size: 0.8rem; margin-top: 5px;">Review Basic Math: Mean/Median</p>
+                </div>
             </div>
         </div>
-        </div >
     `,
 
     MCQScreen: (q) => `
-    < div class="mcq-view card" >
+        <div class="mcq-view card">
             <div class="mcq-header">
                 <span class="badge">Assessment</span>
                 <h2>${q.question}</h2>
@@ -319,11 +367,11 @@ onclick = "${topic.status !== 'locked' ? `app.navigateTo('topic', '${topic.id}')
                     </button>
                 `).join('')}
             </div>
-        </div >
+        </div>
     `,
 
     ActivityBlock: (block) => `
-    < div class="card activity-card" style = "border: 2px dashed var(--primary); background: rgba(79, 70, 229, 0.02); margin: 30px 0;" >
+        <div class="card activity-card" style="border: 2px dashed var(--primary); background: rgba(79, 70, 229, 0.02); margin: 30px 0;">
              <div class="topic-header" style="margin-bottom: 20px;">
                 <h3>🧪 Try This: ${block.title}</h3>
             </div>
@@ -347,7 +395,7 @@ onclick = "${topic.status !== 'locked' ? `app.navigateTo('topic', '${topic.id}')
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     `,
 
     Badge: (text, type = 'default') => {
@@ -357,11 +405,11 @@ onclick = "${topic.status !== 'locked' ? `app.navigateTo('topic', '${topic.id}')
             Advanced: 'background: #fee2e2; color: #991b1b;',
             default: 'background: var(--border); color: var(--text-main);'
         };
-        return `< span class="badge" style = "${colors[text] || colors.default} font-size: 0.7rem; padding: 4px 8px;" > ${text}</span > `;
+        return `<span class="badge" style="${colors[text] || colors.default} font-size: 0.7rem; padding: 4px 8px;">${text}</span>`;
     },
 
     ProjectCard: (project) => `
-    < div class="card project-card" onclick = "app.navigateTo('project', '${project.id}')" style = "display: flex; gap: 20px; align-items: center; border-left: 5px solid var(--primary); cursor: pointer; transition: transform 0.2s;" >
+        <div class="card project-card" onclick="app.navigateTo('project', '${project.id}')" style="display: flex; gap: 20px; align-items: center; border-left: 5px solid var(--primary); cursor: pointer; transition: transform 0.2s;">
             <div class="project-icon" style="width: 60px; height: 60px; background: rgba(79, 70, 229, 0.1); border-radius: 12px; display:flex; align-items:center; justify-content:center; color: var(--primary);">
                 <i data-lucide="briefcase" size="32"></i>
             </div>
@@ -380,11 +428,11 @@ onclick = "${topic.status !== 'locked' ? `app.navigateTo('topic', '${topic.id}')
                     <i data-lucide="arrow-right"></i>
                 </button>
             </div>
-        </div >
+        </div>
     `,
 
     ProjectDetailsBlock: (p) => `
-    < div class="project-view handout-container" >
+        <div class="project-view handout-container">
             <header class="handout-header card">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
@@ -438,39 +486,39 @@ onclick = "${topic.status !== 'locked' ? `app.navigateTo('topic', '${topic.id}')
                     <i data-lucide="arrow-left" style="margin-right: 8px;"></i> Back to Project Hub
                 </button>
             </div>
-        </div >
+        </div>
     `,
 
     ActivitySlide: (slide) => `
-    < div class="topic-header" >
-        <h2>🧪 Experiential Activity: ${slide.title}</h2>
-        </div >
-    <div class="card activity-card" style="border: 2px dashed var(--primary); background: rgba(79, 70, 229, 0.02);">
-        <div class="activity-prompt">
-            <p style="font-size: 1.1rem; font-weight: 500;">${slide.prompt}</p>
-            ${slide.code ? `<div class="code-wrapper"><button class="copy-btn" onclick="app.copyCode(event)">Copy</button><pre><code class="language-r">${slide.code}</code></pre></div>` : ''}
+        <div class="topic-header">
+            <h2>🧪 Experiential Activity: ${slide.title}</h2>
         </div>
-        <div class="prediction-box" style="margin-top: 24px; padding: 20px; background: var(--bg-main); border-radius: 12px;">
-            <p style="font-weight: 600; margin-bottom: 12px;">What do you think will happen?</p>
-            <div style="display: flex; gap: 10px;">
-                <input type="text" id="user-prediction" placeholder="Your prediction..." style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
-                    <button class="icon-btn" onclick="app.revealOutcome()" style="background: var(--primary); color: white; padding: 0 20px;">Reveal Answer</button>
+        <div class="card activity-card" style="border: 2px dashed var(--primary); background: rgba(79, 70, 229, 0.02);">
+            <div class="activity-prompt">
+                <p style="font-size: 1.1rem; font-weight: 500;">${slide.prompt}</p>
+                ${slide.code ? `<div class="code-wrapper"><button class="copy-btn" onclick="app.copyCode(event)">Copy</button><pre><code class="language-r">${slide.code}</code></pre></div>` : ''}
             </div>
-        </div>
-        <div id="outcome-reveal" class="hidden" style="margin-top: 24px; animation: fadeIn 0.5s;">
-            <div class="panel panel-output" style="border: 1px solid var(--secondary);">
-                <div class="panel-header" style="color: var(--secondary);"><i data-lucide="check-circle"></i> The Reality</div>
-                <div class="panel-body">
-                    <p>${slide.outcome}</p>
-                    <p style="margin-top: 10px; font-weight: 600;">Why? ${slide.reason}</p>
+            <div class="prediction-box" style="margin-top: 24px; padding: 20px; background: var(--bg-main); border-radius: 12px;">
+                <p style="font-weight: 600; margin-bottom: 12px;">What do you think will happen?</p>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="user-prediction" placeholder="Your prediction..." style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
+                    <button class="icon-btn" onclick="app.revealOutcome()" style="background: var(--primary); color: white; padding: 0 20px;">Reveal Answer</button>
+                </div>
+            </div>
+            <div id="outcome-reveal" class="hidden" style="margin-top: 24px; animation: fadeIn 0.5s;">
+                <div class="panel panel-output" style="border: 1px solid var(--secondary);">
+                    <div class="panel-header" style="color: var(--secondary);"><i data-lucide="check-circle"></i> The Reality</div>
+                    <div class="panel-body">
+                        <p>${slide.outcome}</p>
+                        <p style="margin-top: 10px; font-weight: 600;">Why? ${slide.reason}</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-`,
+    `,
 
     HandoutBlock: (h) => `
-    < div class="handout-container" >
+        <div class="handout-container">
             <header class="handout-header card">
                 <div class="handout-title-section">
                     <span class="badge">Course: ${h.courseName}</span>
@@ -545,8 +593,7 @@ onclick = "${topic.status !== 'locked' ? `app.navigateTo('topic', '${topic.id}')
                     <pre style="margin: 0; color: #d4d4d4;">${h.rOutput}</pre>
                 </div>
             </section>
-            ` : ''
-        }
+            ` : ''}
 
             ${h.plotDescription ? `
             <section class="handout-section card" style="border-left: 6px solid #0ea5e9; background: #f0f9ff;">
@@ -555,8 +602,7 @@ onclick = "${topic.status !== 'locked' ? `app.navigateTo('topic', '${topic.id}')
                     ${h.plotDescription}
                 </div>
             </section>
-            ` : ''
-        }
+            ` : ''}
 
             ${h.rInterpretation ? `
             <section class="handout-section card" style="border-left: 6px solid #f59e0b; background: rgba(245, 158, 11, 0.05);">
@@ -565,8 +611,7 @@ onclick = "${topic.status !== 'locked' ? `app.navigateTo('topic', '${topic.id}')
                     <p style="font-size: 1rem; line-height: 1.8; color: var(--text-main);">${h.rInterpretation}</p>
                 </div>
             </section>
-            ` : ''
-        }
+            ` : ''}
 
             <section class="handout-section card illustration-section">
                 <h3><i data-lucide="layout"></i> Conceptual Illustration</h3>
