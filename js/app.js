@@ -392,6 +392,8 @@ SETUP VIDEO:
             <div class="dashboard-grid">
                 ${Components.WelcomeCard(this.state.progress)}
 
+                ${Components.InstructorProfile()}
+
                 ${Components.CourseVideoSection()}
 
                 <section class="course-brief" style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">

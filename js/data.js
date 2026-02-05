@@ -3,6 +3,136 @@ const courseData = {
     semester: "Even Semester 2025-26",
     branch: "Non-CSE Students",
     rVersion: "4.3.3",
+    instructor: {
+        name: "Dr. Syed Muzamil Basha",
+        title: "Professor, School of Computer Science & Engineering",
+        email: "muzamil@reva.edu.in",
+        alternateEmail: "muzamilbasha.s@reva.edu.in",
+        phone: ["8331977568", "7259421438"],
+        linkedin: "https://www.linkedin.com/in/muzamil-basha-syed-19612a25/",
+        bio: "Professor at REVA University with 15+ years of teaching and research experience. Recognized as the 3rd Best Scientist at REVA University (AD Scientific Index 2024) with a VIDWAN Score of 9.5/10. PhD from VIT University (2016-2019) with 2 years of postdoctoral experience at University of Hail, Saudi Arabia.",
+        institution: "REVA University, Bangalore, Karnataka, India",
+        address: "Rukmini Knowledge Park, Kattigenahalli, Yelahanka, Bengaluru, Karnataka 560064",
+        photo: "assets/instructor-photo.jpg",
+
+        // Academic Credentials
+        credentials: {
+            phd: "VIT University, Vellore (Deemed to be University - IoE), 2016-2019",
+            postdoc: "University of Hail, Kingdom of Saudi Arabia, 2020-2022",
+            experience: "15+ years of teaching and research experience"
+        },
+
+        // Recognition & Awards
+        recognition: {
+            ranking: "3rd Best Scientist at REVA University (AD Scientific Index 2024)",
+            vidwanScore: "9.5/10",
+            awards: [
+                "International Outstanding Teacher Award 2024-25 (Green ThinkerZ Society and NGO Darpan, NITI Aayog, January 2025)",
+                "Best Professor for Computer Science Bengaluru North (Karnataka Educational Awards, September 2024)",
+                "Best Researcher Award (Knowledge Research Academy, Coimbatore, August 2024)",
+                "IEEE R10 Ethics Champion recognition (2023-24)",
+                "RAMFOO Outstanding Faculty Award (March 2023)",
+                "CHSN-2022 Young Researcher Award (3rd International Conference on Computer Vision, December 2022)",
+                "Best Paper Award (IACIT, REVA University, 2021-22)",
+                "Raman Research Award (VIT, SCI indexed journal, impact factor 2.101, 2019-20)",
+                "Research Award (VIT, high-quality publications, 2018-19)",
+                "Best Researcher Award for PhD thesis supervision (Dr. Sailaja Thota, 8th International Conference on ALLAM in Cognitive Science, December 2024)",
+                "Certificate of Merit for securing 3rd place in M.Tech at VIT University (2010-11)"
+            ]
+        },
+
+        // Research Portfolio
+        research: {
+            publications: {
+                scopusIndexed: "65 publications",
+                journals: "40 journals (7 Q1, 9 Q2, 10 Q3, 6 Q4)",
+                conferences: "15 conference proceedings",
+                highlights: [
+                    "IEEE Transactions on Consumer Electronics",
+                    "IEEE Internet of Things Journal",
+                    "PLOS ONE",
+                    "BMC Medical Imaging"
+                ]
+            },
+            textbooks: {
+                authored: "25+ textbooks with international publishers (Springer, IGI Global)",
+                edited: "2 edited textbooks"
+            },
+            patents: "Multiple patents including design registrations and international patents (German Utility Patent, IP Australia Patent)",
+            phdScholars: {
+                awarded: "3 PhD scholars awarded degrees",
+                submitted: "2 scholars submitted thesis",
+                ongoing: "3 scholars currently under guidance"
+            }
+        },
+
+        // Leadership & Administrative Roles
+        leadership: {
+            current: [
+                "Research and Innovation Vertical Head at REVA University (June 2021 - Feb 2026)",
+                "NBA-NAAC Coordinator",
+                "IEEE Computer Society Chair"
+            ],
+            roles: [
+                "Academic Council and Board of Studies member for institutions across Karnataka, Andhra Pradesh, and Tamil Nadu",
+                "Session Chair and Technical Program Chair for international conferences (IDCIoT, WSSE)"
+            ]
+        },
+
+        // Editorial & Review Roles
+        editorial: {
+            editorialBoard: [
+                "American Journal of Health Research",
+                "Journal of Ubiquitous Computing and Communication Technologies",
+                "Discover Analytics",
+                "Journal of Innovative Technology Convergence",
+                "Milestone Transactions on Medical Technometrics"
+            ],
+            seniorReviewer: [
+                "IEEE Transactions on Consumer Electronics",
+                "IEEE Internet of Things Journal",
+                "PLOS ONE"
+            ],
+            adhocReviewer: [
+                "International Journal of Project Management",
+                "International Journal of Healthcare Information Systems",
+                "Recent Patents on Computer Science"
+            ]
+        },
+
+        // Expertise Areas
+        expertise: [
+            "Agentic AI",
+            "Natural Language Processing",
+            "Big Data Analytics",
+            "Blockchain Management",
+            "Internet of Things (IoT)",
+            "Machine Learning & Deep Learning",
+            "Federated Learning",
+            "Healthcare Informatics",
+            "Cybersecurity",
+            "Data Analytics",
+            "R Programming",
+            "Data Visualization",
+            "Statistical Analysis"
+        ],
+
+        // Professional Memberships
+        memberships: [
+            "ACM Professional Member",
+            "ISTE Lifetime Member"
+        ],
+
+        // Research Profiles & Links
+        profiles: {
+            publons: "https://publons.com/researcher/3362117/syed-muzamil",
+            googleScholar: "https://scholar.google.co.in/citations?user=weNQmW0AAAAJ&hl=en",
+            orcid: "http://orcid.org/0000-0002-1169-3151",
+            scopus: "https://www.scopus.com/authid/detail.uri?authorId=57195586589",
+            researchGate: "https://www.researchgate.net/profile/Muzamil_Basha",
+            youtube: "https://www.youtube.com/c/MuzamilBashaSM"
+        }
+    },
     courseVideo: {
         title: "Making Data Memorable",
         description: "Learn how to transform raw data into compelling visual stories. This course overview video introduces you to the fundamentals of data analytics using R and shows you how to create memorable insights from data.",

@@ -18,6 +18,137 @@ const Components = {
         </div>
     `,
 
+    // Instructor Profile Component
+    InstructorProfile: () => {
+        const instructor = courseData.instructor;
+        return `
+            <div class="instructor-profile-expanded card" style="border: none; padding: 0; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15); animation: slideUp 0.6s ease-out; background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);">
+                <!-- Header Section with Photo -->
+                <div style="display: grid; grid-template-columns: 250px 1fr; gap: 30px; padding: 30px; align-items: start; border-bottom: 1px solid var(--border);">
+                    <!-- Instructor Photo -->
+                    <div style="text-align: center;">
+                        <div style="width: 220px; height: 280px; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2); border: 3px solid var(--primary);">
+                            <img src="${instructor.photo}" alt="${instructor.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <h3 style="margin-top: 20px; color: var(--text-main); font-size: 1.3rem; margin-bottom: 5px;">${instructor.name}</h3>
+                        <p style="color: var(--primary); font-weight: 600; margin: 5px 0; font-size: 0.9rem;">${instructor.title}</p>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 10px;">${instructor.institution}</p>
+                    </div>
+                    
+                    <!-- Quick Info -->
+                    <div>
+                        <h2 style="color: var(--text-main); margin-bottom: 15px; font-size: 1.5rem;">Meet Your Instructor</h2>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 20px;">${instructor.bio}</p>
+                        
+                        <!-- Recognition Badge -->
+                        <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 12px 16px; border-radius: 8px; margin-bottom: 20px;">
+                            <p style="color: var(--accent); font-weight: 600; margin: 0 0 5px 0; font-size: 0.9rem;">🏆 ${instructor.recognition.ranking}</p>
+                            <p style="color: var(--text-muted); margin: 0; font-size: 0.85rem;">VIDWAN Score: <strong>${instructor.recognition.vidwanScore}</strong></p>
+                        </div>
+                        
+                        <!-- Contact Section -->
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--text-main); margin-bottom: 10px; font-size: 0.95rem; font-weight: 600;">Contact Information:</h4>
+                            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <i data-lucide="mail" style="width: 16px; height: 16px; color: var(--primary);"></i>
+                                    <a href="mailto:${instructor.email}" style="color: var(--primary); text-decoration: none;">${instructor.email}</a>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <i data-lucide="mail" style="width: 16px; height: 16px; color: var(--primary);"></i>
+                                    <a href="mailto:${instructor.alternateEmail}" style="color: var(--primary); text-decoration: none;">${instructor.alternateEmail}</a>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <i data-lucide="phone" style="width: 16px; height: 16px; color: var(--primary);"></i>
+                                    <span>${instructor.phone.join(', ')}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Social Links -->
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <a href="mailto:${instructor.email}" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: var(--primary); color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.2s;">
+                                <i data-lucide="mail" style="width: 16px; height: 16px;"></i> Email
+                            </a>
+                            <a href="${instructor.linkedin}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #0A66C2; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.2s;">
+                                <i data-lucide="linkedin" style="width: 16px; height: 16px;"></i> LinkedIn
+                            </a>
+                            <a href="${instructor.profiles.googleScholar}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #4285F4; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.2s;">
+                                <i data-lucide="book-open" style="width: 16px; height: 16px;"></i> Scholar
+                            </a>
+                            <a href="${instructor.profiles.researchGate}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #00D9FF; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.2s;">
+                                <i data-lucide="share2" style="width: 16px; height: 16px;"></i> ResearchGate
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expertise Section -->
+                <div style="padding: 24px; border-bottom: 1px solid var(--border);">
+                    <h4 style="color: var(--text-main); margin-bottom: 12px; font-size: 1rem; font-weight: 600;">🎯 Expertise Areas:</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        ${instructor.expertise.slice(0, 13).map(exp => `
+                            <span style="background: rgba(79, 70, 229, 0.1); color: var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">
+                                ✓ ${exp}
+                            </span>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <!-- Research Portfolio Section -->
+                <div style="padding: 24px; border-bottom: 1px solid var(--border);">
+                    <h4 style="color: var(--text-main); margin-bottom: 15px; font-size: 1rem; font-weight: 600;">📊 Research Portfolio:</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.9rem;">
+                        <div>
+                            <p style="color: var(--text-muted); margin: 0 0 8px 0; font-weight: 600;">Publications:</p>
+                            <ul style="margin: 0; padding-left: 20px; color: var(--text-main);">
+                                <li>${instructor.research.publications.scopusIndexed}</li>
+                                <li>${instructor.research.publications.journals}</li>
+                                <li>${instructor.research.publications.conferences}</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p style="color: var(--text-muted); margin: 0 0 8px 0; font-weight: 600;">Textbooks & Patents:</p>
+                            <ul style="margin: 0; padding-left: 20px; color: var(--text-main);">
+                                <li>${instructor.research.textbooks.authored}</li>
+                                <li>${instructor.research.textbooks.edited}</li>
+                                <li>Multiple patents & registrations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; padding: 12px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; font-size: 0.85rem; color: var(--text-main);">
+                        <strong>PhD Scholars:</strong> ${instructor.research.phdScholars.awarded} awarded • ${instructor.research.phdScholars.submitted} submitted • ${instructor.research.phdScholars.ongoing} ongoing
+                    </div>
+                </div>
+
+                <!-- Awards Section -->
+                <div style="padding: 24px; border-bottom: 1px solid var(--border);">
+                    <h4 style="color: var(--text-main); margin-bottom: 12px; font-size: 1rem; font-weight: 600;">🏆 Awards & Recognition:</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.85rem;">
+                        ${instructor.recognition.awards.slice(0, 8).map(award => `
+                            <div style="background: rgba(245, 158, 11, 0.05); padding: 10px; border-radius: 6px; border-left: 3px solid var(--accent); color: var(--text-main);">
+                                ✓ ${award}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <!-- Professional Links Section -->
+                <div style="padding: 24px;">
+                    <h4 style="color: var(--text-main); margin-bottom: 12px; font-size: 1rem; font-weight: 600;">🔗 Research Profiles:</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        <a href="${instructor.profiles.publons}" target="_blank" style="padding: 8px 14px; background: rgba(79, 70, 229, 0.1); color: var(--primary); border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">Publons</a>
+                        <a href="${instructor.profiles.googleScholar}" target="_blank" style="padding: 8px 14px; background: rgba(79, 70, 229, 0.1); color: var(--primary); border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">Google Scholar</a>
+                        <a href="${instructor.profiles.orcid}" target="_blank" style="padding: 8px 14px; background: rgba(79, 70, 229, 0.1); color: var(--primary); border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">ORCID</a>
+                        <a href="${instructor.profiles.scopus}" target="_blank" style="padding: 8px 14px; background: rgba(79, 70, 229, 0.1); color: var(--primary); border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">Scopus</a>
+                        <a href="${instructor.profiles.researchGate}" target="_blank" style="padding: 8px 14px; background: rgba(79, 70, 229, 0.1); color: var(--primary); border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">ResearchGate</a>
+                        <a href="${instructor.profiles.youtube}" target="_blank" style="padding: 8px 14px; background: rgba(79, 70, 229, 0.1); color: var(--primary); border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.2s;">YouTube</a>
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+
     CourseVideoSection: () => {
         const video = courseData.courseVideo;
         return `
