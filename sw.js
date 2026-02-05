@@ -1,6 +1,9 @@
 // Service Worker for R Analytics Toolkit
-const CACHE_NAME = 'r-analytics-v1.0.0';
-const urlsToCache = [
+const CACHE_NAME = 'r-analytics-v1.1.0';
+const STATIC_CACHE = 'r-analytics-static-v1.1.0';
+const DYNAMIC_CACHE = 'r-analytics-dynamic-v1.1.0';
+
+const staticAssets = [
     '/',
     '/index.html',
     '/styles/main.css',
@@ -12,6 +15,8 @@ const urlsToCache = [
     '/js/unit3-content.js',
     '/js/unit4-content.js',
     '/js/projects-content.js',
+    '/js/quizzes.js',
+    '/js/quizzes-enhanced.js',
     '/assets/logo.png',
     '/manifest.json'
 ];
@@ -19,10 +24,10 @@ const urlsToCache = [
 // Install event - cache resources
 self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open(CACHE_NAME)
+        caches.open(STATIC_CACHE)
             .then(cache => {
-                console.log('Opened cache');
-                return cache.addAll(urlsToCache);
+                console.log('Opened static cache');
+                return cache.addAll(staticAssets);
             })
             .catch(err => {
                 console.log('Cache install failed:', err);
@@ -31,45 +36,65 @@ self.addEventListener('install', event => {
     self.skipWaiting();
 });
 
-// Fetch event - serve from cache, fallback to network
+// Fetch event - network first for HTML/JS, cache first for assets
 self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                // Cache hit - return response
-                if (response) {
-                    return response;
-                }
+    const { request } = event;
+    const url = new URL(request.url);
 
-                // Clone the request
-                const fetchRequest = event.request.clone();
+    // Skip non-GET requests
+    if (request.method !== 'GET') {
+        return;
+    }
 
-                return fetch(fetchRequest).then(response => {
-                    // Check if valid response
-                    if (!response || response.status !== 200 || response.type !== 'basic') {
+    // Network first for HTML and JS files (always get latest)
+    if (url.pathname.endsWith('.html') || url.pathname.endsWith('.js') || url.pathname.endsWith('.css')) {
+        event.respondWith(
+            fetch(request)
+                .then(response => {
+                    if (!response || response.status !== 200) {
                         return response;
                     }
-
-                    // Clone the response
-                    const responseToCache = response.clone();
-
-                    caches.open(CACHE_NAME)
-                        .then(cache => {
-                            cache.put(event.request, responseToCache);
-                        });
-
+                    const responseClone = response.clone();
+                    caches.open(DYNAMIC_CACHE).then(cache => {
+                        cache.put(request, responseClone);
+                    });
                     return response;
-                }).catch(() => {
-                    // Return offline page if available
-                    return caches.match('/index.html');
-                });
-            })
-    );
+                })
+                .catch(() => {
+                    return caches.match(request)
+                        .then(response => response || caches.match('/index.html'));
+                })
+        );
+    } else {
+        // Cache first for images and other assets
+        event.respondWith(
+            caches.match(request)
+                .then(response => {
+                    if (response) {
+                        return response;
+                    }
+                    return fetch(request)
+                        .then(response => {
+                            if (!response || response.status !== 200) {
+                                return response;
+                            }
+                            const responseClone = response.clone();
+                            caches.open(DYNAMIC_CACHE).then(cache => {
+                                cache.put(request, responseClone);
+                            });
+                            return response;
+                        })
+                        .catch(() => {
+                            return caches.match('/index.html');
+                        });
+                })
+        );
+    }
 });
 
 // Activate event - clean up old caches
 self.addEventListener('activate', event => {
-    const cacheWhitelist = [CACHE_NAME];
+    const cacheWhitelist = [STATIC_CACHE, DYNAMIC_CACHE];
 
     event.waitUntil(
         caches.keys().then(cacheNames => {

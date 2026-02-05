@@ -1,3 +1,34 @@
+// Cache busting and refresh utilities
+const CacheBuster = {
+    version: '1.1.0',
+
+    clearOldCaches() {
+        if ('caches' in window) {
+            caches.keys().then(cacheNames => {
+                cacheNames.forEach(cacheName => {
+                    if (!cacheName.includes('v1.1')) {
+                        caches.delete(cacheName);
+                        console.log('Cleared cache:', cacheName);
+                    }
+                });
+            });
+        }
+    },
+
+    forceRefresh() {
+        // Clear localStorage cache if needed
+        const lastVersion = localStorage.getItem('app-version');
+        if (lastVersion !== this.version) {
+            localStorage.setItem('app-version', this.version);
+            console.log('Version updated, clearing old data');
+        }
+    }
+};
+
+// Initialize cache busting
+CacheBuster.clearOldCaches();
+CacheBuster.forceRefresh();
+
 const app = {
     state: {
         currentPage: 'dashboard',

@@ -27,8 +27,11 @@ const Components = {
                 <div style="display: grid; grid-template-columns: 250px 1fr; gap: 30px; padding: 30px; align-items: start; border-bottom: 1px solid var(--border);">
                     <!-- Instructor Photo -->
                     <div style="text-align: center;">
-                        <div style="width: 220px; height: 280px; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2); border: 3px solid var(--primary);">
-                            <img src="${instructor.photo}" alt="${instructor.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div style="width: 220px; height: 280px; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2); border: 3px solid var(--primary); background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center;">
+                            <img src="${instructor.photo}" alt="${instructor.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'">
+                            <div style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 4rem;">
+                                <i data-lucide="user" style="width: 80px; height: 80px;"></i>
+                            </div>
                         </div>
                         <h3 style="margin-top: 20px; color: var(--text-main); font-size: 1.3rem; margin-bottom: 5px;">${instructor.name}</h3>
                         <p style="color: var(--primary); font-weight: 600; margin: 5px 0; font-size: 0.9rem;">${instructor.title}</p>
