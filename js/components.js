@@ -24,18 +24,18 @@ const Components = {
         return `
             <div class="instructor-profile-expanded card" style="border: none; padding: 0; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15); animation: slideUp 0.6s ease-out; background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);">
                 <!-- Header Section with Photo -->
-                <div style="display: grid; grid-template-columns: 250px 1fr; gap: 30px; padding: 30px; align-items: start; border-bottom: 1px solid var(--border);">
+                <div style="display: grid; grid-template-columns: 280px 1fr; gap: 30px; padding: 30px; align-items: start; border-bottom: 1px solid var(--border);">
                     <!-- Instructor Photo -->
-                    <div style="text-align: center;">
-                        <div style="width: 220px; height: 280px; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2); border: 3px solid var(--primary); background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center;">
-                            <img src="${instructor.photo}" alt="${instructor.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'">
-                            <div style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 4rem;">
+                    <div style="text-align: center; flex-shrink: 0;">
+                        <div style="width: 100%; max-width: 280px; aspect-ratio: 3/4; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2); border: 3px solid var(--primary); background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center;">
+                            <img src="${instructor.photo}" alt="${instructor.name}" style="width: 100%; height: 100%; object-fit: cover; object-position: center;" onerror="this.style.display='none'">
+                            <div style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 4rem; position: absolute;">
                                 <i data-lucide="user" style="width: 80px; height: 80px;"></i>
                             </div>
                         </div>
-                        <h3 style="margin-top: 20px; color: var(--text-main); font-size: 1.3rem; margin-bottom: 5px;">${instructor.name}</h3>
-                        <p style="color: var(--primary); font-weight: 600; margin: 5px 0; font-size: 0.9rem;">${instructor.title}</p>
-                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 10px;">${instructor.institution}</p>
+                        <h3 style="margin-top: 20px; color: var(--text-main); font-size: 1.3rem; margin-bottom: 5px; word-wrap: break-word;">${instructor.name}</h3>
+                        <p style="color: var(--primary); font-weight: 600; margin: 5px 0; font-size: 0.9rem; word-wrap: break-word;">${instructor.title}</p>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 10px; word-wrap: break-word;">${instructor.institution}</p>
                     </div>
                     
                     <!-- Quick Info -->

@@ -1427,3 +1427,75 @@ a:focus {
     outline-offset: 2px;
     border-radius: 2px;
 }
+
+
+/* ============================================
+   INSTRUCTOR PROFILE RESPONSIVE STYLING
+   ============================================ */
+
+.instructor-profile-expanded {
+    width: 100%;
+    max-width: 100%;
+}
+
+.instructor-profile-expanded>div:first-child {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 30px;
+    padding: 30px;
+    align-items: start;
+}
+
+.instructor-profile-expanded img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* Tablet and smaller screens */
+@media (max-width: 1024px) {
+    .instructor-profile-expanded>div:first-child {
+        grid-template-columns: 240px 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+}
+
+/* Mobile screens */
+@media (max-width: 768px) {
+    .instructor-profile-expanded>div:first-child {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+        align-items: center;
+    }
+
+    .instructor-profile-expanded>div:first-child>div:first-child {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+    .instructor-profile-expanded>div:first-child {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .instructor-profile-expanded>div:first-child>div:first-child {
+        max-width: 200px;
+        margin: 0 auto;
+    }
+
+    .instructor-profile-expanded h3 {
+        font-size: 1.1rem !important;
+    }
+
+    .instructor-profile-expanded p {
+        font-size: 0.85rem !important;
+    }
+}
