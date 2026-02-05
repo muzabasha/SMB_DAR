@@ -18,6 +18,8 @@ const staticAssets = [
     '/js/quizzes.js',
     '/js/quizzes-enhanced.js',
     '/assets/logo.png',
+    '/assets/DP_profile.jpeg',
+    '/assets/Making_Data_Memorable.mp4',
     '/manifest.json'
 ];
 

@@ -13,7 +13,7 @@ const courseData = {
         bio: "Professor at REVA University with 15+ years of teaching and research experience. Recognized as the 3rd Best Scientist at REVA University (AD Scientific Index 2024) with a VIDWAN Score of 9.5/10. PhD from VIT University (2016-2019) with 2 years of postdoctoral experience at University of Hail, Saudi Arabia.",
         institution: "REVA University, Bangalore, Karnataka, India",
         address: "Rukmini Knowledge Park, Kattigenahalli, Yelahanka, Bengaluru, Karnataka 560064",
-        photo: "assets/instructor-photo.jpg",
+        photo: "assets/DP_profile.jpeg",
 
         // Academic Credentials
         credentials: {
