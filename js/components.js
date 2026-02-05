@@ -106,7 +106,7 @@ const Components = {
     CourseVideoSection: () => {
         const video = courseData.courseVideo;
         return `
-    < div class="course-video-section card" style = "border: none; padding: 0; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15); animation: slideUp 0.6s ease-out;" >
+            <div class="course-video-section card" style="border: none; padding: 0; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15); animation: slideUp 0.6s ease-out;">
         <div class="video-container" style="position: relative; width: 100%; padding-bottom: 56.25%; background: #000; overflow: hidden; transition: all 0.3s ease;">
             <div id="video-placeholder" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; flex-direction: column; gap: 20px;">
                 <div style="font-size: 3rem;">🎬</div>
@@ -173,7 +173,7 @@ const Components = {
         if (unit.id === 1) { statusClass = 'status-done'; statusText = 'In Progress'; }
 
         return `
-    < div class="card unit-card" onclick = "app.navigateTo('unit', ${unit.id})" >
+            <div class="card unit-card" onclick="app.navigateTo('unit', ${unit.id})">
                 <span class="unit-status-badge ${statusClass}">${statusText}</span>
                 <div class="unit-info">
                     <h3>Unit ${unit.id}: ${unit.title}</h3>
@@ -190,12 +190,12 @@ const Components = {
 
     // Sidebar Components
     SidebarNavItem: (topic, isActive) => `
-    < div class="nav-item ${isActive ? 'active' : ''} ${topic.status === 'locked' ? 'locked' : ''}"
-onclick = "${topic.status !== 'locked' ? `app.navigateTo('topic', '${topic.id}')` : ''}" >
+        <div class="nav-item ${isActive ? 'active' : ''} ${topic.status === 'locked' ? 'locked' : ''}" 
+             onclick="${topic.status !== 'locked' ? `app.navigateTo('topic', '${topic.id}')` : ''}">
             <i data-lucide="${topic.status === 'completed' ? 'check-circle' : topic.status === 'pending' ? 'circle' : 'lock'}" 
                class="status-icon ${topic.status === 'completed' ? 'check' : topic.status === 'pending' ? 'pending' : 'locked'}"></i>
             <span>${topic.title}</span>
-        </div >
+        </div>
     `,
 
     // Interactive Block Components
