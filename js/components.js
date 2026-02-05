@@ -18,21 +18,18 @@ const Components = {
         </div>
     `,
 
-    // Instructor Profile Component - Simplified with Better Image Handling
+    // Instructor Profile Component - Direct Image Rendering
     InstructorProfile: () => {
         const instructor = courseData.instructor;
         return `
             <div class="instructor-profile card" style="border: none; padding: 0; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15); animation: slideUp 0.6s ease-out; background: var(--bg-card);">
-                <!-- Top Section with Photo Background -->
-                <div style="position: relative; width: 100%; height: 300px; background: linear-gradient(135deg, var(--primary), var(--secondary)); overflow: hidden;">
-                    <!-- Background Image -->
-                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('${instructor.photo}'); background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0.9;"></div>
-                    
-                    <!-- Overlay Gradient -->
-                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%);"></div>
+                <!-- Top Section with Direct Image -->
+                <div style="position: relative; width: 100%; height: 300px; background: linear-gradient(135deg, var(--primary), var(--secondary)); overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                    <!-- Direct Image Tag -->
+                    <img src="${instructor.photo}" alt="${instructor.name}" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block;" />
                     
                     <!-- Fallback Avatar if Image Fails -->
-                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 5rem; z-index: 1;" class="instructor-avatar-fallback">
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-size: 5rem; z-index: 1;" class="instructor-avatar-fallback" id="instructor-avatar-fallback">
                         <i data-lucide="user" style="width: 100px; height: 100px;"></i>
                     </div>
                 </div>

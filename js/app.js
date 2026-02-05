@@ -235,7 +235,30 @@ const app = {
             }
             // Initialize video player
             this.initializeVideoPlayer();
+            // Handle instructor image loading
+            this.handleInstructorImage();
         }, 0);
+    },
+
+    handleInstructorImage() {
+        const instructorImg = document.querySelector('.instructor-profile img');
+        if (instructorImg) {
+            instructorImg.onerror = function () {
+                console.log('Instructor image failed to load, showing fallback');
+                const fallback = document.getElementById('instructor-avatar-fallback');
+                if (fallback) {
+                    fallback.style.display = 'flex';
+                }
+                this.style.display = 'none';
+            };
+            instructorImg.onload = function () {
+                console.log('Instructor image loaded successfully');
+                const fallback = document.getElementById('instructor-avatar-fallback');
+                if (fallback) {
+                    fallback.style.display = 'none';
+                }
+            };
+        }
     },
 
     initializeVideoPlayer() {
