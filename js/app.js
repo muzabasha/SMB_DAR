@@ -1,6 +1,6 @@
 // Cache busting and refresh utilities
 const CacheBuster = {
-    version: '1.2.0',
+    version: '1.3.0',
 
     clearOldCaches() {
         if ('caches' in window) {
@@ -46,6 +46,11 @@ const app = {
     },
 
     init() {
+        // Set initial sidebar state for mobile
+        if (window.innerWidth <= 768) {
+            this.state.isSidebarOpen = false;
+        }
+
         // Verify all content is loaded
         if (!window.unit1Content || !window.unit2Content || !window.unit3Content || !window.unit4Content) {
             if (this.state.initRetries < this.state.maxInitRetries) {
@@ -169,7 +174,17 @@ const app = {
 
     toggleSidebar() {
         this.state.isSidebarOpen = !this.state.isSidebarOpen;
-        this.nodes.sidebar.classList.toggle('collapsed', !this.state.isSidebarOpen);
+
+        // Responsive handling
+        if (window.innerWidth <= 768) {
+            // Mobile: Toggle 'open' class
+            this.nodes.sidebar.classList.toggle('open', this.state.isSidebarOpen);
+            this.nodes.sidebar.classList.remove('collapsed');
+        } else {
+            // Desktop: Toggle 'collapsed' class
+            this.nodes.sidebar.classList.toggle('collapsed', !this.state.isSidebarOpen);
+            this.nodes.sidebar.classList.remove('open');
+        }
     },
 
     toggleModal(type, show) {
@@ -202,6 +217,12 @@ const app = {
             this.state.currentTopicId = null;
             this.state.currentProjectId = null;
         }
+
+        // Auto-close sidebar on mobile when navigating
+        if (window.innerWidth <= 768 && this.state.isSidebarOpen) {
+            this.toggleSidebar();
+        }
+
         this.render();
         window.scrollTo(0, 0);
     },
