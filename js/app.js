@@ -1,6 +1,6 @@
 // Cache busting and refresh utilities
 const CacheBuster = {
-    version: '1.4.0',
+    version: '1.5.0',
 
     clearOldCaches() {
         if ('caches' in window) {

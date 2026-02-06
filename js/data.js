@@ -6,8 +6,7 @@ const courseData = {
     instructor: {
         name: "Dr. Syed Muzamil Basha",
         title: "Professor, School of Computer Science & Engineering",
-        email: "muzamil@reva.edu.in",
-        alternateEmail: "muzamilbasha.s@reva.edu.in",
+        email: "muzamilbasha.s@reva.edu.in",
         phone: ["8331977568", "7259421438"],
         linkedin: "https://www.linkedin.com/in/muzamil-basha-syed-19612a25/",
         bio: "Dr. Syed Muzamil Basha is a Professor in the School of Computer Science and Engineering at REVA University, Bangalore, Karnataka, India. He earned his Full time Ph.D. from VIT University, Vellore (Deemed to be University (IoE)) (2016–2019), and has 15 years of teaching and research experience, including 2 years of postdoctoral experience at University of Hail, Kingdom of Saudi Arabia (2020–2022). Dr. Basha is recognized as the 3rd Best Scientist at REVA University (AD Scientific Index 2024) with a VIDWAN Score of 9.5/10.",

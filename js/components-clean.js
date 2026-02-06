@@ -51,11 +51,6 @@ const Components = {
                                 <a href="mailto:${instructor.email}" style="font-size: 0.9rem; color: var(--text-muted); text-decoration: none; word-break: break-all;">${instructor.email}</a>
                             </div>
 
-                            <div style="display: flex; gap: 10px; margin-bottom: 8px; align-items: center;">
-                                <i data-lucide="mail" style="width: 18px; color: var(--primary); flex-shrink: 0;"></i>
-                                <a href="mailto:${instructor.alternateEmail}" style="font-size: 0.9rem; color: var(--text-muted); text-decoration: none; word-break: break-all;">${instructor.alternateEmail}</a>
-                            </div>
-
                              <div style="display: flex; gap: 10px; margin-bottom: 8px; align-items: center;">
                                 <i data-lucide="phone" style="width: 18px; color: var(--primary); flex-shrink: 0;"></i>
                                 <span style="font-size: 0.9rem; color: var(--text-muted);">${instructor.phone.join(', ')}</span>
