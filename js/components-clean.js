@@ -67,8 +67,16 @@ const Components = {
                             <h4 style="color: var(--text-main); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 5px;">Profiles</h4>
                             <div style="display: flex; flex-wrap: wrap; gap: 8px;">
                                 ${Object.entries(instructor.profiles).map(([key, url]) => `
-                                    <a href="${url}" target="_blank" title="${key}" style="display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; background: white; border: 1px solid var(--border); border-radius: 8px; color: var(--primary); transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                                        <i data-lucide="${key === 'youtube' ? 'youtube' : key === 'github' ? 'github' : 'globe'}" style="width: 18px;"></i>
+                                    <a href="${url}" target="_blank" title="${key}" style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: white; border: 1px solid var(--border); border-radius: 8px; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-decoration: none; font-size: 1.4rem; line-height: 1;">
+                                        ${key === 'publons' ? '🅿️' :
+                key === 'googleScholar' ? '🎓' :
+                    key === 'orcid' ? '🆔' :
+                        key === 'scopus' ? '📊' :
+                            key === 'researchGate' ? '🔬' :
+                                key === 'youtube' ? '📺' :
+                                    key === 'github' ? '🐙' :
+                                        '🌐'
+            }
                                     </a>
                                 `).join('')}
                             </div>
