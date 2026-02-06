@@ -1,6 +1,6 @@
 // Cache busting and refresh utilities
 const CacheBuster = {
-    version: '1.6.0',
+    version: '1.7.0',
 
     clearOldCaches() {
         if ('caches' in window) {
@@ -81,11 +81,13 @@ const app = {
         this.cacheDOM();
         this.bindEvents();
         this.calculateProgress();
-        this.render();
+
+        // Handle initial navigation based on URL
+        this.handleDeepLink();
     },
 
     loadUserData() {
-        // Load user progress from localStorage
+        // Load user progress from localStorage without deleting unless corrupted
         const savedData = localStorage.getItem('r-analytics-progress');
         if (savedData) {
             try {
@@ -144,6 +146,16 @@ const app = {
         this.nodes.modalOverlay.addEventListener('click', (e) => {
             if (e.target === this.nodes.modalOverlay) this.toggleModal('help', false);
         });
+
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', (event) => {
+            if (event.state) {
+                this.loadStateFromHistory(event.state);
+            } else {
+                // Handle initial load or empty state
+                this.handleDeepLink();
+            }
+        });
     },
 
     calculateProgress() {
@@ -170,6 +182,7 @@ const app = {
         document.body.classList.toggle('dark-mode', this.state.isDarkMode);
         this.nodes.themeToggle.querySelector('.moon-icon').classList.toggle('hidden', this.state.isDarkMode);
         this.nodes.themeToggle.querySelector('.sun-icon').classList.toggle('hidden', !this.state.isDarkMode);
+        this.saveUserData();
     },
 
     toggleSidebar() {
@@ -192,18 +205,47 @@ const app = {
         if (type === 'help') this.nodes.helpModal.classList.toggle('hidden', !show);
     },
 
-    navigateTo(page, id) {
+    // New method to handle URL parameters on load
+    handleDeepLink() {
+        const params = new URLSearchParams(window.location.search);
+        const page = params.get('page');
+        const id = params.get('id');
+
+        if (page && ['unit', 'topic', 'project', 'quiz'].includes(page)) {
+            // Convert id to number if it looks like one, otherwise keep as string (for topic ids like 'u1-t1')
+            const parsedId = !isNaN(id) ? parseInt(id) : id;
+            this.navigateTo(page, parsedId, false); // false = don't push state since we are already here
+        } else {
+            this.navigateTo('dashboard', null, false);
+        }
+    },
+
+    loadStateFromHistory(state) {
+        this.state.currentPage = state.page;
+        this.state.currentUnitId = state.unitId;
+        this.state.currentTopicId = state.topicId;
+        this.state.currentProjectId = state.projectId;
+        this.render();
+    },
+
+    navigateTo(page, id, pushState = true) {
         this.state.currentPage = page;
-        if (page === 'unit') {
+
+        // Reset specific IDs based on page type
+        if (page === 'dashboard') {
+            this.state.currentUnitId = null;
+            this.state.currentTopicId = null;
+            this.state.currentProjectId = null;
+        } else if (page === 'unit') {
             this.state.currentUnitId = id;
             this.state.currentTopicId = null;
             this.state.currentProjectId = null;
         } else if (page === 'topic') {
             this.state.currentTopicId = id;
             this.state.currentProjectId = null;
-            // Find unit id for this topic
+            // Find unit id for this topic to keep context
             const unit = courseData.units.find(u => u.topics.some(t => t.id === id));
-            this.state.currentUnitId = unit.id;
+            if (unit) this.state.currentUnitId = unit.id;
         } else if (page === 'project') {
             this.state.currentProjectId = id;
             this.state.currentUnitId = null;
@@ -212,15 +254,28 @@ const app = {
             this.state.currentUnitId = id;
             this.state.currentTopicId = null;
             this.state.currentProjectId = null;
-        } else {
-            this.state.currentUnitId = null;
-            this.state.currentTopicId = null;
-            this.state.currentProjectId = null;
         }
 
         // Auto-close sidebar on mobile when navigating
         if (window.innerWidth <= 768 && this.state.isSidebarOpen) {
             this.toggleSidebar();
+        }
+
+        // Push to history API
+        if (pushState) {
+            const url = new URL(window.location);
+            url.searchParams.set('page', page);
+            if (id) url.searchParams.set('id', id);
+            else url.searchParams.delete('id');
+
+            const stateObj = {
+                page: page,
+                unitId: this.state.currentUnitId,
+                topicId: this.state.currentTopicId,
+                projectId: this.state.currentProjectId
+            };
+
+            window.history.pushState(stateObj, '', url);
         }
 
         this.render();
