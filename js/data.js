@@ -10,16 +10,16 @@ const courseData = {
         alternateEmail: "muzamilbasha.s@reva.edu.in",
         phone: ["8331977568", "7259421438"],
         linkedin: "https://www.linkedin.com/in/muzamil-basha-syed-19612a25/",
-        bio: "Professor at REVA University with 15+ years of teaching and research experience. Recognized as the 3rd Best Scientist at REVA University (AD Scientific Index 2024) with a VIDWAN Score of 9.5/10. PhD from VIT University (2016-2019) with 2 years of postdoctoral experience at University of Hail, Saudi Arabia.",
+        bio: "Dr. Syed Muzamil Basha is a Professor in the School of Computer Science and Engineering at REVA University, Bangalore, Karnataka, India. He earned his Full time Ph.D. from VIT University, Vellore (Deemed to be University (IoE)) (2016–2019), and has 15 years of teaching and research experience, including 2 years of postdoctoral experience at University of Hail, Kingdom of Saudi Arabia (2020–2022). Dr. Basha is recognized as the 3rd Best Scientist at REVA University (AD Scientific Index 2024) with a VIDWAN Score of 9.5/10.",
         institution: "REVA University, Bangalore, Karnataka, India",
         address: "Rukmini Knowledge Park, Kattigenahalli, Yelahanka, Bengaluru, Karnataka 560064",
         photo: "assets/DP_profile.png",
 
         // Academic Credentials
         credentials: {
-            phd: "VIT University, Vellore (Deemed to be University - IoE), 2016-2019",
-            postdoc: "University of Hail, Kingdom of Saudi Arabia, 2020-2022",
-            experience: "15+ years of teaching and research experience"
+            phd: "VIT University, Vellore (Deemed to be University (IoE)) (2016–2019)",
+            postdoc: "University of Hail, Kingdom of Saudi Arabia (2020–2022)",
+            experience: "15 years of teaching and research experience"
         },
 
         // Recognition & Awards
@@ -30,22 +30,22 @@ const courseData = {
                 "International Outstanding Teacher Award 2024-25 (Green ThinkerZ Society and NGO Darpan, NITI Aayog, January 2025)",
                 "Best Professor for Computer Science Bengaluru North (Karnataka Educational Awards, September 2024)",
                 "Best Researcher Award (Knowledge Research Academy, Coimbatore, August 2024)",
-                "IEEE R10 Ethics Champion recognition (2023-24)",
+                "IEEE R10 Ethics Champion recognition (2023–24)",
                 "RAMFOO Outstanding Faculty Award (March 2023)",
                 "CHSN-2022 Young Researcher Award (3rd International Conference on Computer Vision, December 2022)",
-                "Best Paper Award (IACIT, REVA University, 2021-22)",
-                "Raman Research Award (VIT, SCI indexed journal, impact factor 2.101, 2019-20)",
-                "Research Award (VIT, high-quality publications, 2018-19)",
+                "Best Paper Award (IACIT, REVA University, 2021–22)",
+                "Raman Research Award (VIT, SCI indexed journal, impact factor 2.101, 2019–20)",
+                "Research Award (VIT, high-quality publications, 2018–19)",
                 "Best Researcher Award for PhD thesis supervision (Dr. Sailaja Thota, 8th International Conference on ALLAM in Cognitive Science, December 2024)",
-                "Certificate of Merit for securing 3rd place in M.Tech at VIT University (2010-11)"
+                "Certificate of Merit for securing 3rd place in M.Tech at VIT University (2010–11)"
             ]
         },
 
         // Research Portfolio
         research: {
             publications: {
-                scopusIndexed: "65 publications",
-                journals: "40 journals (7 Q1, 9 Q2, 10 Q3, 6 Q4)",
+                scopusIndexed: "65 Scopus-indexed publications",
+                journals: "40 journals: 7 Q1, 9 Q2, 10 Q3, 6 Q4",
                 conferences: "15 conference proceedings",
                 highlights: [
                     "IEEE Transactions on Consumer Electronics",
@@ -55,14 +55,14 @@ const courseData = {
                 ]
             },
             textbooks: {
-                authored: "25+ textbooks with international publishers (Springer, IGI Global)",
+                authored: "25+ textbooks published with international publishers including Springer and IGI Global",
                 edited: "2 edited textbooks"
             },
             patents: "Multiple patents including design registrations and international patents (German Utility Patent, IP Australia Patent)",
             phdScholars: {
                 awarded: "3 PhD scholars awarded degrees",
-                submitted: "2 scholars submitted thesis",
-                ongoing: "3 scholars currently under guidance"
+                submitted: "2 Scholars submitted Thesis",
+                ongoing: "3 currently under guidance"
             }
         },
 
@@ -75,7 +75,7 @@ const courseData = {
             ],
             roles: [
                 "Academic Council and Board of Studies member for institutions across Karnataka, Andhra Pradesh, and Tamil Nadu",
-                "Session Chair and Technical Program Chair for international conferences (IDCIoT, WSSE)"
+                "Session chair and technical program chair for international conferences such as the IDCIoT and WSSE"
             ]
         },
 
@@ -91,7 +91,7 @@ const courseData = {
             seniorReviewer: [
                 "IEEE Transactions on Consumer Electronics",
                 "IEEE Internet of Things Journal",
-                "PLOS ONE"
+                "Plos One"
             ],
             adhocReviewer: [
                 "International Journal of Project Management",
@@ -110,11 +110,7 @@ const courseData = {
             "Machine Learning & Deep Learning",
             "Federated Learning",
             "Healthcare Informatics",
-            "Cybersecurity",
-            "Data Analytics",
-            "R Programming",
-            "Data Visualization",
-            "Statistical Analysis"
+            "Cybersecurity"
         ],
 
         // Professional Memberships
@@ -130,7 +126,8 @@ const courseData = {
             orcid: "http://orcid.org/0000-0002-1169-3151",
             scopus: "https://www.scopus.com/authid/detail.uri?authorId=57195586589",
             researchGate: "https://www.researchgate.net/profile/Muzamil_Basha",
-            youtube: "https://www.youtube.com/c/MuzamilBashaSM"
+            youtube: "https://www.youtube.com/c/MuzamilBashaS",
+            github: "https://github.com/muzabasha/SMB_DAR"
         }
     },
     courseVideo: {

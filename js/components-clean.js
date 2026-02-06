@@ -20,38 +20,163 @@ const Components = {
     InstructorProfile: () => {
         const instructor = courseData.instructor;
         return `
+            <style>
+                .profile-grid { display: grid; grid-template-columns: 350px 1fr; min-height: 600px; gap: 0; }
+                @media (max-width: 960px) { .profile-grid { grid-template-columns: 1fr; } }
+                .profile-sidebar { background: linear-gradient(180deg, var(--bg-card) 0%, rgba(79, 70, 229, 0.03) 100%); border-right: 1px solid var(--border); padding: 30px; display: flex; flex-direction: column; }
+                .profile-content { padding: 40px; }
+            </style>
             <div class="instructor-profile card" style="border: none; padding: 0; overflow: hidden; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15); animation: slideUp 0.6s ease-out; background: var(--bg-card);">
-                <div style="display: grid; grid-template-columns: 320px 1fr; gap: 0; align-items: stretch; min-height: 450px;">
-                    <div style="position: relative; background: linear-gradient(135deg, var(--primary), var(--secondary)); overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 20px;">
-                        <img src="${instructor.photo}" alt="${instructor.name}" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);" />
-                    </div>
-                    <div style="padding: 30px; display: flex; flex-direction: column; justify-content: space-between;">
-                        <div>
-                            <h2 style="color: var(--text-main); margin: 0 0 8px 0; font-size: 1.8rem; font-weight: 700;">${instructor.name}</h2>
-                            <p style="color: var(--primary); font-weight: 600; margin: 0 0 4px 0; font-size: 1.05rem;">${instructor.title}</p>
-                            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0 0 16px 0;">${instructor.institution}</p>
-                            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin: 0 0 16px 0;">${instructor.bio}</p>
-                            <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 10px 14px; border-radius: 8px; margin-bottom: 16px;">
-                                <p style="color: var(--accent); font-weight: 600; margin: 0 0 4px 0; font-size: 0.85rem;">🏆 ${instructor.recognition.ranking}</p>
-                                <p style="color: var(--text-muted); margin: 0; font-size: 0.8rem;">VIDWAN Score: <strong>${instructor.recognition.vidwanScore}</strong></p>
+                <div class="profile-grid">
+                    
+                    <!-- Left Sidebar (Photo & Contact) -->
+                    <div class="profile-sidebar">
+                        
+                        <!-- Photo -->
+                        <div style="width: 100%; aspect-ratio: 1/1; overflow: hidden; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2); margin-bottom: 25px; border: 4px solid white;">
+                            <img src="${instructor.photo}" alt="${instructor.name}" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
+                        </div>
+
+                        <!-- Contact Info -->
+                        <div style="margin-bottom: 25px;">
+                            <h4 style="color: var(--text-main); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 5px;">Contact</h4>
+                            
+                            <div style="display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start;">
+                                <i data-lucide="map-pin" style="width: 18px; color: var(--primary); flex-shrink: 0; margin-top: 3px;"></i>
+                                <span style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.4;">${instructor.address}</span>
+                            </div>
+
+                            <div style="display: flex; gap: 10px; margin-bottom: 8px; align-items: center;">
+                                <i data-lucide="mail" style="width: 18px; color: var(--primary); flex-shrink: 0;"></i>
+                                <a href="mailto:${instructor.email}" style="font-size: 0.9rem; color: var(--text-muted); text-decoration: none; word-break: break-all;">${instructor.email}</a>
+                            </div>
+
+                            <div style="display: flex; gap: 10px; margin-bottom: 8px; align-items: center;">
+                                <i data-lucide="mail" style="width: 18px; color: var(--primary); flex-shrink: 0;"></i>
+                                <a href="mailto:${instructor.alternateEmail}" style="font-size: 0.9rem; color: var(--text-muted); text-decoration: none; word-break: break-all;">${instructor.alternateEmail}</a>
+                            </div>
+
+                             <div style="display: flex; gap: 10px; margin-bottom: 8px; align-items: center;">
+                                <i data-lucide="phone" style="width: 18px; color: var(--primary); flex-shrink: 0;"></i>
+                                <span style="font-size: 0.9rem; color: var(--text-muted);">${instructor.phone.join(', ')}</span>
                             </div>
                         </div>
-                        <div>
-                            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
-                                <a href="mailto:${instructor.email}" style="display: inline-flex; align-items: center; gap: 5px; padding: 8px 14px; background: var(--primary); color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.8rem; transition: all 0.2s; cursor: pointer; border: none;">
-                                    <i data-lucide="mail" style="width: 14px; height: 14px;"></i> Email
-                                </a>
-                                <a href="${instructor.linkedin}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 5px; padding: 8px 14px; background: #0A66C2; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.8rem; transition: all 0.2s; cursor: pointer; border: none;">
-                                    <i data-lucide="linkedin" style="width: 14px; height: 14px;"></i> LinkedIn
-                                </a>
+
+                        <!-- Profiles -->
+                        <div style="margin-bottom: 25px;">
+                            <h4 style="color: var(--text-main); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 5px;">Profiles</h4>
+                            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                ${Object.entries(instructor.profiles).map(([key, url]) => `
+                                    <a href="${url}" target="_blank" title="${key}" style="display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; background: white; border: 1px solid var(--border); border-radius: 8px; color: var(--primary); transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                        <i data-lucide="${key === 'youtube' ? 'youtube' : key === 'github' ? 'github' : 'globe'}" style="width: 18px;"></i>
+                                    </a>
+                                `).join('')}
                             </div>
-                            <div>
-                                <h4 style="color: var(--text-main); margin: 0 0 8px 0; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">🎯 Expertise</h4>
-                                <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-                                    ${instructor.expertise.slice(0, 8).map(exp => `<span style="background: rgba(79, 70, 229, 0.1); color: var(--primary); padding: 4px 10px; border-radius: 16px; font-size: 0.75rem; font-weight: 500;">${exp}</span>`).join('')}
+                        </div>
+                        
+                         <!-- Memberships -->
+                         <div>
+                            <h4 style="color: var(--text-main); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; border-bottom: 2px solid var(--secondary); display: inline-block; padding-bottom: 5px;">Memberships</h4>
+                            <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                                ${instructor.memberships.map(m => `<span style="font-size: 0.75rem; padding: 6px 10px; background: rgba(16, 185, 129, 0.1); color: var(--secondary); border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.2); font-weight: 500;">${m}</span>`).join('')}
+                            </div>
+                         </div>
+
+                    </div>
+
+                    <!-- Right Main Content -->
+                    <div class="profile-content">
+                        
+                        <!-- Header -->
+                        <div style="margin-bottom: 30px;">
+                            <h1 style="font-size: 2rem; margin: 0 0 5px 0; color: var(--text-main); font-weight: 700;">${instructor.name}</h1>
+                            <p style="font-size: 1.1rem; color: var(--primary); font-weight: 600; margin: 0;">${instructor.title}</p>
+                            <p style="font-size: 1rem; color: var(--text-muted); margin: 5px 0 15px 0;">${instructor.institution}</p>
+                            
+                            <div style="display: inline-flex; overflow: hidden; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.3);">
+                                <div style="background: rgba(245, 158, 11, 0.1); padding: 8px 15px; border-right: 1px solid rgba(245, 158, 11, 0.3);">
+                                    <span style="font-size: 0.85rem; color: var(--accent); font-weight: 600;">🏆 ${instructor.recognition.ranking}</span>
+                                </div>
+                                <div style="background: var(--bg-main); padding: 8px 15px;">
+                                    <span style="font-size: 0.85rem; color: var(--text-muted);">VIDWAN Score: <strong>${instructor.recognition.vidwanScore}</strong></span>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Bio -->
+                        <div style="margin-bottom: 30px;">
+                            <p style="font-size: 1rem; line-height: 1.7; color: var(--text-main); margin: 0;">${instructor.bio}</p>
+                        </div>
+
+                        <!-- Expertise -->
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="font-size: 1.1rem; margin-bottom: 15px; color: var(--text-main); display: flex; align-items: center; gap: 10px;">
+                                <i data-lucide="zap" style="width: 20px; color: var(--primary);"></i> Areas of Expertise
+                            </h3>
+                            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                ${instructor.expertise.map(exp => `<span style="background: var(--bg-main); border: 1px solid var(--border); color: var(--text-main); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 500;">${exp}</span>`).join('')}
+                            </div>
+                        </div>
+
+                        <!-- Grid Layout for Stats -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                            
+                            <!-- Education & Stats -->
+                            <div style="background: var(--bg-main); border-radius: 12px; padding: 20px; border: 1px solid var(--border);">
+                                <h3 style="font-size: 1rem; margin-bottom: 15px; color: var(--text-main); border-bottom: 1px solid var(--border); padding-bottom: 8px;">🎓 Education & Experience</h3>
+                                <div style="margin-bottom: 12px;">
+                                    <strong style="display: block; font-size: 0.9rem; color: var(--primary);">PhD</strong>
+                                    <span style="font-size: 0.85rem; color: var(--text-muted);">${instructor.credentials.phd}</span>
+                                </div>
+                                <div style="margin-bottom: 12px;">
+                                    <strong style="display: block; font-size: 0.9rem; color: var(--primary);">Postdoc</strong>
+                                    <span style="font-size: 0.85rem; color: var(--text-muted);">${instructor.credentials.postdoc}</span>
+                                </div>
+                                <div>
+                                    <strong style="display: block; font-size: 0.9rem; color: var(--primary);">Experience</strong>
+                                    <span style="font-size: 0.85rem; color: var(--text-muted);">${instructor.credentials.experience}</span>
+                                </div>
+                            </div>
+
+                            <!-- Research Stats -->
+                            <div style="background: var(--bg-main); border-radius: 12px; padding: 20px; border: 1px solid var(--border);">
+                                <h3 style="font-size: 1rem; margin-bottom: 15px; color: var(--text-main); border-bottom: 1px solid var(--border); padding-bottom: 8px;">📊 Research Output</h3>
+                                <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: var(--text-muted);">
+                                    <li style="margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px;"><i data-lucide="file-text" style="width: 16px; margin-top: 3px; color: var(--secondary);"></i> <span>${instructor.research.publications.scopusIndexed}</span></li>
+                                    <li style="margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px;"><i data-lucide="book" style="width: 16px; margin-top: 3px; color: var(--secondary);"></i> <span>${instructor.research.textbooks.authored}</span></li>
+                                    <li style="margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px;"><i data-lucide="award" style="width: 16px; margin-top: 3px; color: var(--secondary);"></i> <span>${instructor.research.patents}</span></li>
+                                    <li style="display: flex; align-items: flex-start; gap: 8px;"><i data-lucide="users" style="width: 16px; margin-top: 3px; color: var(--secondary);"></i> <span>${instructor.research.phdScholars.awarded}</span></li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <!-- Awards List -->
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="font-size: 1.1rem; margin-bottom: 15px; color: var(--text-main); display: flex; align-items: center; gap: 10px;">
+                                <i data-lucide="trophy" style="width: 20px; color: var(--accent);"></i> Key Awards
+                            </h3>
+                            <div style="background: rgba(245, 158, 11, 0.05); border-radius: 12px; padding: 20px; border: 1px solid rgba(245, 158, 11, 0.1);">
+                                <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 12px;">
+                                    ${instructor.recognition.awards.slice(0, 5).map(award => `<li style="font-size: 0.9rem; color: var(--text-muted); padding-left: 18px; position: relative;"><span style="position: absolute; left: 0; top: 8px; width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>${award}</li>`).join('')}
+                                    <li style="font-size: 0.85rem; font-style: italic; color: var(--primary); margin-top: 5px;">...and ${instructor.recognition.awards.length - 5} more distinctions.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Roles Section -->
+                        <div>
+                             <h3 style="font-size: 1.1rem; margin-bottom: 15px; color: var(--text-main); display: flex; align-items: center; gap: 10px;">
+                                <i data-lucide="briefcase" style="width: 20px; color: var(--primary);"></i> Leadership & Service
+                            </h3>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 10px;">
+                                <strong style="color: var(--text-main);">Leadership:</strong> ${instructor.leadership.current.join(' • ')}
+                            </p>
+                             <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+                                <strong style="color: var(--text-main);">Editorial:</strong> Board member for ${instructor.editorial.editorialBoard.slice(0, 2).join(', ')} and senior reviewer for IEEE Transactions.
+                            </p>
+                        </div>
+
                     </div>
                 </div>
             </div>
