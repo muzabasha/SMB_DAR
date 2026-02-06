@@ -125,7 +125,7 @@ const courseData = {
             orcid: "http://orcid.org/0000-0002-1169-3151",
             scopus: "https://www.scopus.com/authid/detail.uri?authorId=57195586589",
             researchGate: "https://www.researchgate.net/profile/Muzamil_Basha",
-            youtube: "https://www.youtube.com/c/MuzamilBashaS",
+            linkedin: "https://www.linkedin.com/in/muzamil-basha-syed-19612a25/",
             github: "https://github.com/muzabasha/SMB_DAR"
         }
     },

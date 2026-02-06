@@ -68,7 +68,7 @@ const Components = {
                     key === 'orcid' ? '🆔' :
                         key === 'scopus' ? '📊' :
                             key === 'researchGate' ? '🔬' :
-                                key === 'youtube' ? '📺' :
+                                key === 'linkedin' ? '💼' :
                                     key === 'github' ? '🐙' :
                                         '🌐'
             }
