@@ -28,6 +28,27 @@ const unit2Content = {
         coreConcept: "A program is a sequence of instructions that tells a computer what to do. Variables store data, and operators manipulate that data.",
         terminology: "Algorithm, Variable, Assignment, Operator, Function, Syntax, Bug, Debugging, Comment, Console",
         technicalFoundations: "Sequential execution (code runs line by line, top to bottom), Assignment (storing values in named containers).",
+        mindMap: {
+            center: "Unit 2: Programming Fundamentals",
+            branches: [
+                {
+                    title: "Code Logic",
+                    subItems: ["Sequential Flow", "Algorithms", "IPO Model", "Logical Branching"]
+                },
+                {
+                    title: "Building Blocks",
+                    subItems: ["Variables (Containers)", "Assignment (<-)", "Data Types", "Comments (#)"]
+                },
+                {
+                    title: "Operators",
+                    subItems: ["Math (+,-,*,/)", "Logical (>,<,==)", "Remainder (%%)", "Power (^)"]
+                },
+                {
+                    title: "R Ecosystem",
+                    subItems: ["RStudio", "Console", "Scripting", "Packages"]
+                }
+            ]
+        },
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
         rCode: `# PREREQUISITE 1: What is a Variable?

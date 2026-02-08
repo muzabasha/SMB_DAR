@@ -28,6 +28,27 @@ const unit1Content = {
         coreConcept: "Data is raw facts and figures. When we organize and interpret data, it becomes information. When we use information to make decisions, it becomes knowledge.",
         terminology: "Data, Information, Knowledge, Wisdom (DIKW Pyramid), Dataset, Record, Field, Observation, Variable",
         technicalFoundations: "Understanding the difference between qualitative (descriptive) and quantitative (numerical) observations.",
+        mindMap: {
+            center: "Unit 1: Data Foundations",
+            branches: [
+                {
+                    title: "What is Data?",
+                    subItems: ["Raw Facts", "Observance", "Recordings", "DIKW Pyramid"]
+                },
+                {
+                    title: "Data Types",
+                    subItems: ["Qualitative (Text)", "Quantitative (Numbers)", "Categorical", "Logical"]
+                },
+                {
+                    title: "Data Utility",
+                    subItems: ["Decision Making", "Pattern Finding", "Problem Solving", "Forecasting"]
+                },
+                {
+                    title: "Practical Literacy",
+                    subItems: ["Spreadsheets", "CSV Formats", "Excel Basics", "Data Hygiene"]
+                }
+            ]
+        },
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
         rCode: `# PREREQUISITE 1: Understanding Data Types in Real Life

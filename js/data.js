@@ -3,6 +3,27 @@ const courseData = {
     semester: "Even Semester 2025-26",
     branch: "Non-CSE Students",
     rVersion: "4.3.3",
+    courseMindMap: {
+        center: "Data Analytics with R",
+        branches: [
+            {
+                title: "Unit 1: Foundations",
+                subItems: ["Data Literacy", "Classification", "Big Data 3Vs", "Applications"]
+            },
+            {
+                title: "Unit 2: Programming",
+                subItems: ["R Syntax", "Control Loops", "Vectors/Matrices", "Functions"]
+            },
+            {
+                title: "Unit 3: Visualization",
+                subItems: ["Base Graphics", "ggplot2 Logic", "External Data", "Storytelling"]
+            },
+            {
+                title: "Unit 4: Advanced",
+                subItems: ["ML Models", "Regression", "Random Forest", "Optimization"]
+            }
+        ]
+    },
     instructor: {
         name: "Dr. Syed Muzamil Basha",
         title: "Professor, School of Computer Science & Engineering",

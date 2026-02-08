@@ -526,6 +526,12 @@ SETUP VIDEO:
 
                 ${Components.CourseVideoSection()}
 
+                <section class="mega-mindmap" style="margin-top: 20px;">
+                    <div class="card" style="border-top: 4px solid var(--accent); padding: 0;">
+                        ${Components.MindMap(courseData.courseMindMap)}
+                    </div>
+                </section>
+
                 <section class="course-brief" style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="card" style="border-top: 4px solid var(--primary);">
                         <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">

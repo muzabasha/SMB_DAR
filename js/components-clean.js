@@ -379,6 +379,39 @@ const Components = {
         </div>
     `,
 
+    MindMap: (data) => {
+        if (!data) return '';
+        return `
+            <div class="mindmap-container">
+                <div class="mindmap-header">
+                    <i data-lucide="network"></i> Topic Mind Map
+                </div>
+                <div class="mindmap-wrapper">
+                    <!-- Central Node -->
+                    <div class="mindmap-center">
+                        <div class="node central-node">
+                            <span>${data.center}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Branches -->
+                    <div class="mindmap-branches">
+                        ${data.branches.map((branch, bIdx) => `
+                            <div class="mindmap-branch" style="--branch-index: ${bIdx}">
+                                <div class="node branch-node">
+                                    <span class="branch-title">${branch.title}</span>
+                                    <ul class="sub-items">
+                                        ${branch.subItems.map(item => `<li>${item}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+
     HandoutBlock: (h) => `
         <div class="handout-container">
             <header class="handout-header card" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
@@ -402,6 +435,8 @@ const Components = {
                 </ul>
             </section>
             ` : ''}
+
+            ${h.mindMap ? Components.MindMap(h.mindMap) : ''}
 
             ${h.subTopicsHierarchy ? `
             <section class="handout-section card" style="border-left: 5px solid #6366f1; margin-bottom: 20px; background: rgba(99, 102, 241, 0.02);">

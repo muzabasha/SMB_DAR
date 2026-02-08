@@ -15,6 +15,27 @@ const unit4Content = {
         coreConcept: "Statistics is the science of learning from data. It provides the mathematical framework for making decisions under uncertainty.",
         terminology: "Population vs Sample, Parameter vs Statistic, Bias, Variance, Outliers, Percentiles, Quartiles, Interquartile Range (IQR)",
         technicalFoundations: "Mathematical foundations: Set Theory (for probability), Calculus (for distributions), Linear Algebra (for regression).",
+        mindMap: {
+            center: "Unit 4: Advanced Stats & ML",
+            branches: [
+                {
+                    title: "Statistics Foundations",
+                    subItems: ["Mean & Median", "SD & Variance", "P-values", "Significance"]
+                },
+                {
+                    title: "Distributions",
+                    subItems: ["Normal (Bell)", "Binomial", "Probability", "CLT"]
+                },
+                {
+                    title: "Predictive Models",
+                    subItems: ["Linear Regression", "Decision Trees", "Random Forest", "Evaluation"]
+                },
+                {
+                    title: "Advanced Analytics",
+                    subItems: ["Prescriptive", "Optimization", "Reinforcement Learning", "Decision Theory"]
+                }
+            ]
+        },
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
         rCode: `# PREREQUISITE 1: Measures of Central Tendency

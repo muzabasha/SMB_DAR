@@ -14,7 +14,28 @@ const unit3Content = {
         problemStatement: "Many people create charts without understanding WHICH chart fits WHICH data. A pie chart for time-series data is like using a hammer to cut bread - wrong tool!",
         coreConcept: "Data visualization is the graphical representation of information. Good visualizations make complex data accessible, reveal patterns, and support decision-making.",
         terminology: "X-axis, Y-axis, Legend, Scale, Trend, Outlier, Distribution, Correlation, Categorical vs Continuous Data",
-        technicalFoundations: "Visual encoding: mapping data values to visual properties (position, length, color, size, shape).",
+        technicalFoundations: "Visual variables (length, area, color, position) and how they map to data values.",
+        mindMap: {
+            center: "Unit 3: Visual Analytics",
+            branches: [
+                {
+                    title: "Chart Literacy",
+                    subItems: ["Histograms", "Boxplots", "Scatterplots", "Line Graphs"]
+                },
+                {
+                    title: "Data Sourcing",
+                    subItems: ["CSV Import", "Excel Files", "JSON Data", "Cleaning"]
+                },
+                {
+                    title: "Aesthetics",
+                    subItems: ["Colors", "Labels", "Scales", "Themes"]
+                },
+                {
+                    title: "Grammar of Graphics",
+                    subItems: ["Data Mapping", "Geometries", "Coordinates", "Faceting"]
+                }
+            ]
+        },
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
         rCode: `# PREREQUISITE 1: Understanding Data for Visualization
