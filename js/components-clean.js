@@ -403,6 +403,37 @@ const Components = {
             </section>
             ` : ''}
 
+            ${h.subTopicsHierarchy ? `
+            <section class="handout-section card" style="border-left: 5px solid #6366f1; margin-bottom: 20px; background: rgba(99, 102, 241, 0.02);">
+                <h3 style="color: #6366f1; margin-top: 0; display: flex; align-items: center; gap: 10px;">
+                    <i data-lucide="layers" style="width: 20px;"></i> Topic Hierarchy
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 15px;">
+                    ${h.subTopicsHierarchy.map((st, idx) => `
+                        <div class="card" style="background: white; padding: 20px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.02); animation: slideUp 0.5s ease-out ${idx * 0.15}s both; margin: 0;">
+                            <h4 style="color: var(--primary); margin: 0 0 12px 0; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; font-weight: 700;">
+                                <span style="background: var(--primary); color: white; width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;">${idx + 1}</span>
+                                ${st.title}
+                            </h4>
+                            <ul style="padding-left: 15px; margin: 0; list-style-type: none;">
+                                ${st.subSubTopics.map(sst => `
+                                    <li style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; display: flex; align-items: flex-start; gap: 8px;">
+                                        <i data-lucide="chevron-right" style="width: 14px; margin-top: 3px; color: var(--secondary); flex-shrink: 0;"></i>
+                                        <span>${sst}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    `).join('')}
+                </div>
+            </section>
+            ` : h.subTopics ? `
+             <section class="handout-section card" style="border-left: 5px solid #6366f1; margin-bottom: 20px;">
+                <h3 style="color: #6366f1; margin-top: 0;">📚 Sub-topics</h3>
+                <p>${h.subTopics}</p>
+            </section>
+            ` : ''}
+
             ${h.background ? `
             <section class="handout-section card" style="border-left: 5px solid var(--accent); margin-bottom: 20px;">
                 <h3 style="color: var(--accent); margin-top: 0;">📚 Background & Context</h3>

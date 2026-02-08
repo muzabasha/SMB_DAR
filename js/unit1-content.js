@@ -7,7 +7,20 @@ const unit1Content = {
         position: "Prerequisite Module for Unit 1",
         prerequisites: "Basic computer literacy, curiosity about data, willingness to learn.",
         outcomes: ["Understand what data is and why it matters", "Differentiate between information and data", "Recognize data in everyday life", "Grasp basic spreadsheet concepts"],
-        subTopics: "What is Data?, Information vs Data, Types of Questions Data Can Answer, Introduction to Spreadsheets, Basic Excel/Google Sheets Operations, File Formats (CSV, XLSX, TXT)",
+        subTopicsHierarchy: [
+            {
+                title: "Fundamentals of Data",
+                subSubTopics: ["What is Data?", "Information vs Data", "The DIKW Pyramid"]
+            },
+            {
+                title: "Data Utility",
+                subSubTopics: ["Types of Questions Data Can Answer", "Real-world Data Examples"]
+            },
+            {
+                title: "Practical Literacy",
+                subSubTopics: ["Introduction to Spreadsheets", "Basic Excel/Google Sheets Operations", "Universal File Formats (CSV, XLSX, TXT)"]
+            }
+        ],
         syllabusMapping: "Foundation for Syllabus Section 1.1-1.4",
         background: "Data has existed since humans started recording information - from ancient tally marks on cave walls to modern digital databases. The digital revolution transformed how we collect, store, and analyze data.",
         motivation: "We generate 2.5 quintillion bytes of data daily! Understanding data is no longer optional - it's essential for every career. From doctors to marketers, everyone uses data to make better decisions.",
@@ -60,7 +73,24 @@ const unit1Content = {
         position: "1st Topic of Unit 1",
         prerequisites: "Basic understanding of spreadsheets and curiosity.",
         outcomes: ["Define Data Analytics", "Identify the need for analytics in business", "Understand the role of R in the analytics lifecycle"],
-        subTopics: "Definitions, Analytics Lifecycle (ETL), Descriptive vs. Predictive vs. Prescriptive, Role of R in Industry",
+        subTopicsHierarchy: [
+            {
+                title: "Foundations of Analytics",
+                subSubTopics: ["Formal Definitions", "Evolution from Gut Feeling to Data-Driven"]
+            },
+            {
+                title: "The Analytics Lifecycle",
+                subSubTopics: ["ETL Process (Extract, Transform, Load)", "Data Refinement & Cleaning"]
+            },
+            {
+                title: "Maturity Levels",
+                subSubTopics: ["Descriptive (What happened?)", "Diagnostic (Why?)", "Predictive (What next?)", "Prescriptive (How to optimize?)"]
+            },
+            {
+                title: "R in the Modern World",
+                subSubTopics: ["Why choose R over Excel?", "Role of R in Industry (Finance, Retail, Healthcare)"]
+            }
+        ],
         syllabusMapping: "Syllabus Section 1.1: Foundations of Analytics",
         background: "Data collection started with simple tally marks on cave walls. Today, every click and swipe generates data. The shift from 'recording data' to 'using data' happened in the late 20th century with the rise of computing power.",
         motivation: "In a world of information overload, companies like Amazon and Netflix use analytics to survive. It's not just for techies; it's for everyone who wants to make better decisions.",
@@ -113,7 +143,20 @@ const unit1Content = {
         position: "2nd Topic of Unit 1",
         prerequisites: "Overview of Data Analytics (Topic 1).",
         outcomes: ["Distinguish between Structured and Unstructured data", "Identify Qualitative vs Quantitative variables", "Classify data by its source and format"],
-        subTopics: "Structured (SQL/CSV), Unstructured (Text/Audio), Semi-structured (JSON/XML), Qualitative (Nominal/Ordinal), Quantitative (Interval/Ratio)",
+        subTopicsHierarchy: [
+            {
+                title: "Organizational Structure",
+                subSubTopics: ["Structured Data (SQL, CSV)", "Unstructured Data (Text, Audio, Images)", "Semi-structured Data (JSON, XML)"]
+            },
+            {
+                title: "Nature of Variables",
+                subSubTopics: ["Qualitative (Nominal vs. Ordinal)", "Quantitative (Discrete vs. Continuous)"]
+            },
+            {
+                title: "Levels of Measurement",
+                subSubTopics: ["Interval Scale", "Ratio Scale", "Comparison of Measurements"]
+            }
+        ],
         syllabusMapping: "Syllabus Section 1.2: Data Types and Formats",
         background: "Historically, data was mostly numbers (Quantitative). With the internet, text, images, and videos (Unstructured) became the dominant form of information.",
         motivation: "You can't use a hammer for a screw. Similarly, you can't use a linear regression for a selfie. Classification helps choose the right tool.",
@@ -166,7 +209,20 @@ const unit1Content = {
         position: "3rd Topic of Unit 1",
         prerequisites: "Understanding of Data Classification (Topic 2).",
         outcomes: ["Define Big Data using the 3 V's", "Understand the challenges of Volume, Velocity, and Variety", "Relate the 3 V's to real-world scenarios"],
-        subTopics: "The 5 V's (Volume, Velocity, Variety, Veracity, Value), Data Scaling Challenges, Hadoop vs. Spark Logic",
+        subTopicsHierarchy: [
+            {
+                title: "The Core 3 V's",
+                subSubTopics: ["Volume (Scale of Data)", "Velocity (Speed of Processing)", "Variety (Diversity of Sources)"]
+            },
+            {
+                title: "Extended Characteristics",
+                subSubTopics: ["Veracity (Accuracy & Trust)", "Value (Business Utility)"]
+            },
+            {
+                title: "Big Data Infrastructures",
+                subSubTopics: ["Challenges of Traditional Databases", "Intro to Distributed Computing (Hadoop/Spark logic)"]
+            }
+        ],
         syllabusMapping: "Syllabus Section 1.3: Big Data Characteristics",
         background: "The term 'Big Data' was popularized around 2005. The 3 V's framework was developed to explain why traditional databases were failing.",
         motivation: "If your data grows 10x every year, your old methods will break. Understanding the V's helps you scale your infrastructure.",
@@ -219,7 +275,20 @@ const unit1Content = {
         position: "4th Topic of Unit 1",
         prerequisites: "Introduction to Unit 1 concepts.",
         outcomes: ["Identify DA applications across industries", "Understand how DA solves societal problems", "Apply DA logic to a chosen sector"],
-        subTopics: "Financial Fraud Detection, Personalized Medicine, Sports Wearables Analysis, Retail Churn Prediction, Agri-Yield Optimization",
+        subTopicsHierarchy: [
+            {
+                title: "Business & Productivity",
+                subSubTopics: ["Financial Fraud Detection", "Retail Churn Prediction", "Supply Chain Optimization"]
+            },
+            {
+                title: "Health & Sciences",
+                subSubTopics: ["Personalized Medicine", "Healthcare Patient Monitoring", "Energy Consumption Forecasting"]
+            },
+            {
+                title: "Sports & Engineering",
+                subSubTopics: ["Sports Wearables Analysis", "Agri-Yield Optimization", "Smart City Traffic Management"]
+            }
+        ],
         syllabusMapping: "Syllabus Section 1.4: Multi-disciplinary Applications",
         background: "Data analytics was once a tool only for mathematicians. Now, it's used by coaches, doctors, and farmers.",
         motivation: "Every job in the future will involve data. Knowing these applications prepares you for any career path.",

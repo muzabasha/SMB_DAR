@@ -7,7 +7,20 @@ const unit2Content = {
         position: "Prerequisite Module for Unit 2",
         prerequisites: "Basic computer operations, understanding of mathematical operators (+, -, *, /), logical thinking.",
         outcomes: ["Understand what programming is", "Grasp the concept of algorithms", "Learn basic programming logic", "Understand variables and assignment"],
-        subTopics: "What is Programming?, Algorithms and Flowcharts, Input-Process-Output Model, Variables and Assignment, Basic Operators, Comments in Code, Debugging Basics",
+        subTopicsHierarchy: [
+            {
+                title: "Core Logic Foundations",
+                subSubTopics: ["What is Programming?", "The Algorithm Mindset", "Flowcharts & Logical Mapping"]
+            },
+            {
+                title: "Execution Models",
+                subSubTopics: ["Sequential Processing", "Input-Process-Output (IPO) Model", "Logical Branching Scenarios"]
+            },
+            {
+                title: "Universal Building Blocks",
+                subSubTopics: ["Variables as Named Containers", "Basic Math & Logical Operators", "Commenting & Code Documentation"]
+            }
+        ],
         syllabusMapping: "Foundation for Syllabus Section 2.1-2.4",
         background: "Programming languages evolved from machine code (1s and 0s) to human-readable languages. R was created in 1993 specifically for statistical computing, making it perfect for data analysis.",
         motivation: "Programming is like writing a recipe. You break down complex tasks into simple steps. Once you learn one language, learning others becomes much easier!",
@@ -60,7 +73,20 @@ const unit2Content = {
         position: "1st Topic of Unit 2",
         prerequisites: "General overview of Data Analytics.",
         outcomes: ["Install R and RStudio", "Navigate the RStudio IDE", "Configure the working environment"],
-        subTopics: "CRAN Repository, RStudio Interface (Console/Source/Environment/Plots), Package Installation, Global Options Configuration",
+        subTopicsHierarchy: [
+            {
+                title: "The R Ecosystem",
+                subSubTopics: ["R vs. RStudio", "CRAN Repository & Versions", "Open Source Philosophy"]
+            },
+            {
+                title: "RStudio Anatomy",
+                subSubTopics: ["Console & Script Editor", "Environment & History Pane", "Files, Plots & Help Panel"]
+            },
+            {
+                title: "Environment Management",
+                subSubTopics: ["Setting Working Directories", "Project Management in RStudio", "Installing & Loading Packages"]
+            }
+        ],
         syllabusMapping: "Syllabus Section 2.1: Tool Configuration",
         background: "R was created by Ross Ihaka and Robert Gentleman in 1993. It is an implementation of the S programming language and has since become the gold standard for statistical computing.",
         motivation: "Why R? Because unlike Excel, R can handle millions of rows without crashing and can reproduce your analysis with a single click of a button.",
@@ -113,7 +139,24 @@ const unit2Content = {
         position: "2nd Topic of Unit 2",
         prerequisites: "R setup complete.",
         outcomes: ["Use the assignment operator correctly", "Identify Numeric, Character, Logical, and Factor types", "Check and convert data types"],
-        subTopics: "Assignment Operators (<- vs =), Atomic Types (Numeric, Integer, Logical, Character), Complex Types, Factor Management (Levels/Labels), Data Coercion",
+        subTopicsHierarchy: [
+            {
+                title: "Assignment Mechanics",
+                subSubTopics: ["The Arrow Operator (<-)", "Global vs. Local Environment", "Naming Conventions/Rules"]
+            },
+            {
+                title: "The Atomic Data Types",
+                subSubTopics: ["Numeric (Doubles/Integers)", "Character (Strings)", "Logical (TRUE/FALSE)"]
+            },
+            {
+                title: "Categorical Intelligence",
+                subSubTopics: ["What are Factors?", "Levels & Labels", "Memory Benefits of Factors"]
+            },
+            {
+                title: "Type Manipulation",
+                subSubTopics: ["Checking types with class()", "Implicit vs. Explicit Coercion", "Sanitizing Dirty Data"]
+            }
+        ],
         syllabusMapping: "Syllabus Section 2.2: Basic Data Structures",
         background: "R's data types are designed to mimic mathematical objects. Logical types for boolean algebra, Numeric for arithmetic, and Factors for categorical statistics.",
         motivation: "If you try to add 'Apple' and 5, R will yell at you. Knowing data types prevents these 'Type Mismatch' errors.",
@@ -166,7 +209,24 @@ const unit2Content = {
         position: "3rd Topic of Unit 2",
         prerequisites: "Variables & Data Types.",
         outcomes: ["Implement If-Else logic", "Write For and While loops", "Apply Vectorized functions as alternatives to loops"],
-        subTopics: "Decision Logic (If, Else, Else If), Iteration (For, While, Repeat), Break & Next Statements, Vectorization Principles",
+        subTopicsHierarchy: [
+            {
+                title: "Decision Making Flow",
+                subSubTopics: ["Single Conditions (If)", "Mutual Exclusivity (Else)", "Complex Chains (Else If)"]
+            },
+            {
+                title: "Iterative Automation",
+                subSubTopics: ["Fixed Iterations (For Loops)", "Conditional Iterations (While Loops)", "Infinite Loops & Exit Safety"]
+            },
+            {
+                title: "Control Overrides",
+                subSubTopics: ["Breaking Loops Early (Break)", "Skipping Iterations (Next)", "Handling Errors during Loops"]
+            },
+            {
+                title: "The R-Native Way",
+                subSubTopics: ["Why Loops can be slow in R", "Introduction to Vectorization", "Concept of 'Apply' family"]
+            }
+        ],
         syllabusMapping: "Syllabus Section 2.3: Decision Making and Iteration",
         background: "Control structures are the core of all programming languages since the 1960s. R adds a 'Vectorized' twist which is unique to data science.",
         motivation: "Manually checking 1000 prices for a discount is boring. A loop does it in 0.01 seconds. Decision logic makes your code 'smart'.",
@@ -219,7 +279,24 @@ const unit2Content = {
         position: "4th Topic of Unit 2",
         prerequisites: "Variables and Control Structures.",
         outcomes: ["Create and manipulate Vectors", "Understand Matrix operations (Rows/Cols)", "Handle Multi-dimensional Arrays"],
-        subTopics: "Vector Creation (c, seq, rep), Matrix Construction (nrow/ncol), Multi-dimensional Arrays (dim), Element Indexing & Logical Slicing",
+        subTopicsHierarchy: [
+            {
+                title: "The 1D Vector",
+                subSubTopics: ["Vector Creation (c, seq, rep)", "Vectorized Arithmetic", "Naming Vector Elements"]
+            },
+            {
+                title: "The 2D Matrix",
+                subSubTopics: ["Building a Grid (nrow, ncol)", "Row/Column Filling Logic", "RowSums and ColSums"]
+            },
+            {
+                title: "Multi-dimensional Arrays",
+                subSubTopics: ["The dim() Attribute", "Stacking Grids", "Real-world Applications (Time-series)"]
+            },
+            {
+                title: "Extraction & Slicing",
+                subSubTopics: ["Coordinate Indexing [R, C]", "Logical Filtering", "Negative Indexing (Dropping Data)"]
+            }
+        ],
         syllabusMapping: "Syllabus Section 2.4: Multi-dimensional Data structures",
         background: "Linear Algebra is the backbone of Data Science. Vectors and Matrices are the primary tools for representing multi-dimensional datasets.",
         motivation: "A single number is a dot. A vector is a line. A matrix is a photo (grid of pixels). This is how computers 'see' complexity.",
