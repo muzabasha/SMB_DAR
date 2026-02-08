@@ -17,8 +17,45 @@ const unit4Content = {
         technicalFoundations: "Mathematical foundations: Set Theory (for probability), Calculus (for distributions), Linear Algebra (for regression).",
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
-        rCode: "# PREREQUISITE 1: Measures of Central Tendency\ndata <- c(12, 15, 18, 20, 22, 25, 30, 35, 40, 100)\n\n# Mean (Average)\nmean_val <- mean(data)\nprint(paste('Mean:', mean_val))\n\n# Median (Middle value)\nmedian_val <- median(data)\nprint(paste('Median:', median_val))\n\n# Mode (Most frequent - custom function)\nget_mode <- function(v) {\n  uniq <- unique(v)\n  uniq[which.max(tabulate(match(v, uniq)))]\n}\n\n# PREREQUISITE 2: Measures of Dispersion\nsd_val <- sd(data)\nvar_val <- var(data)\nprint(paste('Standard Deviation:', round(sd_val, 2)))\nprint(paste('Variance:', round(var_val, 2)))\n\n# PREREQUISITE 3: Correlation\nx <- c(1, 2, 3, 4, 5)\ny <- c(2, 4, 5, 4, 5)\ncorr <- cor(x, y)\nprint(paste('Correlation:', round(corr, 3)))\n\n# PREREQUISITE 4: Probability Basics\n# Probability of rolling a 6 on a fair die\nprob_six <- 1/6\nprint(paste('P(rolling 6):', round(prob_six, 3)))",
-        rOutput: "[1] \"Mean: 31.7\"\n[1] \"Median: 23.5\"\n[1] \"Standard Deviation: 24.86\"\n[1] \"Variance: 618.23\"\n[1] \"Correlation: 0.775\"\n[1] \"P(rolling 6): 0.167\"",
+        rCode: `# PREREQUISITE 1: Measures of Central Tendency
+data <- c(12, 15, 18, 20, 22, 25, 30, 35, 40, 100)
+
+# Mean (Average)
+mean_val <- mean(data)
+print(paste('Mean:', mean_val))
+
+# Median (Middle value)
+median_val <- median(data)
+print(paste('Median:', median_val))
+
+# Mode (Most frequent - custom function)
+get_mode <- function(v) {
+  uniq <- unique(v)
+  uniq[which.max(tabulate(match(v, uniq)))]
+}
+
+# PREREQUISITE 2: Measures of Dispersion
+sd_val <- sd(data)
+var_val <- var(data)
+print(paste('Standard Deviation:', round(sd_val, 2)))
+print(paste('Variance:', round(var_val, 2)))
+
+# PREREQUISITE 3: Correlation
+x <- c(1, 2, 3, 4, 5)
+y <- c(2, 4, 5, 4, 5)
+corr <- cor(x, y)
+print(paste('Correlation:', round(corr, 3)))
+
+# PREREQUISITE 4: Probability Basics
+# Probability of rolling a 6 on a fair die
+prob_six <- 1/6
+print(paste('P(rolling 6):', round(prob_six, 3)))`,
+        rOutput: `[1] "Mean: 31.7"
+[1] "Median: 23.5"
+[1] "Standard Deviation: 24.86"
+[1] "Variance: 618.23"
+[1] "Correlation: 0.775"
+[1] "P(rolling 6): 0.167"`,
         rInterpretation: "<strong>Essential Statistical Foundations:</strong><br><br>📊 <strong>CONCEPT 1: Central Tendency (Where is the 'center'?)</strong><br><br>• <strong>Mean (31.7):</strong> Sum of all values ÷ count. Notice it's pulled UP by the outlier (100). This is why billionaires skew average income!<br>• <strong>Median (23.5):</strong> The middle value when sorted. More 'robust' to outliers - half the data is below 23.5, half above.<br>• <strong>When to use which?</strong><br>  - Use MEAN for: Normal distributions, no outliers (e.g., exam scores)<br>  - Use MEDIAN for: Skewed data, outliers present (e.g., house prices, salaries)<br><br>📏 <strong>CONCEPT 2: Dispersion (How spread out is the data?)</strong><br><br>• <strong>Variance (618.23):</strong> Average of squared deviations from mean. Units are squared (hard to interpret directly).<br>• <strong>Standard Deviation (24.86):</strong> Square root of variance - back to original units! This tells us the 'typical' distance from the mean.<br>• <strong>Interpretation:</strong> Most values are within 31.7 ± 24.86 (roughly 7 to 56). The outlier (100) increases SD significantly!<br><br>🔗 <strong>CONCEPT 3: Correlation (0.775 = Strong Positive)</strong><br><br>• <strong>Range:</strong> -1 (perfect negative) to +1 (perfect positive), 0 = no relationship<br>• <strong>0.775 means:</strong> As x increases, y tends to increase (strong positive relationship)<br>• <strong>⚠️ CRITICAL WARNING:</strong> Correlation ≠ Causation!<br>  - Ice cream sales correlate with drowning deaths (both peak in summer)<br>  - Does ice cream CAUSE drowning? NO! Temperature is the hidden variable.<br><br>🎲 <strong>CONCEPT 4: Probability (0.167 = 16.7%)</strong><br><br>• <strong>Sample Space:</strong> All possible outcomes = {1, 2, 3, 4, 5, 6}<br>• <strong>Event:</strong> Rolling a 6 = {6}<br>• <strong>Probability:</strong> Favorable outcomes / Total outcomes = 1/6 ≈ 0.167<br><br>💡 <strong>WHY THESE MATTER FOR UNIT 4:</strong><br><br>1. <strong>Normal Distribution (Topic 1):</strong> Uses mean and SD as parameters<br>2. <strong>Regression (Topic 2):</strong> Built on correlation and variance concepts<br>3. <strong>Random Forest (Topic 3):</strong> Uses variance to decide tree splits<br>4. <strong>Prescriptive Analytics (Topic 4):</strong> Optimizes based on probability distributions<br><br>🎯 <strong>SELF-CHECK QUESTIONS:</strong><br><br>1. If mean > median, is the data left-skewed or right-skewed? (Answer: Right-skewed)<br>2. Can correlation be greater than 1? (Answer: No, max is 1)<br>3. If SD = 0, what does that mean? (Answer: All values are identical)<br>4. What's the probability of rolling an even number on a die? (Answer: 3/6 = 0.5)<br><br>✅ <strong>PREREQUISITE CHECKLIST - Master these before Unit 4:</strong><br><br>☐ Can calculate mean, median, mode by hand<br>☐ Understand when to use mean vs median<br>☐ Can interpret standard deviation in context<br>☐ Know that correlation ≠ causation<br>☐ Understand basic probability (0 to 1 scale)<br>☐ Can identify outliers using IQR method<br>☐ Comfortable with R syntax for these calculations",
         illustration: "Foundation (Prerequisites) → Building Blocks (Distributions) → Structure (Regression) → Roof (ML Models).",
         caseProblem: "A company analyzes employee salaries: [30k, 32k, 35k, 38k, 40k, 250k]. The CEO uses MEAN salary (70.8k) to claim 'average employee earns well'. Is this misleading?",
@@ -70,8 +107,15 @@ const unit4Content = {
         technicalFoundations: "Probability Density Functions (PDF) and Cumulative Distribution Functions (CDF).",
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
-        rCode: "# Normal Distribution: Scores of 1000 students\nscores <- rnorm(1000, mean = 70, sd = 10)\nhist(scores, prob = TRUE, col='lightgreen')\nlines(density(scores), col='red', lwd=2)\n\n# Binomial: Flipping a coin 10 times (Chance of getting exactly 5 heads)\ndbinom(5, size = 10, prob = 0.5)",
-        rOutput: "[Histogram with density curve generated]\n[1] 0.2460938",
+        rCode: `# Normal Distribution: Scores of 1000 students
+scores <- rnorm(1000, mean = 70, sd = 10)
+hist(scores, prob = TRUE, col='lightgreen')
+lines(density(scores), col='red', lwd=2)
+
+# Binomial: Flipping a coin 10 times (Chance of getting exactly 5 heads)
+dbinom(5, size = 10, prob = 0.5)`,
+        rOutput: `[Histogram with density curve generated]
+[1] 0.2460938`,
         rInterpretation: "<strong>Probability Distributions in Action:</strong><br><br>📊 <strong>Normal Distribution (Student Scores):</strong><br>• <strong>rnorm(1000, mean=70, sd=10):</strong> Generates 1000 random scores with average 70 and standard deviation 10<br>• <strong>What the histogram shows:</strong> A bell-shaped curve centered at 70<br>• <strong>The red density line:</strong> Smoothed version showing the theoretical normal curve<br>• <strong>68-95-99.7 Rule:</strong><br>  - 68% of students score between 60-80 (within 1 SD)<br>  - 95% score between 50-90 (within 2 SD)<br>  - 99.7% score between 40-100 (within 3 SD)<br><br>🪙 <strong>Binomial Distribution (Coin Flips):</strong><br>• <strong>Output: 0.246 (24.6%):</strong> The probability of getting EXACTLY 5 heads in 10 flips<br>• <strong>Why not 50%?</strong> Because we're asking for EXACTLY 5, not 'at least 5' or 'around 5'<br>• <strong>The math:</strong> There are 252 ways to arrange 5 heads in 10 flips, each with probability (0.5)^10<br><br>💡 <strong>Real-World Applications:</strong><br>• <strong>Quality Control:</strong> If defect rate is 1%, what's the chance of 0 defects in 100 items? → <code>dbinom(0, 100, 0.01)</code><br>• <strong>Healthcare:</strong> If treatment success rate is 80%, what's the chance 7 out of 10 patients recover? → <code>dbinom(7, 10, 0.8)</code><br>• <strong>Marketing:</strong> If email open rate is 20%, what's the chance at least 5 of 20 recipients open it? → <code>1 - pbinom(4, 20, 0.2)</code><br><br>🔑 <strong>Key Difference:</strong><br>• <strong>Normal:</strong> Continuous (heights, weights, temperatures)<br>• <strong>Binomial:</strong> Discrete (coin flips, pass/fail, yes/no)",
         illustration: "Pancake Stack (Normal) vs. Stepping Stones (Binomial).",
         caseProblem: "A factory makes lightbulbs; 1% are defective. What's the chance of finding 5 bad ones in a box of 100?",
@@ -123,8 +167,39 @@ const unit4Content = {
         technicalFoundations: "Method of Least Squares (minimizing the square of the distance between dots and the line).",
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
-        rCode: "# Regression: Study Hours vs Exam Score\nhours <- c(1, 2, 3, 4, 5, 6, 7, 8)\nscore <- c(50, 52, 60, 68, 70, 75, 88, 92)\n\n# Step 1: Build the Model\nmodel <- lm(score ~ hours)\n\n# Step 2: Look at the results\nsummary(model)\n\n# Step 3: Predict for someone who studies 10 hours\nnew_data <- data.frame(hours = 10)\npredict(model, new_data)",
-        rOutput: "Call:\nlm(formula = score ~ hours)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n-4.881 -2.107  0.238  2.560  3.857 \n\nCoefficients:\n            Estimate Std. Error t value Pr(>|t|)    \n(Intercept)  43.5714     2.4702  17.638 1.43e-06 ***\nhours         6.0714     0.4851  12.517 8.63e-06 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 3.362 on 6 degrees of freedom\nMultiple R-squared:  0.9632,    Adjusted R-squared:  0.9571 \nF-statistic: 156.7 on 1 and 6 DF,  p-value: 8.632e-06\n\n       1 \n104.2857",
+        rCode: `# Regression: Study Hours vs Exam Score
+hours <- c(1, 2, 3, 4, 5, 6, 7, 8)
+score <- c(50, 52, 60, 68, 70, 75, 88, 92)
+
+# Step 1: Build the Model
+model <- lm(score ~ hours)
+
+# Step 2: Look at the results
+summary(model)
+
+# Step 3: Predict for someone who studies 10 hours
+new_data <- data.frame(hours = 10)
+predict(model, new_data)`,
+        rOutput: `Call:
+lm(formula = score ~ hours)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-4.881 -2.107  0.238  2.560  3.857 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  43.5714     2.4702  17.638 1.43e-06 ***
+hours         6.0714     0.4851  12.517 8.63e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.362 on 6 degrees of freedom
+Multiple R-squared:  0.9632,    Adjusted R-squared:  0.9571 
+F-statistic: 156.7 on 1 and 6 DF,  p-value: 8.632e-06
+
+       1 
+104.2857`,
         rInterpretation: "<strong>Regression Analysis Decoded:</strong><br><br>📊 <strong>The Regression Equation:</strong><br>Score = 43.57 + 6.07 × Hours<br><br>🔑 <strong>Coefficient Interpretation:</strong><br>• <strong>Intercept (43.57):</strong> Expected score with ZERO study hours (baseline knowledge)<br>• <strong>Slope (6.07):</strong> For EACH additional hour of study, score increases by ~6 points<br>• <strong>Both have '***':</strong> Extremely significant (p < 0.001) - NOT due to random chance!<br><br>🎯 <strong>Model Quality (R-squared = 0.9632):</strong><br>• <strong>96.32%</strong> of score variation is explained by study hours<br>• This is EXCELLENT! (>0.7 is considered good)<br>• Only 3.68% is due to other factors (sleep, prior knowledge, luck)<br><br>🔮 <strong>Prediction (104.29 for 10 hours):</strong><br>• Calculation: 43.57 + (6.07 × 10) = 104.27<br>• <strong>Problem:</strong> Score can't exceed 100! This shows model limitations - it's only valid within the data range (1-8 hours)<br>• <strong>Extrapolation danger:</strong> Predicting beyond your data range is risky<br><br>📊 <strong>Residuals (Errors):</strong><br>• <strong>Median = 0.238:</strong> Very close to 0 (good sign - model is unbiased)<br>• <strong>Range: -4.88 to 3.86:</strong> Maximum error is ~5 points in either direction<br><br>💡 <strong>Business Translation:</strong><br>If you're a tutor, you can confidently tell students: 'Each hour of study is worth 6 points on average. To reach 80%, you need about 6 hours.'<br><br>⚠️ <strong>Caution:</strong> High R-squared doesn't prove causation! Maybe motivated students both study more AND perform better due to a third factor (parental support, innate ability).",
         illustration: "Scatter Plot (Messy Dots) -> Regression Line (The Golden Thread) -> Future Forecast.",
         caseProblem: "A real estate agent wants to estimate a house price based on its square footage.",
@@ -176,8 +251,29 @@ const unit4Content = {
         technicalFoundations: "Logic: Bootstrapping (random sampling) + Aggregating (voting) = Bagging.",
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
-        rCode: "# Step 1: Load library\n# library(rpart)\n# library(randomForest)\n\n# Step 2: Build a Tree (Should I play tennis?)\n# tree_model <- rpart(Play ~ Outlook + Temp + Humidity)\n\n# Step 3: Build a Forest (100 Trees voting)\n# rf_model <- randomForest(Species ~ ., data = iris, ntree = 100)\n# print(rf_model)",
-        rOutput: "[Simulated Random Forest Output]\nCall:\n randomForest(formula = Species ~ ., data = iris, ntree = 100) \n               Type of random forest: classification\n                     Number of trees: 100\nNo. of variables tried at each split: 2\n\n        OOB estimate of  error rate: 4%\nConfusion matrix:\n           setosa versicolor virginica class.error\nsetosa         50          0         0        0.00\nversicolor      0         47         3        0.06\nvirginica       0          3        47        0.06",
+        rCode: `# Step 1: Load library
+# library(rpart)
+# library(randomForest)
+
+# Step 2: Build a Tree (Should I play tennis?)
+# tree_model <- rpart(Play ~ Outlook + Temp + Humidity)
+
+# Step 3: Build a Forest (100 Trees voting)
+# rf_model <- randomForest(Species ~ ., data = iris, ntree = 100)
+# print(rf_model)`,
+        rOutput: `[Simulated Random Forest Output]
+Call:
+ randomForest(formula = Species ~ ., data = iris, ntree = 100) 
+               Type of random forest: classification
+                     Number of trees: 100
+No. of variables tried at each split: 2
+
+        OOB estimate of  error rate: 4%
+Confusion matrix:
+           setosa versicolor virginica class.error
+setosa         50          0         0        0.00
+versicolor      0         47         3        0.06
+virginica       0          3        47        0.06`,
         rInterpretation: "<strong>Random Forest Classification Explained:</strong><br><br>🌳 <strong>Forest Structure:</strong><br>• <strong>100 trees:</strong> Each tree is trained on a random subset of data (bootstrapping)<br>• <strong>2 variables per split:</strong> At each decision point, only 2 random features are considered (prevents overfitting)<br>• <strong>Final prediction:</strong> Majority vote from all 100 trees<br><br>🎯 <strong>Model Accuracy (96% correct!):</strong><br>• <strong>OOB Error = 4%:</strong> Out-of-Bag error - tested on data NOT used for training each tree<br>• This means the model correctly classifies 96% of iris flowers!<br><br>📊 <strong>Confusion Matrix Breakdown:</strong><br>• <strong>Setosa (Perfect!):</strong> All 50 setosa flowers correctly identified, 0 mistakes<br>• <strong>Versicolor:</strong> 47 correct, 3 misclassified as virginica (6% error)<br>• <strong>Virginica:</strong> 47 correct, 3 misclassified as versicolor (6% error)<br><br>🔍 <strong>Why the Confusion?</strong> Versicolor and virginica have overlapping petal/sepal measurements, making them harder to distinguish. Setosa is very different, hence 100% accuracy.<br><br>💡 <strong>Real-World Translation:</strong><br>• <strong>Medical Diagnosis:</strong> 96% accuracy in detecting cancer types from symptoms<br>• <strong>Fraud Detection:</strong> 96% of fraudulent transactions caught<br>• <strong>Customer Churn:</strong> 96% accuracy in predicting who will cancel subscription<br><br>✅ <strong>Why Random Forest Wins:</strong><br>1. <strong>Handles non-linear patterns</strong> (unlike linear regression)<br>2. <strong>Robust to outliers</strong> (voting reduces impact of bad trees)<br>3. <strong>No need to normalize data</strong> (tree splits work on any scale)<br>4. <strong>Provides feature importance</strong> (tells you which variables matter most)<br><br>⚠️ <strong>Trade-off:</strong> Less interpretable than a single tree - you can't easily explain WHY a specific prediction was made.",
         illustration: "One Judge (Decision Tree) vs. A Jury of 100 Judges (Random Forest).",
         caseProblem: "A bank needs to decide if a loan application is 'Safe' or 'Risky'.",
@@ -229,8 +325,16 @@ const unit4Content = {
         technicalFoundations: "Markov Decision Processes (MDP) and Mathematical Programming.",
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
-        rCode: "# Prescriptive Logic: Resource Optimization\n# Suggesting the best discount to maximize profit\npredict_sales <- function(discount){\n  return(100 * discount - 5 * discount^2)\n}\n\n# Find the discount that gives the MAX profit\noptim_result <- optimize(predict_sales, interval=c(0, 10), maximum=TRUE)\nprint(paste('Optimal Discount is:', optim_result$maximum))",
-        rOutput: "[1] \"Optimal Discount is: 10\"",
+        rCode: `# Prescriptive Logic: Resource Optimization
+# Suggesting the best discount to maximize profit
+predict_sales <- function(discount){
+  return(100 * discount - 5 * discount^2)
+}
+
+# Find the discount that gives the MAX profit
+optim_result <- optimize(predict_sales, interval=c(0, 10), maximum=TRUE)
+print(paste('Optimal Discount is:', optim_result$maximum))`,
+        rOutput: `[1] "Optimal Discount is: 10"`,
         rInterpretation: "<strong>Prescriptive Optimization in Action:</strong><br><br>💰 <strong>The Profit Function:</strong><br>Profit = 100 × Discount - 5 × Discount²<br><br>This is a <em>quadratic equation</em> (parabola opening downward). Let's understand the economics:<br>• <strong>100 × Discount:</strong> Revenue increases linearly with discount (more customers buy)<br>• <strong>-5 × Discount²:</strong> Cost penalty (giving away too much margin)<br><br>🔍 <strong>Why Discount = 10 is Optimal:</strong><br>The <code>optimize()</code> function searched the range 0-10 and found the peak of the parabola:<br>• <strong>At 0% discount:</strong> Profit = 0 (no sales)<br>• <strong>At 5% discount:</strong> Profit = 100(5) - 5(25) = 375<br>• <strong>At 10% discount:</strong> Profit = 100(10) - 5(100) = 500 ← MAXIMUM!<br>• <strong>At 15% discount:</strong> Profit would be 100(15) - 5(225) = 375 (decreasing!)<br><br>🎯 <strong>Business Recommendation:</strong><br>'Set your discount at 10% to maximize profit at $500. Going higher will attract more customers but reduce profit due to margin erosion.'<br><br>🔄 <strong>Prescriptive vs Predictive:</strong><br>• <strong>Predictive:</strong> 'If we set 10% discount, we'll make $500'<br>• <strong>Prescriptive:</strong> 'SET the discount to 10% to maximize profit' ← This is the ACTION<br><br>💡 <strong>Real-World Applications:</strong><br>• <strong>Airline Pricing:</strong> What ticket price maximizes revenue per flight?<br>• <strong>Manufacturing:</strong> How many units to produce to minimize waste + meet demand?<br>• <strong>Healthcare:</strong> How to allocate limited ICU beds across hospitals?<br>• <strong>Logistics:</strong> What route minimizes delivery time + fuel cost?<br><br>🤖 <strong>Reinforcement Learning Extension:</strong><br>In RL, the system would TRY different discounts, observe actual sales, and LEARN the profit function over time - no need to know the formula in advance! The agent explores (tries random discounts) and exploits (uses the best known discount).<br><br>✅ <strong>Key Insight:</strong> Prescriptive analytics doesn't just say 'what will happen' - it tells you 'what to DO' to achieve your goal!",
         illustration: "Weather Forecast (Predictive) -> Recommendation to take an Umbrella (Prescriptive).",
         caseProblem: "An airline needs to price its tickets to fill the plane while maximizing profit.",

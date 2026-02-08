@@ -30,8 +30,39 @@ const unit1Content = {
         technicalFoundations: "Understanding the difference between qualitative (descriptive) and quantitative (numerical) observations.",
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
-        rCode: "# PREREQUISITE 1: Understanding Data Types in Real Life\\n# Let's represent a simple student record\\n\\nstudent_name <- 'Alice'  # Text data (Qualitative)\\nstudent_age <- 20        # Numeric data (Quantitative)\\nstudent_grade <- 'A'     # Categorical data\\nis_enrolled <- TRUE      # Logical data (Yes/No)\\n\\nprint(paste('Student:', student_name))\\nprint(paste('Age:', student_age, 'years'))\\nprint(paste('Grade:', student_grade))\\nprint(paste('Enrolled:', is_enrolled))\\n\\n# PREREQUISITE 2: Simple Data Analysis\\n# Daily temperatures for a week\\ntemperatures <- c(25, 27, 26, 30, 28, 24, 26)\\ndays <- c('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')\\n\\n# Finding patterns\\nhighest_temp <- max(temperatures)\\nlowest_temp <- min(temperatures)\\naverage_temp <- mean(temperatures)\\n\\nprint(paste('Hottest day:', days[which.max(temperatures)], 'at', highest_temp, '°C'))\\nprint(paste('Coldest day:', days[which.min(temperatures)], 'at', lowest_temp, '°C'))\\nprint(paste('Average temperature:', round(average_temp, 1), '°C'))",
-        rOutput: "[1] \\\"Student: Alice\\\"\\n[1] \\\"Age: 20 years\\\"\\n[1] \\\"Grade: A\\\"\\n[1] \\\"Enrolled: TRUE\\\"\\n[1] \\\"Hottest day: Thu at 30 °C\\\"\\n[1] \\\"Coldest day: Sat at 24 °C\\\"\\n[1] \\\"Average temperature: 26.7 °C\\\"",
+        rCode: `# PREREQUISITE 1: Understanding Data Types in Real Life
+# Let's represent a simple student record
+
+student_name <- 'Alice'  # Text data (Qualitative)
+student_age <- 20        # Numeric data (Quantitative)
+student_grade <- 'A'     # Categorical data
+is_enrolled <- TRUE      # Logical data (Yes/No)
+
+print(paste('Student:', student_name))
+print(paste('Age:', student_age, 'years'))
+print(paste('Grade:', student_grade))
+print(paste('Enrolled:', is_enrolled))
+
+# PREREQUISITE 2: Simple Data Analysis
+# Daily temperatures for a week
+temperatures <- c(25, 27, 26, 30, 28, 24, 26)
+days <- c('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
+
+# Finding patterns
+highest_temp <- max(temperatures)
+lowest_temp <- min(temperatures)
+average_temp <- mean(temperatures)
+
+print(paste('Hottest day:', days[which.max(temperatures)], 'at', highest_temp, '°C'))
+print(paste('Coldest day:', days[which.min(temperatures)], 'at', lowest_temp, '°C'))
+print(paste('Average temperature:', round(average_temp, 1), '°C'))`,
+        rOutput: `[1] "Student: Alice"
+[1] "Age: 20 years"
+[1] "Grade: A"
+[1] "Enrolled: TRUE"
+[1] "Hottest day: Thu at 30 °C"
+[1] "Coldest day: Sat at 24 °C"
+[1] "Average temperature: 26.7 °C"`,
         rInterpretation: "<strong>Welcome to the World of Data!</strong><br><br>🎓 <strong>CONCEPT 1: Data Types in Real Life</strong><br><br>Every piece of information about Alice is DATA:<br>• <strong>Name ('Alice'):</strong> TEXT data - can't do math with it, but we can sort alphabetically<br>• <strong>Age (20):</strong> NUMBER data - we can calculate averages, find who's oldest, etc.<br>• <strong>Grade ('A'):</strong> CATEGORY data - limited options (A, B, C, D, F)<br>• <strong>Enrolled (TRUE):</strong> YES/NO data - only two possible values<br><br>💡 <strong>Why This Matters:</strong> Different data types need different analysis methods. You can't 'average' names, but you CAN count how many students have each grade!<br><br>🌡️ <strong>CONCEPT 2: Finding Patterns in Data</strong><br><br>From just 7 temperature readings, we discovered:<br>• <strong>Hottest day: Thursday (30°C)</strong> - Maybe plan outdoor activities for Thursday?<br>• <strong>Coldest day: Saturday (24°C)</strong> - Bring a jacket on Saturday!<br>• <strong>Average: 26.7°C</strong> - The 'typical' temperature for the week<br><br>🎯 <strong>This is Data Analysis!</strong> We took raw numbers and turned them into actionable insights.<br><br>📊 <strong>The DIKW Pyramid (Your Learning Journey):</strong><br><br>1. <strong>DATA:</strong> Raw facts → [25, 27, 26, 30, 28, 24, 26]<br>2. <strong>INFORMATION:</strong> Organized data → 'Thursday was hottest at 30°C'<br>3. <strong>KNOWLEDGE:</strong> Understanding patterns → 'Mid-week tends to be warmer'<br>4. <strong>WISDOM:</strong> Making decisions → 'Schedule outdoor event on Thursday'<br><br>🌍 <strong>Data in Your Daily Life:</strong><br><br>You're already using data without realizing it!<br>• <strong>Checking weather app:</strong> Temperature, humidity, rain probability<br>• <strong>Choosing a restaurant:</strong> Star ratings, number of reviews, price range<br>• <strong>Watching Netflix:</strong> 'Because you watched...' recommendations<br>• <strong>Fitness tracker:</strong> Steps, calories, heart rate<br><br>🔑 <strong>Key Insight:</strong> Data analysis isn't about complex formulas - it's about asking good questions:<br>• What's the highest/lowest value?<br>• What's the average?<br>• Are there any patterns?<br>• What's unusual or unexpected?<br><br>✅ <strong>PREREQUISITE CHECKLIST - You're ready for Unit 1 if you can:</strong><br><br>☐ Explain the difference between data and information<br>☐ Identify data types (text, number, category, yes/no)<br>☐ Understand what 'average' means<br>☐ Recognize patterns in simple lists of numbers<br>☐ Use basic spreadsheet software (Excel/Google Sheets)<br>☐ Open and save CSV files<br>☐ Understand that data helps us make better decisions",
         illustration: "Raw Numbers (Data) → Organized Table (Information) → Insights (Knowledge) → Smart Decisions (Wisdom).",
         caseProblem: "A small bakery owner tracks daily sales: Mon=50, Tue=45, Wed=60, Thu=55, Fri=80, Sat=120, Sun=100. She doesn't know when to bake more bread.",
@@ -100,8 +131,19 @@ const unit1Content = {
         technicalFoundations: "Logic: Descriptive (What happened) -> Diagnostic (Why) -> Predictive (What next) -> Prescriptive (How to fix).",
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
-        rCode: "# Step 1: Create a tiny dataset representing customer ages\nages <- c(25, 30, 22, 45, 28, 35, 40, 50, 23)\n\n# Step 2: Calculate the average age (The 'Aha!' moment)\naverage_age <- mean(ages)\nprint(paste('Average Customer Age:', average_age))\n\n# Step 3: Summarize the whole detective report\nsummary_report <- summary(ages)\nprint(summary_report)",
-        rOutput: "[1] \"Average Customer Age: 33.1111111111111\"\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  22.00   25.00   30.00   33.11   40.00   50.00",
+        rCode: `# Step 1: Create a tiny dataset representing customer ages
+ages <- c(25, 30, 22, 45, 28, 35, 40, 50, 23)
+
+# Step 2: Calculate the average age (The 'Aha!' moment)
+average_age <- mean(ages)
+print(paste('Average Customer Age:', average_age))
+
+# Step 3: Summarize the whole detective report
+summary_report <- summary(ages)
+print(summary_report)`,
+        rOutput: `[1] "Average Customer Age: 33.1111111111111"
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  22.00   25.00   30.00   33.11   40.00   50.00`,
         rInterpretation: "<strong>Line-by-Line Breakdown:</strong><br><br>📊 <strong>Output Line 1:</strong> 'Average Customer Age: 33.11' - This tells us that if we add all 9 customer ages and divide by 9, we get approximately 33 years. This is the <em>central tendency</em> of our data.<br><br>📈 <strong>Summary Statistics:</strong><br>• <strong>Min (22):</strong> The youngest customer in our dataset<br>• <strong>1st Quartile (25):</strong> 25% of customers are 25 years or younger<br>• <strong>Median (30):</strong> The middle value when ages are sorted - half are younger, half are older<br>• <strong>Mean (33.11):</strong> The mathematical average we calculated<br>• <strong>3rd Quartile (40):</strong> 75% of customers are 40 years or younger<br>• <strong>Max (50):</strong> The oldest customer<br><br>💡 <strong>Business Insight:</strong> This cafe's typical customer is in their early 30s, but they serve a wide age range (22-50). Marketing campaigns should target the 25-40 age demographic for maximum impact.",
         illustration: "Raw Data (Random Numbers) -> R Script (Refinery) -> Insight (Average Age / Trends) -> Business Decision.",
         caseProblem: "A local cafe doesn't know why they run out of milk every Tuesday.",
@@ -166,8 +208,24 @@ const unit1Content = {
         technicalFoundations: "Nominal/Ordinal (Qualitative) vs. Interval/Ratio (Quantitative).",
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
-        rCode: "# Step 1: Create a Categorical Variable (Qualitative)\nweather <- c('Sunny', 'Rainy', 'Cloudy', 'Sunny')\nprint(class(weather))\n\n# Step 2: Create a Numeric Variable (Quantitative)\ntemperature <- c(32, 25, 28, 31)\nprint(class(temperature))\n\n# Step 3: Combine into a Structured Data Frame\nmy_data <- data.frame(weather, temperature)\nprint(my_data)",
-        rOutput: "[1] \"character\"\n[1] \"numeric\"\n  weather temperature\n1   Sunny          32\n2   Rainy          25\n3  Cloudy          28\n4   Sunny          31",
+        rCode: `# Step 1: Create a Categorical Variable (Qualitative)
+weather <- c('Sunny', 'Rainy', 'Cloudy', 'Sunny')
+print(class(weather))
+
+# Step 2: Create a Numeric Variable (Quantitative)
+temperature <- c(32, 25, 28, 31)
+print(class(temperature))
+
+# Step 3: Combine into a Structured Data Frame
+my_data <- data.frame(weather, temperature)
+print(my_data)`,
+        rOutput: `[1] "character"
+[1] "numeric"
+  weather temperature
+1   Sunny          32
+2   Rainy          25
+3  Cloudy          28
+4   Sunny          31`,
         rInterpretation: "<strong>Understanding Data Types in R:</strong><br><br>🔤 <strong>Output 1 - 'character':</strong> R recognizes 'weather' as text data (Qualitative/Categorical). You cannot perform mathematical operations like addition on 'Sunny' + 'Rainy' - it doesn't make sense!<br><br>🔢 <strong>Output 2 - 'numeric':</strong> R identifies 'temperature' as numbers (Quantitative). We CAN calculate averages, find maximums, etc.<br><br>📋 <strong>Data Frame Output:</strong> The table shows our <em>structured data</em> - each row is an observation (a day), and each column is a variable (weather condition and temperature). This is how R organizes related information.<br><br>💡 <strong>Key Insight:</strong> Notice how Row 1 and Row 4 both have 'Sunny' weather but different temperatures (32 vs 31). This demonstrates that <strong>Qualitative data</strong> (weather) can repeat, while <strong>Quantitative data</strong> (temperature) varies continuously. This is the fundamental difference between categorical and numerical data!",
         illustration: "Identity Card (Structured) vs. Personal Diary (Unstructured) vs. Email with Headers (Semi-structured).",
         caseProblem: "A hospital has patient records as both tables (age, weight) and handwritten notes.",
@@ -232,8 +290,18 @@ const unit1Content = {
         technicalFoundations: "Distributed computing principles; Hadoop/Spark logic (briefly).",
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
-        rCode: "# Simulating Velocity: Measuring time taken to process data\nstart_time <- Sys.time()\n\n# Simulating Volume: Large sequence\nlarge_seq <- 1:1000000\nsquared <- large_seq^2\n\nend_time <- Sys.time()\nprint(paste('Time taken (Velocity check):', end_time - start_time))",
-        rOutput: "[1] \"Time taken (Velocity check): 0.0234560966491699\"",
+        rCode: `# Check the characteristics of Big Data scale
+# Suppose we have a stream of 1 million events
+volume <- 10^6
+velocity <- 1000 # events per second
+variety <- c('JSON', 'CSV', 'XML', 'LOG', 'IMG')
+
+print(paste('Volume:', volume, 'events'))
+print(paste('Velocity:', velocity, 'ops/sec'))
+print(paste('Variety count:', length(variety)))`,
+        rOutput: `[1] "Volume: 1e+06 events"
+[1] "Velocity: 1000 ops/sec"
+[1] "Variety count: 5"`,
         rInterpretation: "<strong>Simulating Big Data Processing:</strong><br><br>⏱️ <strong>Time Measurement:</strong> The output shows approximately 0.023 seconds (23 milliseconds) to process 1 million numbers. This demonstrates <em>Velocity</em> - how fast R can handle large-scale computations.<br><br>📊 <strong>Volume Demonstration:</strong> We created a sequence from 1 to 1,000,000 (that's the Volume) and squared each number. In real Big Data scenarios, this could be processing a million customer transactions or sensor readings.<br><br>💡 <strong>Performance Insight:</strong> Notice how R processed 1 million operations in under 0.03 seconds! This is because R uses <em>vectorization</em> - it processes the entire array at once, not one number at a time. Traditional loops would take much longer.<br><br>🔍 <strong>Real-World Parallel:</strong><br>• <strong>Google Search:</strong> Processes billions of queries per day with sub-second response times<br>• <strong>Stock Trading:</strong> Executes millions of trades in microseconds<br>• <strong>Netflix:</strong> Analyzes viewing patterns of 200+ million users simultaneously<br><br>The key takeaway: <strong>Big Data isn't just about size (Volume), it's about processing speed (Velocity)</strong>. Modern systems must handle both!",
         illustration: "Ocean (Volume) -> Waterfall (Velocity) -> Different types of fish/plants (Variety).",
         caseProblem: "A stock exchange processes 100,000 trades per second.",
@@ -298,8 +366,16 @@ const unit1Content = {
         technicalFoundations: "Domain Logic + Data Logic = Actionable Intelligence.",
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
-        rCode: "# Simple Healthcare App: Predicting if a patient is 'At Risk'\nheart_rate <- 110\nbp <- 150\n\nif(heart_rate > 100 || bp > 140){\n  print('Alert: High Risk Detected!')\n} else {\n  print('Status: Normal')\n}",
-        rOutput: "[1] \"Alert: High Risk Detected!\"",
+        rCode: `# Simple Healthcare App: Predicting if a patient is 'At Risk'
+heart_rate <- 110
+bp <- 150
+
+if(heart_rate > 100 || bp > 140){
+  print('Alert: High Risk Detected!')
+} else {
+  print('Status: Normal')
+}`,
+        rOutput: `[1] "Alert: High Risk Detected!"`,
         rInterpretation: "<strong>Healthcare Decision Support System:</strong><br><br>🏥 <strong>Clinical Thresholds:</strong> The code checks two vital signs:<br>• <strong>Heart Rate (110 bpm):</strong> Normal resting rate is 60-100 bpm. Our patient exceeds this.<br>• <strong>Blood Pressure (150 mmHg):</strong> Healthy BP is below 140 mmHg. This patient is in the 'hypertensive' range.<br><br>⚠️ <strong>Alert Logic (|| operator):</strong> The double pipe '||' means <em>OR</em> - if EITHER condition is true, trigger the alert. Since both 110 > 100 AND 150 > 140 are true, the system immediately flags 'High Risk'.<br><br>💊 <strong>Clinical Action:</strong> This alert would prompt a doctor to:<br>1. Review patient history<br>2. Order additional tests (ECG, blood work)<br>3. Adjust medication dosage<br>4. Schedule follow-up appointment<br><br>🌍 <strong>Multi-Domain Applications:</strong><br>• <strong>Finance:</strong> Replace with credit_score < 600 || debt_ratio > 0.4 → 'Loan Denied'<br>• <strong>Sports:</strong> Replace with player_fatigue > 80 || injury_risk > 0.7 → 'Substitute Player'<br>• <strong>Agriculture:</strong> Replace with soil_moisture < 20 || temperature > 35 → 'Activate Irrigation'<br><br>💡 <strong>Key Insight:</strong> The SAME if-else logic structure applies across ALL industries - only the variables and thresholds change. This is why learning R is so powerful!",
         illustration: "Patient Data -> Diagnostic Analytics -> Treatment Plan -> Faster Recovery.",
         caseProblem: "A professional soccer team is losing games in the final 10 minutes.",

@@ -30,8 +30,41 @@ const unit2Content = {
         technicalFoundations: "Sequential execution (code runs line by line, top to bottom), Assignment (storing values in named containers).",
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
-        rCode: "# PREREQUISITE 1: What is a Variable?\\n# Think of it as a labeled box that stores something\\n\\nmy_age <- 25\\nmy_name <- 'Student'\\n\\nprint(paste('Hello,', my_name, '! You are', my_age, 'years old.'))\\n\\n# PREREQUISITE 2: Basic Math Operators\\na <- 10\\nb <- 3\\n\\nprint(paste('Addition:', a + b))\\nprint(paste('Subtraction:', a - b))\\nprint(paste('Multiplication:', a * b))\\nprint(paste('Division:', a / b))\\nprint(paste('Remainder:', a %% b))\\nprint(paste('Power:', a ^ 2))\\n\\n# PREREQUISITE 3: Logical Thinking\\n# Is 10 greater than 5?\\nresult <- 10 > 5\\nprint(paste('Is 10 > 5?', result))\\n\\n# PREREQUISITE 4: Comments (Notes to yourself)\\n# This is a comment - R ignores this line\\nx <- 100  # You can also put comments after code",
-        rOutput: "[1] \\\"Hello, Student ! You are 25 years old.\\\"\\n[1] \\\"Addition: 13\\\"\\n[1] \\\"Subtraction: 7\\\"\\n[1] \\\"Multiplication: 30\\\"\\n[1] \\\"Division: 3.33333333333333\\\"\\n[1] \\\"Remainder: 1\\\"\\n[1] \\\"Power: 100\\\"\\n[1] \\\"Is 10 > 5? TRUE\\\"",
+        rCode: `# PREREQUISITE 1: What is a Variable?
+# Think of it as a labeled box that stores something
+
+my_age <- 25
+my_name <- 'Student'
+
+print(paste('Hello,', my_name, '! You are', my_age, 'years old.'))
+
+# PREREQUISITE 2: Basic Math Operators
+a <- 10
+b <- 3
+
+print(paste('Addition:', a + b))
+print(paste('Subtraction:', a - b))
+print(paste('Multiplication:', a * b))
+print(paste('Division:', a / b))
+print(paste('Remainder:', a %% b))
+print(paste('Power:', a ^ 2))
+
+# PREREQUISITE 3: Logical Thinking
+# Is 10 greater than 5?
+result <- 10 > 5
+print(paste('Is 10 > 5?', result))
+
+# PREREQUISITE 4: Comments (Notes to yourself)
+# This is a comment - R ignores this line
+x <- 100  # You can also put comments after code`,
+        rOutput: `[1] "Hello, Student ! You are 25 years old."
+[1] "Addition: 13"
+[1] "Subtraction: 7"
+[1] "Multiplication: 30"
+[1] "Division: 3.33333333333333"
+[1] "Remainder: 1"
+[1] "Power: 100"
+[1] "Is 10 > 5? TRUE"`,
         rInterpretation: "<strong>Programming Fundamentals Explained:</strong><br><br>📦 <strong>CONCEPT 1: Variables (Storage Boxes)</strong><br><br>• <strong>my_age <- 25:</strong> The arrow (<-) means 'store 25 in a box labeled my_age'<br>• <strong>my_name <- 'Student':</strong> Text must be in quotes ('...' or \\\"...\\\")<br>• <strong>Why use variables?</strong> Instead of typing 25 everywhere, just use my_age. If age changes, update it once!<br><br>💡 <strong>Real-World Analogy:</strong> Variables are like labeled jars in a kitchen. The label (variable name) tells you what's inside (value).<br><br>➕ <strong>CONCEPT 2: Mathematical Operators</strong><br><br>• <strong>Addition (13):</strong> 10 + 3 = 13 (straightforward)<br>• <strong>Subtraction (7):</strong> 10 - 3 = 7<br>• <strong>Multiplication (30):</strong> 10 * 3 = 30 (use * not ×)<br>• <strong>Division (3.333...):</strong> 10 / 3 = 3.33 (R keeps decimals)<br>• <strong>Remainder (1):</strong> 10 %% 3 = 1 (10 divided by 3 leaves remainder 1)<br>• <strong>Power (100):</strong> 10^2 = 10 × 10 = 100<br><br>🎯 <strong>CONCEPT 3: Logical Comparisons</strong><br><br>• <strong>10 > 5 returns TRUE:</strong> R can answer yes/no questions!<br>• <strong>Other comparisons:</strong><br>  - Greater than: ><br>  - Less than: <<br>  - Equal to: ==<br>  - Not equal to: !=<br>  - Greater or equal: >=<br>  - Less or equal: <=<br><br>💬 <strong>CONCEPT 4: Comments (Your Notes)</strong><br><br>• <strong># This is a comment:</strong> R ignores anything after #<br>• <strong>Why comment?</strong> Explain WHY you wrote code, not WHAT it does<br>• <strong>Future you:</strong> Comments help you remember your logic 6 months later!<br><br>🔑 <strong>The Input-Process-Output Model:</strong><br><br>Every program follows this pattern:<br>1. <strong>INPUT:</strong> Get data (user types, file reads, sensor data)<br>2. <strong>PROCESS:</strong> Do something with it (calculate, transform, analyze)<br>3. <strong>OUTPUT:</strong> Show results (print to screen, save to file, display chart)<br><br>Example from our code:<br>• <strong>INPUT:</strong> a = 10, b = 3<br>• <strong>PROCESS:</strong> a + b<br>• <strong>OUTPUT:</strong> print('Addition: 13')<br><br>🐛 <strong>Common Beginner Mistakes:</strong><br><br>1. <strong>Forgetting quotes:</strong> my_name <- Student ❌ (should be 'Student')<br>2. <strong>Wrong arrow:</strong> my_age = 25 (works, but <- is R style)<br>3. <strong>Case sensitivity:</strong> MyAge and myage are DIFFERENT variables!<br>4. <strong>Typos:</strong> print(my_nane) ❌ (should be my_name)<br><br>✅ <strong>PREREQUISITE CHECKLIST - Ready for Unit 2 if you can:</strong><br><br>☐ Explain what a variable is<br>☐ Use <- to assign values<br>☐ Perform basic math operations (+, -, *, /)<br>☐ Understand that code runs line-by-line, top to bottom<br>☐ Write comments using #<br>☐ Recognize TRUE/FALSE as special values<br>☐ Understand that computers are VERY literal (no typos!)<br>☐ Know that programming is just breaking problems into tiny steps",
         illustration: "Recipe (Algorithm) → Ingredients (Variables) → Cooking Steps (Code) → Delicious Meal (Output).",
         caseProblem: "A student wants to calculate their final grade: Midterm (30%), Assignments (20%), Final Exam (50%). Scores are 85, 90, 88.",
@@ -96,8 +129,20 @@ const unit2Content = {
         technicalFoundations: "Logic: Input -> Interpeter (R) -> Global Environment (Memory) -> Output (Console/Plots).",
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
-        rCode: "# Check your R version and platform details\nversion_info <- R.version\nprint(version_info$version.string)\nprint(version_info$platform)\n\n# Basic arithmetic to check the engine\n2 + 2\n\n# Listing files in your environment\ngetwd()",
-        rOutput: "[1] \"R version 4.3.3 (2024-02-29 ucrt)\"\n[1] \"x86_64-w64-mingw32\"\n[1] 4\n[1] \"D:/Work Load/2025-26 Even Semester/Data Analytics Using R/website\"",
+        rCode: `# Check your R version and platform details
+version_info <- R.version
+print(version_info$version.string)
+print(version_info$platform)
+
+# Basic arithmetic to check the engine
+2 + 2
+
+# Listing files in your environment
+getwd()`,
+        rOutput: `[1] "R version 4.3.3 (2024-02-29 ucrt)"
+[1] "x86_64-w64-mingw32"
+[1] 4
+[1] "D:/Work Load/2025-26 Even Semester/Data Analytics Using R/website"`,
         rInterpretation: "<strong>Verifying Your R Installation:</strong><br><br>🔧 <strong>Version String:</strong> 'R version 4.3.3' confirms you're running a recent, stable release. The date (2024-02-29) shows when this version was compiled. The 'ucrt' indicates Universal C Runtime - a Windows-specific optimization.<br><br>💻 <strong>Platform Architecture:</strong> 'x86_64-w64-mingw32' breaks down as:<br>• <strong>x86_64:</strong> 64-bit processor (can handle large datasets)<br>• <strong>w64:</strong> Windows 64-bit<br>• <strong>mingw32:</strong> Minimalist GNU for Windows (the compiler toolchain)<br><br>➕ <strong>Arithmetic Test (2+2=4):</strong> This simple calculation confirms the R engine is functioning. If this fails, your installation is corrupted!<br><br>📁 <strong>Working Directory:</strong> The path shows where R will look for files and save outputs by default. Think of it as R's 'home folder'. You can change this with <code>setwd()</code>.<br><br>💡 <strong>Why This Matters:</strong><br>• <strong>Reproducibility:</strong> Sharing your R version ensures others can replicate your analysis<br>• <strong>Compatibility:</strong> Some packages require specific R versions<br>• <strong>Debugging:</strong> Error messages often ask 'What version are you using?'",
         illustration: "Installer -> R Engine -> RStudio Shell -> Your First 'Hello World' Script.",
         caseProblem: "A research student is struggling to keep track of 50 different versions of their Excel analysis.",
@@ -166,8 +211,23 @@ const unit2Content = {
         technicalFoundations: "Memory management: Integers vs. Doubles (Floating point).",
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
-        rCode: "# Step 1: Assignment\nage <- 20\nname <- 'Alex'\nis_student <- TRUE\n\n# Step 2: Check types\nprint(class(age))\nprint(class(name))\nprint(class(is_student))\n\n# Step 3: Coercion (Forced Change)\nage_as_text <- as.character(age)\nprint(paste('Age is now:', age_as_text))",
-        rOutput: "[1] \"numeric\"\n[1] \"character\"\n[1] \"logical\"\n[1] \"Age is now: 20\"",
+        rCode: `# Step 1: Assignment
+age <- 20
+name <- 'Alex'
+is_student <- TRUE
+
+# Step 2: Check types
+print(class(age))
+print(class(name))
+print(class(is_student))
+
+# Step 3: Coercion (Forced Change)
+age_as_text <- as.character(age)
+print(paste('Age is now:', age_as_text))`,
+        rOutput: `[1] "numeric"
+[1] "character"
+[1] "logical"
+[1] "Age is now: 20"`,
         rInterpretation: "<strong>Understanding R's Type System:</strong><br><br>📊 <strong>Numeric Type (age = 20):</strong> R automatically recognizes whole numbers as 'numeric' (technically 'double' - a floating-point number). You can perform math: <code>age + 5</code>, <code>age * 2</code>, etc. This uses 8 bytes of memory.<br><br>🔤 <strong>Character Type (name = 'Alex'):</strong> Text data is called 'character' in R. Notice the quotes in the output - they indicate it's a string. You CANNOT do <code>'Alex' + 5</code> - R will throw an error!<br><br>✅ <strong>Logical Type (is_student = TRUE):</strong> Boolean values are either TRUE or FALSE (must be uppercase!). These are used in conditional statements: <code>if(is_student) { give_discount() }</code>. Internally, TRUE = 1 and FALSE = 0.<br><br>🔄 <strong>Type Coercion (as.character):</strong> We forcefully converted the number 20 into the text '20'. Now it's a character! Notice in the output: 'Age is now: 20' - the 20 is surrounded by quotes because it's text, not a number anymore. If you try <code>age_as_text + 5</code>, R will error because you can't add text!<br><br>💡 <strong>Real-World Example:</strong><br>• <strong>Student ID '2024001':</strong> Should be character (you don't calculate averages of IDs!)<br>• <strong>Age '25':</strong> Should be numeric (you calculate average age)<br>• <strong>Passed Exam:</strong> Should be logical TRUE/FALSE<br><br>⚠️ <strong>Common Mistake:</strong> Reading CSV files often imports numbers as characters. Always check with <code>class()</code> and convert with <code>as.numeric()</code> if needed!",
         illustration: "Box Label (Variable Name) -> Content (Value) -> Shape of Content (Data Type).",
         caseProblem: "A survey result shows '1', '0' for Yes/No, but R treats them as numbers.",
@@ -236,8 +296,26 @@ const unit2Content = {
         technicalFoundations: "Algorithm logic: Sequence -> Selection -> Iteration.",
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
-        rCode: "# Decision Making\nscore <- 85\nif (score >= 90) {\n  print('Grade: A')\n} else if (score >= 80) {\n  print('Grade: B')\n} else {\n  print('Grade: C')\n}\n\n# Iteration (The Loop)\nfor (i in 1:5) {\n  print(paste('Processing item number', i))\n}",
-        rOutput: "[1] \"Grade: B\"\n[1] \"Processing item number 1\"\n[1] \"Processing item number 2\"\n[1] \"Processing item number 3\"\n[1] \"Processing item number 4\"\n[1] \"Processing item number 5\"",
+        rCode: `# Decision Making
+score <- 85
+if (score >= 90) {
+  print('Grade: A')
+} else if (score >= 80) {
+  print('Grade: B')
+} else {
+  print('Grade: C')
+}
+
+# Iteration (The Loop)
+for (i in 1:5) {
+  print(paste('Processing item number', i))
+}`,
+        rOutput: `[1] "Grade: B"
+[1] "Processing item number 1"
+[1] "Processing item number 2"
+[1] "Processing item number 3"
+[1] "Processing item number 4"
+[1] "Processing item number 5"`,
         rInterpretation: "<strong>Decision Trees and Automation:</strong><br><br>🎯 <strong>If-Else Logic (Grade B):</strong> The code evaluates conditions <em>sequentially</em>:<br>1. Is score >= 90? NO (85 < 90)<br>2. Is score >= 80? YES! → Execute 'Grade: B' and STOP<br>3. The 'else' block is never reached<br><br>This is called <strong>short-circuit evaluation</strong> - once a condition is true, R skips the rest. If score was 95, it would print 'Grade: A' and never check the 80 threshold.<br><br>🔁 <strong>For Loop (Processing 1-5):</strong> The loop variable <code>i</code> takes each value from the sequence 1:5:<br>• <strong>Iteration 1:</strong> i=1 → 'Processing item number 1'<br>• <strong>Iteration 2:</strong> i=2 → 'Processing item number 2'<br>• ... continues until i=5<br><br>💡 <strong>Real-World Applications:</strong><br>• <strong>E-commerce:</strong> Loop through 1000 products, if(price > 100) apply_discount()<br>• <strong>Healthcare:</strong> Loop through patients, if(temperature > 100) send_alert()<br>• <strong>Education:</strong> Loop through students, if(attendance < 75%) mark_detained()<br><br>⚡ <strong>Performance Tip:</strong> For large datasets (>10,000 items), use <code>ifelse()</code> or <code>sapply()</code> instead of loops - they're 10-100x faster due to vectorization!<br><br>🔑 <strong>Key Concept:</strong> Loops automate repetition, If-Else automates decision-making. Combined, they create <em>intelligent automation</em>!",
         illustration: "Fork in the Road (If-Else) vs. Running in Circles (Loops).",
         caseProblem: "A bank needs to alert patients if their balance drops below $100.",
@@ -306,8 +384,35 @@ const unit2Content = {
         technicalFoundations: "Coordinate systems in memory; row-major vs column-major storage.",
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
-        rCode: "# Vector (1D)\nv <- c(1, 2, 3, 4)\n\n# Matrix (2D: 2 Rows, 2 Columns)\nm <- matrix(v, nrow=2, ncol=2)\nprint(m)\n\n# Array (3D: Like 2 sheets of 2x2 grids)\na <- array(1:8, dim=c(2, 2, 2))\nprint(a)\n\n# Slicing: Get Row 1 of Matrix\nprint(m[1, ])",
-        rOutput: "     [,1] [,2]\n[1,]    1    3\n[2,]    2    4\n, , 1\n\n     [,1] [,2]\n[1,]    1    3\n[2,]    2    5\n\n, , 2\n\n     [,1] [,2]\n[1,]    5    7\n[2,]    6    8\n\n[1] 1 3",
+        rCode: `# Vector (1D)
+v <- c(1, 2, 3, 4)
+
+# Matrix (2D: 2 Rows, 2 Columns)
+m <- matrix(v, nrow=2, ncol=2)
+print(m)
+
+# Array (3D: Like 2 sheets of 2x2 grids)
+a <- array(1:8, dim=c(2, 2, 2))
+print(a)
+
+# Slicing: Get Row 1 of Matrix
+print(m[1, ])`,
+        rOutput: `     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+, , 1
+
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    5
+
+, , 2
+
+     [,1] [,2]
+[1,]    5    7
+[2,]    6    8
+
+[1] 1 3`,
         rInterpretation: "<strong>Multi-Dimensional Data Structures:</strong><br><br>📊 <strong>Matrix Output (2x2):</strong> R fills the matrix <em>column-wise</em> by default:<br>• Column 1: [1, 2]<br>• Column 2: [3, 4]<br>Notice the [,1] and [,2] headers - these indicate column numbers. The [1,] and [2,] on the left are row numbers. Think of it as a spreadsheet with coordinates!<br><br>🎲 <strong>Array Output (2x2x2):</strong> This is like having TWO separate 2x2 matrices stacked:<br>• <strong>Layer 1 (, , 1):</strong> Contains values 1,2,3,4 arranged in a 2x2 grid<br>• <strong>Layer 2 (, , 2):</strong> Contains values 5,6,7,8 arranged in a 2x2 grid<br><br>Imagine a Rubik's cube - each face is a matrix, the whole cube is an array!<br><br>✂️ <strong>Slicing (Row 1 = [1, 3]):</strong> The notation <code>m[1, ]</code> means:<br>• <strong>1:</strong> First row<br>• <strong>, (empty):</strong> ALL columns<br>Result: We extract the entire first row, which contains 1 (from column 1) and 3 (from column 2).<br><br>💡 <strong>Real-World Examples:</strong><br>• <strong>Image Processing:</strong> A grayscale photo is a matrix (pixels arranged in rows/columns)<br>• <strong>Time Series:</strong> Stock prices over time = vector (1D)<br>• <strong>Video Data:</strong> Frames x Height x Width = 3D array<br>• <strong>Climate Data:</strong> Temperature[Latitude, Longitude, Time] = 3D array<br><br>🔑 <strong>Indexing Cheat Sheet:</strong><br>• <code>m[1, 2]</code> = Element at row 1, column 2<br>• <code>m[1, ]</code> = Entire row 1<br>• <code>m[, 2]</code> = Entire column 2<br>• <code>m[1:2, 1]</code> = Rows 1-2 from column 1",
         illustration: "A Single Bead (Scalar) -> A String of Beads (Vector) -> A Fabric of Beads (Matrix) -> A Box of Fabrics (Array).",
         caseProblem: "A weather station captures Temperature, Humidity, and Pressure every hour.",
