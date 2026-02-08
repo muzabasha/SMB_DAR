@@ -528,7 +528,7 @@ SETUP VIDEO:
 
                 <section class="mega-mindmap" style="margin-top: 20px;">
                     <div class="card" style="border-top: 4px solid var(--accent); padding: 0;">
-                        ${Components.MindMap(courseData.courseMindMap)}
+                        ${MindMap.render()}
                     </div>
                 </section>
 
