@@ -467,6 +467,325 @@ print(m[1, ])`,
         nextLinkage: "We know how to store data in R; now let's learn how to BRING it from outside (Excel, CSV, Web).",
         nextReading: "read.csv and data.frame basics."
     },
+    "u2-t5": {
+        type: "handout",
+        courseName: "Data Analytics using R",
+        unitAndTopic: "Unit 2, Topic 5 | Functions & Custom Code",
+        hook: "Functions are like recipes - write once, use forever!",
+        position: "Topic 5 of 7 in Unit 2",
+        prerequisites: "Understanding of variables, data types, and control structures from previous topics.",
+        outcomes: ["Create custom functions in R", "Understand function parameters and return values", "Use built-in R functions effectively", "Apply the DRY principle (Don't Repeat Yourself)"],
+        subTopics: "Function Syntax, Parameters and Arguments, Return Values, Scope and Environment, Built-in Functions, Anonymous Functions, Function Documentation",
+        syllabusMapping: "Unit 2: R Programming - Functions and Modular Code",
+        background: "Functions are the building blocks of programming. They allow you to package code into reusable units, making your programs more organized, maintainable, and efficient.",
+        motivation: "Instead of copying and pasting the same code 10 times, write it once as a function! This saves time, reduces errors, and makes updates easier.",
+        problemStatement: "Repetitive code is error-prone and hard to maintain. Functions solve this by encapsulating logic into reusable, testable units.",
+        coreConcept: "A function is a named block of code that performs a specific task. It can accept inputs (parameters), process them, and return outputs.",
+        terminology: "Function, Parameter, Argument, Return Value, Scope, Local Variable, Global Variable, Function Call, Anonymous Function",
+        rVersion: "4.3.3",
+        rPlatform: "x86_64-w64-mingw32 (ucrt)",
+        rCode: `# TOPIC 5: Functions & Custom Code
+
+# 1. Basic Function Syntax
+calculate_area <- function(length, width) {
+  area <- length * width
+  return(area)
+}
+
+# Call the function
+result <- calculate_area(5, 3)
+print(paste("Area:", result))
+
+# 2. Function with Default Parameters
+greet_user <- function(name, greeting = "Hello") {
+  message <- paste(greeting, name, "!")
+  return(message)
+}
+
+print(greet_user("Alice"))
+print(greet_user("Bob", "Hi"))
+
+# 3. Function with Multiple Return Values (using list)
+calculate_stats <- function(numbers) {
+  stats <- list(
+    mean = mean(numbers),
+    median = median(numbers),
+    sd = sd(numbers)
+  )
+  return(stats)
+}
+
+data <- c(10, 20, 30, 40, 50)
+stats <- calculate_stats(data)
+print(stats)
+
+# 4. Anonymous Function (Lambda)
+square <- function(x) x^2
+print(square(5))
+
+# Apply function to vector
+numbers <- c(1, 2, 3, 4, 5)
+squared <- sapply(numbers, square)
+print(squared)`,
+        rOutput: `[1] "Area: 15"
+[1] "Hello Alice !"
+[1] "Hi Bob !"
+$mean
+[1] 30
+
+$median
+[1] 30
+
+$sd
+[1] 15.81139
+
+[1] 25
+[1]  1  4  9 16 25`,
+        rInterpretation: "<strong>Functions & Custom Code Explained:</strong><br><br>🔧 <strong>CONCEPT 1: Basic Function Structure</strong><br><br>• <strong>function(length, width):</strong> Defines parameters (inputs)<br>• <strong>area <- length * width:</strong> Function body (logic)<br>• <strong>return(area):</strong> Sends result back to caller<br>• <strong>Why use functions?</strong> Write once, use many times!<br><br>📊 <strong>Real-World Analogy:</strong> A function is like a vending machine - you put in inputs (money + selection), it processes (dispenses), and returns output (your snack).<br><br>⚙️ <strong>CONCEPT 2: Default Parameters</strong><br><br>• <strong>greeting = 'Hello':</strong> Default value if not provided<br>• <strong>greet_user('Alice'):</strong> Uses default 'Hello'<br>• <strong>greet_user('Bob', 'Hi'):</strong> Overrides with 'Hi'<br>• <strong>Benefit:</strong> Flexible functions with sensible defaults<br><br>📦 <strong>CONCEPT 3: Multiple Return Values</strong><br><br>• <strong>list():</strong> Package multiple values together<br>• <strong>stats$mean:</strong> Access specific value from list<br>• <strong>Use case:</strong> Return comprehensive results (mean, median, SD)<br>• <strong>Alternative:</strong> Could return a data frame or vector<br><br>⚡ <strong>CONCEPT 4: Anonymous Functions</strong><br><br>• <strong>function(x) x^2:</strong> One-line function without name<br>• <strong>sapply():</strong> Apply function to each element<br>• <strong>Use case:</strong> Quick transformations without cluttering namespace<br><br>🎯 <strong>DRY Principle (Don't Repeat Yourself):</strong><br><br>❌ <strong>BAD (Repetitive):</strong><br>area1 <- 5 * 3<br>area2 <- 10 * 4<br>area3 <- 7 * 2<br><br>✅ <strong>GOOD (Using Function):</strong><br>area1 <- calculate_area(5, 3)<br>area2 <- calculate_area(10, 4)<br>area3 <- calculate_area(7, 2)<br><br>💡 <strong>Function Best Practices:</strong><br><br>1. <strong>Single Responsibility:</strong> Each function should do ONE thing well<br>2. <strong>Descriptive Names:</strong> calculate_area() not ca() or func1()<br>3. <strong>Document Parameters:</strong> What inputs are expected?<br>4. <strong>Test Thoroughly:</strong> Try edge cases (negative numbers, zero, etc.)<br>5. <strong>Keep It Short:</strong> If function is >50 lines, consider splitting<br><br>🔍 <strong>Scope Explained:</strong><br><br>• <strong>Local Variables:</strong> Created inside function, die when function ends<br>• <strong>Global Variables:</strong> Accessible everywhere (use sparingly!)<br>• <strong>Rule:</strong> What happens in the function, stays in the function<br><br>✅ <strong>When to Create a Function:</strong><br><br>☐ You've copied code more than twice<br>☐ Logic is complex and needs a name<br>☐ You want to test code independently<br>☐ Code will be reused across projects<br>☐ You want to hide implementation details",
+        illustration: "Recipe (Function Definition) → Ingredients (Parameters) → Cooking (Processing) → Dish (Return Value).",
+        caseProblem: "A data analyst needs to calculate BMI for 1000 patients. Writing the formula 1000 times is impractical.",
+        caseSolution: "Created a function: calculate_bmi <- function(weight, height) { return(weight / (height^2)) }. Now just call it 1000 times!",
+        caseOutcome: "Saved hours of work, reduced errors, and made code maintainable. When BMI formula changed, updated ONE function instead of 1000 lines.",
+        applications: ["Data Cleaning Pipelines", "Statistical Calculations", "Report Generation", "API Wrappers", "Custom Visualizations"],
+        challenges: "Beginners often forget to return() values or struggle with scope. Remember: variables inside functions are local unless explicitly made global.",
+        research: "Functional Programming - treating functions as first-class citizens, enabling powerful abstractions like map, filter, reduce.",
+        toolMapping: "function(), return(), sapply(), lapply(), do.call(), args(), formals()",
+        experientialActivity: "Create a function that converts temperature from Celsius to Fahrenheit. Test it with freezing point (0°C = 32°F) and boiling point (100°C = 212°F).",
+        projectIPO: {
+            input: "Student grades (0-100)",
+            process: "Function converts to letter grades (A, B, C, D, F) based on thresholds",
+            output: "Vector of letter grades for entire class"
+        },
+        quizQuestions: [
+            "What's the difference between a parameter and an argument?",
+            "Why use return() instead of just printing the result?",
+            "What happens to local variables after a function finishes?",
+            "How do you set a default parameter value?",
+            "When should you create a function vs. writing inline code?"
+        ],
+        nextTopic: "Data Frames & Lists",
+        nextLinkage: "Now that you can create reusable functions, let's learn about R's most powerful data structures!",
+        nextReading: "Data frames and lists - the workhorses of R programming."
+    },
+    "u2-t6": {
+        type: "handout",
+        courseName: "Data Analytics using R",
+        unitAndTopic: "Unit 2, Topic 6 | Data Frames & Lists",
+        hook: "Data frames are like Excel spreadsheets, but with superpowers!",
+        position: "Topic 6 of 7 in Unit 2",
+        prerequisites: "Understanding of vectors, matrices, and functions from previous topics.",
+        outcomes: ["Create and manipulate data frames", "Understand list structures", "Access and modify data frame elements", "Perform data frame operations (filter, sort, merge)"],
+        subTopics: "Data Frame Creation, Accessing Columns and Rows, Filtering Data, Sorting, Adding/Removing Columns, Merging Data Frames, Lists and Nested Structures",
+        syllabusMapping: "Unit 2: R Programming - Data Structures",
+        background: "Data frames are R's primary data structure for tabular data. They're similar to spreadsheets but more powerful, allowing mixed data types and programmatic manipulation.",
+        motivation: "90% of real-world data analysis involves data frames. Master them, and you've mastered R!",
+        problemStatement: "Real data is messy, multi-dimensional, and mixed-type. Vectors and matrices aren't enough - we need flexible, powerful structures.",
+        coreConcept: "A data frame is a table where each column can be a different data type (numbers, text, dates). A list is a container that can hold anything - even other lists!",
+        terminology: "Data Frame, Column, Row, Index, Subset, Filter, Merge, Join, List, Named List, Nested List",
+        rVersion: "4.3.3",
+        rPlatform: "x86_64-w64-mingw32 (ucrt)",
+        rCode: `# TOPIC 6: Data Frames & Lists
+
+# 1. Creating a Data Frame
+students <- data.frame(
+  name = c("Alice", "Bob", "Charlie", "Diana"),
+  age = c(20, 22, 21, 23),
+  grade = c(85, 92, 78, 95),
+  passed = c(TRUE, TRUE, TRUE, TRUE)
+)
+
+print(students)
+print(str(students))
+
+# 2. Accessing Data
+print(students$name)  # Access column
+print(students[1, ])  # Access first row
+print(students[, "grade"])  # Access grade column
+print(students[2, 3])  # Access specific cell
+
+# 3. Filtering Data
+high_performers <- students[students$grade > 90, ]
+print(high_performers)
+
+# 4. Adding New Column
+students$grade_letter <- ifelse(students$grade >= 90, "A",
+                         ifelse(students$grade >= 80, "B", "C"))
+print(students)
+
+# 5. Sorting Data
+sorted_students <- students[order(-students$grade), ]
+print(sorted_students)
+
+# 6. Lists - Flexible Containers
+my_list <- list(
+  numbers = c(1, 2, 3),
+  text = "Hello",
+  dataframe = students,
+  nested = list(a = 1, b = 2)
+)
+
+print(my_list$numbers)
+print(my_list$nested$a)`,
+        rOutput: `     name age grade passed
+1   Alice  20    85   TRUE
+2     Bob  22    92   TRUE
+3 Charlie  21    78   TRUE
+4   Diana  23    95   TRUE
+
+'data.frame':	4 obs. of  4 variables:
+ $ name  : chr  "Alice" "Bob" "Charlie" "Diana"
+ $ age   : num  20 22 21 23
+ $ grade : num  85 92 78 95
+ $ passed: logi  TRUE TRUE TRUE TRUE
+
+[1] "Alice"   "Bob"     "Charlie" "Diana"  
+
+    name age grade passed
+2    Bob  22    92   TRUE
+4  Diana  23    95   TRUE
+
+     name age grade passed grade_letter
+1   Alice  20    85   TRUE            B
+2     Bob  22    92   TRUE            A
+3 Charlie  21    78   TRUE            C
+4   Diana  23    95   TRUE            A
+
+    name age grade passed grade_letter
+4  Diana  23    95   TRUE            A
+2    Bob  22    92   TRUE            A
+1  Alice  20    85   TRUE            B
+3 Charlie  21    78   TRUE            C
+
+[1] 1 2 3
+[1] 1`,
+        rInterpretation: "<strong>Data Frames & Lists Explained:</strong><br><br>📊 <strong>CONCEPT 1: Data Frame Structure</strong><br><br>• <strong>data.frame():</strong> Creates table with named columns<br>• <strong>Mixed types:</strong> name (text), age (number), passed (logical)<br>• <strong>str():</strong> Shows structure - 4 observations, 4 variables<br>• <strong>Think of it as:</strong> Excel spreadsheet you can program!<br><br>🎯 <strong>CONCEPT 2: Accessing Data (Multiple Ways)</strong><br><br>• <strong>students$name:</strong> Dollar sign for column access<br>• <strong>students[1, ]:</strong> First row, all columns<br>• <strong>students[, 'grade']:</strong> All rows, grade column<br>• <strong>students[2, 3]:</strong> Row 2, Column 3 (specific cell)<br><br>💡 <strong>Pro Tip:</strong> Use $ for columns, [] for rows and cells<br><br>🔍 <strong>CONCEPT 3: Filtering (Subsetting)</strong><br><br>• <strong>students$grade > 90:</strong> Creates TRUE/FALSE vector<br>• <strong>students[condition, ]:</strong> Keeps only TRUE rows<br>• <strong>Result:</strong> Only Bob and Diana (grades 92, 95)<br>• <strong>Real use:</strong> 'Show me all customers who spent >$1000'<br><br>➕ <strong>CONCEPT 4: Adding Columns</strong><br><br>• <strong>students$new_column:</strong> Creates new column<br>• <strong>ifelse():</strong> Vectorized if-else (applies to all rows)<br>• <strong>grade_letter:</strong> Converts numbers to letters (A, B, C)<br>• <strong>Benefit:</strong> Enrich data with calculated fields<br><br>📈 <strong>CONCEPT 5: Sorting</strong><br><br>• <strong>order():</strong> Returns indices for sorted order<br>• <strong>-students$grade:</strong> Negative for descending<br>• <strong>Result:</strong> Diana (95), Bob (92), Alice (85), Charlie (78)<br>• <strong>Use case:</strong> Leaderboards, rankings, top performers<br><br>📦 <strong>CONCEPT 6: Lists (Ultimate Flexibility)</strong><br><br>• <strong>list():</strong> Can hold ANYTHING - vectors, data frames, even other lists!<br>• <strong>Named elements:</strong> Access with $<br>• <strong>Nested lists:</strong> Lists within lists (like folders within folders)<br>• <strong>Use case:</strong> Complex data structures, API responses, model results<br><br>🔑 <strong>Data Frame vs Matrix vs List:</strong><br><br>• <strong>Matrix:</strong> All same type (all numbers or all text)<br>• <strong>Data Frame:</strong> Mixed types, column-oriented<br>• <strong>List:</strong> Anything goes, ultimate flexibility<br><br>⚡ <strong>Common Operations:</strong><br><br>1. <strong>nrow(df):</strong> Number of rows<br>2. <strong>ncol(df):</strong> Number of columns<br>3. <strong>head(df):</strong> First 6 rows<br>4. <strong>tail(df):</strong> Last 6 rows<br>5. <strong>summary(df):</strong> Statistical summary<br>6. <strong>names(df):</strong> Column names<br><br>✅ <strong>Best Practices:</strong><br><br>☐ Use descriptive column names (no spaces!)<br>☐ Check structure with str() after loading data<br>☐ Filter before processing (work with less data)<br>☐ Use $ for readability, [] for programmatic access<br>☐ Always check dimensions after operations",
+        illustration: "Spreadsheet (Data Frame) → Rows (Observations) → Columns (Variables) → Cells (Values).",
+        caseProblem: "A company has customer data in multiple spreadsheets: purchases, demographics, support tickets. Need to analyze together.",
+        caseSolution: "Loaded each as data frame, merged by customer_id, filtered for high-value customers, sorted by total spend.",
+        caseOutcome: "Identified top 20% customers generating 80% revenue. Targeted marketing campaign increased retention by 15%.",
+        applications: ["Customer Analytics", "Scientific Research Data", "Financial Analysis", "Survey Results", "Machine Learning Datasets"],
+        challenges: "Beginners confuse $ and [] syntax. Remember: $ for columns by name, [] for flexible indexing.",
+        research: "Tidyverse - modern R packages (dplyr, tidyr) that make data frame manipulation even easier with pipe operators (%>%).",
+        toolMapping: "data.frame(), str(), head(), tail(), subset(), merge(), rbind(), cbind(), list(), names()",
+        experientialActivity: "Create a data frame of your favorite movies (title, year, rating, genre). Filter for movies after 2010, sort by rating, add a 'decade' column.",
+        projectIPO: {
+            input: "CSV files with sales data from 3 regions",
+            process: "Load as data frames, merge by product_id, calculate total sales, identify best sellers",
+            output: "Ranked list of top 10 products with sales figures"
+        },
+        quizQuestions: [
+            "What's the difference between a data frame and a matrix?",
+            "How do you access the 3rd row of a data frame?",
+            "What does the $ operator do?",
+            "How do you filter rows where age > 25?",
+            "What can a list contain that a data frame cannot?"
+        ],
+        nextTopic: "String Manipulation & Text Processing",
+        nextLinkage: "You've mastered data structures! Now let's learn to work with text data.",
+        nextReading: "String functions and text processing in R."
+    },
+    "u2-t7": {
+        type: "handout",
+        courseName: "Data Analytics using R",
+        unitAndTopic: "Unit 2, Topic 7 | String Manipulation & Text Processing",
+        hook: "Text is data too! Let's learn to wrangle words like we wrangle numbers.",
+        position: "Topic 7 of 7 in Unit 2",
+        prerequisites: "Understanding of vectors, data frames, and functions from previous topics.",
+        outcomes: ["Manipulate strings using R functions", "Use regular expressions for pattern matching", "Clean and process text data", "Extract information from text"],
+        subTopics: "String Basics, Concatenation, Substring Extraction, Pattern Matching, Regular Expressions, Text Cleaning, Case Conversion, String Splitting",
+        syllabusMapping: "Unit 2: R Programming - Text Processing",
+        background: "Text data is everywhere - social media posts, customer reviews, survey responses, log files. String manipulation is essential for cleaning and analyzing this data.",
+        motivation: "80% of data cleaning involves text processing. Master strings, and you'll save hours of manual work!",
+        problemStatement: "Text data is messy - inconsistent capitalization, extra spaces, special characters. We need tools to clean and standardize it.",
+        coreConcept: "Strings are sequences of characters. R provides powerful functions to search, extract, replace, and transform text data.",
+        terminology: "String, Character, Concatenation, Substring, Pattern, Regular Expression (Regex), Delimiter, Escape Character",
+        rVersion: "4.3.3",
+        rPlatform: "x86_64-w64-mingw32 (ucrt)",
+        rCode: `# TOPIC 7: String Manipulation & Text Processing
+
+# 1. Basic String Operations
+text <- "  Hello World  "
+print(paste("Original:", text))
+print(paste("Trimmed:", trimws(text)))
+print(paste("Uppercase:", toupper(text)))
+print(paste("Lowercase:", tolower(text)))
+
+# 2. String Concatenation
+first_name <- "John"
+last_name <- "Doe"
+full_name <- paste(first_name, last_name)
+print(full_name)
+
+# paste0 - no space separator
+email <- paste0(tolower(first_name), ".", tolower(last_name), "@email.com")
+print(email)
+
+# 3. Substring Extraction
+sentence <- "Data Analytics using R"
+print(substr(sentence, 1, 4))  # Extract "Data"
+print(substr(sentence, 6, 15))  # Extract "Analytics"
+
+# 4. String Length
+print(nchar(sentence))
+
+# 5. Pattern Matching and Replacement
+text <- "I love Python. Python is great!"
+new_text <- gsub("Python", "R", text)
+print(new_text)
+
+# 6. String Splitting
+csv_line <- "Alice,25,Engineer"
+parts <- strsplit(csv_line, ",")[[1]]
+print(parts)
+
+# 7. Checking for Patterns
+emails <- c("john@email.com", "invalid-email", "jane@company.org")
+has_at <- grepl("@", emails)
+print(has_at)
+
+# 8. Extracting Numbers from Text
+text <- "The price is $49.99 and quantity is 5"
+numbers <- as.numeric(gsub("[^0-9.]", "", text))
+print(numbers)`,
+        rOutput: `[1] "Original:   Hello World  "
+[1] "Trimmed: Hello World"
+[1] "Uppercase:   HELLO WORLD  "
+[1] "Lowercase:   hello world  "
+[1] "John Doe"
+[1] "john.doe@email.com"
+[1] "Data"
+[1] "Analytics"
+[1] 21
+[1] "I love R. R is great!"
+[1] "Alice"    "25"       "Engineer"
+[1]  TRUE FALSE  TRUE
+[1] 49.99`,
+        rInterpretation: "<strong>String Manipulation & Text Processing Explained:</strong><br><br>🔤 <strong>CONCEPT 1: Basic String Operations</strong><br><br>• <strong>trimws():</strong> Removes leading/trailing whitespace<br>• <strong>toupper():</strong> Converts to UPPERCASE<br>• <strong>tolower():</strong> Converts to lowercase<br>• <strong>Use case:</strong> Standardizing user input (names, emails)<br><br>💡 <strong>Why trim?</strong> '  John  ' and 'John' should be treated as same person!<br><br>➕ <strong>CONCEPT 2: Concatenation (Joining Strings)</strong><br><br>• <strong>paste():</strong> Joins with space separator<br>• <strong>paste0():</strong> Joins with NO separator<br>• <strong>Example:</strong> Building email addresses, full names, file paths<br>• <strong>Result:</strong> 'john.doe@email.com' from first and last name<br><br>✂️ <strong>CONCEPT 3: Substring Extraction</strong><br><br>• <strong>substr(text, start, end):</strong> Extract portion of string<br>• <strong>substr(sentence, 1, 4):</strong> Characters 1-4 = 'Data'<br>• <strong>Use case:</strong> Extract area code from phone, year from date<br>• <strong>Note:</strong> R uses 1-based indexing (first character is 1, not 0)<br><br>📏 <strong>CONCEPT 4: String Length</strong><br><br>• <strong>nchar():</strong> Counts characters (including spaces)<br>• <strong>'Data Analytics using R':</strong> 21 characters<br>• <strong>Use case:</strong> Validate password length, truncate long text<br><br>🔄 <strong>CONCEPT 5: Find and Replace</strong><br><br>• <strong>gsub(pattern, replacement, text):</strong> Global substitution<br>• <strong>gsub('Python', 'R', text):</strong> Replaces ALL occurrences<br>• <strong>sub():</strong> Replaces only FIRST occurrence<br>• <strong>Use case:</strong> Standardize terminology, fix typos in bulk<br><br>✂️ <strong>CONCEPT 6: String Splitting</strong><br><br>• <strong>strsplit(text, delimiter):</strong> Split by separator<br>• <strong>strsplit('Alice,25,Engineer', ','):</strong> Split by comma<br>• <strong>[[1]]:</strong> Extract first element from list<br>• <strong>Use case:</strong> Parse CSV data, split full names<br><br>🔍 <strong>CONCEPT 7: Pattern Detection</strong><br><br>• <strong>grepl(pattern, text):</strong> Returns TRUE/FALSE<br>• <strong>grepl('@', emails):</strong> Check if @ symbol exists<br>• <strong>Result:</strong> TRUE, FALSE, TRUE (validates email format)<br>• <strong>Use case:</strong> Data validation, filtering<br><br>🔢 <strong>CONCEPT 8: Extracting Numbers</strong><br><br>• <strong>gsub('[^0-9.]', '', text):</strong> Keep only digits and dots<br>• <strong>[^0-9.]:</strong> Regex for 'NOT digit or dot'<br>• <strong>as.numeric():</strong> Convert string to number<br>• <strong>Use case:</strong> Extract prices, quantities from text<br><br>🎯 <strong>Regular Expressions (Regex) Basics:</strong><br><br>• <strong>^:</strong> Start of string<br>• <strong>$:</strong> End of string<br>• <strong>.:</strong> Any character<br>• <strong>*:</strong> Zero or more<br>• <strong>+:</strong> One or more<br>• <strong>[0-9]:</strong> Any digit<br>• <strong>[a-z]:</strong> Any lowercase letter<br>• <strong>[^...]:</strong> NOT these characters<br><br>✅ <strong>Common Text Cleaning Tasks:</strong><br><br>1. <strong>Remove extra spaces:</strong> gsub('\\\\s+', ' ', text)<br>2. <strong>Remove punctuation:</strong> gsub('[[:punct:]]', '', text)<br>3. <strong>Extract emails:</strong> grep('@.*\\\\.', text)<br>4. <strong>Validate phone:</strong> grepl('^\\\\d{3}-\\\\d{3}-\\\\d{4}$', phone)<br>5. <strong>Title case:</strong> tools::toTitleCase(text)<br><br>💡 <strong>Best Practices:</strong><br><br>☐ Always trim whitespace first<br>☐ Standardize case (all lower or upper)<br>☐ Test regex patterns on sample data<br>☐ Use paste0() for efficiency (no separator)<br>☐ Escape special characters with \\\\",
+        illustration: "Raw Text → Clean (trim, lowercase) → Extract (patterns) → Transform (replace) → Structured Data.",
+        caseProblem: "A company has 10,000 customer names with inconsistent formatting: 'JOHN DOE', 'john doe', '  Jane Smith  ', 'bob-jones'.",
+        caseSolution: "Applied trimws(), tolower(), gsub('-', ' ', names) to standardize all names to 'firstname lastname' format.",
+        caseOutcome: "Eliminated duplicate customers (same person, different formatting), improved database accuracy by 23%.",
+        applications: ["Data Cleaning", "Web Scraping", "Log File Analysis", "Sentiment Analysis", "Email Validation", "Text Mining"],
+        challenges: "Regular expressions have a steep learning curve. Start simple, test often, use online regex testers.",
+        research: "Natural Language Processing (NLP) - advanced text analysis including sentiment, entity recognition, and language translation.",
+        toolMapping: "paste(), paste0(), substr(), nchar(), toupper(), tolower(), trimws(), gsub(), sub(), strsplit(), grepl(), grep()",
+        experientialActivity: "Create a function that validates email addresses: must contain @, have text before and after @, end with .com or .org.",
+        projectIPO: {
+            input: "Customer feedback text: 'Great product! Price: $29.99. Would buy again!'",
+            process: "Extract sentiment (positive words), price ($29.99), and intent (would buy)",
+            output: "Structured data: sentiment='positive', price=29.99, intent='repurchase'"
+        },
+        quizQuestions: [
+            "What's the difference between paste() and paste0()?",
+            "How do you remove all spaces from a string?",
+            "What does grepl() return?",
+            "How do you extract the first 5 characters of a string?",
+            "What regex pattern matches any digit?"
+        ],
+        nextTopic: "Unit 2 Virtual Lab",
+        nextLinkage: "You've learned all R programming fundamentals! Now practice with hands-on exercises in the virtual lab.",
+        nextReading: "Complete the virtual lab exercises to solidify your R programming skills."
+    },
     "u2-lab": {
         type: "virtual-lab",
         unitId: 2

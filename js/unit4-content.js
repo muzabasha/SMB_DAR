@@ -389,6 +389,143 @@ print(paste('Optimal Discount is:', optim_result$maximum))`,
         nextLinkage: "We have reached the peak of the analytics mountain. Now it's time to build your own masterpiece.",
         nextReading: "Review all previous Unit handouts."
     },
+    "u4-t5": {
+        type: "handout",
+        courseName: "Data Analytics using R",
+        unitAndTopic: "Unit 4, Topic 5 | Hypothesis Testing & Statistical Inference",
+        hook: "How do we know if our findings are real or just luck?",
+        position: "Topic 5 of 7 in Unit 4",
+        prerequisites: "Understanding of probability, distributions, and p-values.",
+        outcomes: ["Conduct hypothesis tests", "Interpret p-values correctly", "Understand Type I and Type II errors", "Apply t-tests and chi-square tests"],
+        subTopics: "Null Hypothesis, Alternative Hypothesis, P-values, Significance Levels, T-tests, Chi-Square Tests, ANOVA, Confidence Intervals",
+        syllabusMapping: "Unit 4: Statistics - Hypothesis Testing",
+        rVersion: "4.3.3",
+        rCode: `# Hypothesis Testing Examples
+
+# 1. One-sample t-test
+# H0: Mean weight = 70 kg
+weights <- c(68, 72, 65, 70, 73, 69, 71, 74, 67, 70)
+t.test(weights, mu = 70)
+
+# 2. Two-sample t-test
+# Compare two groups
+group_a <- c(85, 88, 90, 87, 92)
+group_b <- c(78, 82, 80, 79, 81)
+t.test(group_a, group_b)
+
+# 3. Chi-square test
+# Test independence
+data <- matrix(c(20, 30, 25, 35), nrow = 2)
+chisq.test(data)
+
+# 4. Confidence Interval
+mean_val <- mean(weights)
+se <- sd(weights) / sqrt(length(weights))
+ci_lower <- mean_val - 1.96 * se
+ci_upper <- mean_val + 1.96 * se
+print(paste("95% CI:", ci_lower, "to", ci_upper))`,
+        rInterpretation: "<strong>Hypothesis Testing:</strong><br><br>🎯 <strong>P-value:</strong> Probability of observing data if null hypothesis is true. p < 0.05 typically means 'statistically significant'.<br><br>⚖️ <strong>Type I Error:</strong> False positive (rejecting true null hypothesis).<br><br>⚖️ <strong>Type II Error:</strong> False negative (failing to reject false null hypothesis).<br><br>📊 <strong>Confidence Intervals:</strong> Range where true parameter likely lies (e.g., 95% CI).",
+        nextReading: "Classification algorithms and machine learning."
+    },
+    "u4-t6": {
+        type: "handout",
+        courseName: "Data Analytics using R",
+        unitAndTopic: "Unit 4, Topic 6 | Classification Algorithms (Logistic Regression, KNN)",
+        hook: "Predict categories, not just numbers!",
+        position: "Topic 6 of 7 in Unit 4",
+        prerequisites: "Understanding of regression, basic ML concepts.",
+        outcomes: ["Build logistic regression models", "Implement K-Nearest Neighbors", "Understand classification metrics", "Compare algorithm performance"],
+        subTopics: "Logistic Regression, KNN Algorithm, Decision Boundaries, Confusion Matrix, Accuracy, Precision, Recall, F1-Score",
+        syllabusMapping: "Unit 4: Machine Learning - Classification",
+        rVersion: "4.3.3",
+        rCode: `# Classification Examples
+
+# 1. Logistic Regression
+data(iris)
+# Binary classification: setosa vs others
+iris$is_setosa <- ifelse(iris$Species == "setosa", 1, 0)
+model <- glm(is_setosa ~ Sepal.Length + Sepal.Width, 
+             data = iris, family = binomial)
+summary(model)
+
+# Predictions
+predictions <- predict(model, type = "response")
+predicted_class <- ifelse(predictions > 0.5, 1, 0)
+
+# Confusion Matrix
+table(Predicted = predicted_class, Actual = iris$is_setosa)
+
+# 2. K-Nearest Neighbors
+library(class)
+train_idx <- sample(1:nrow(iris), 0.7 * nrow(iris))
+train <- iris[train_idx, 1:4]
+test <- iris[-train_idx, 1:4]
+train_labels <- iris[train_idx, 5]
+test_labels <- iris[-train_idx, 5]
+
+knn_pred <- knn(train, test, train_labels, k = 3)
+accuracy <- sum(knn_pred == test_labels) / length(test_labels)
+print(paste("KNN Accuracy:", round(accuracy * 100, 2), "%"))`,
+        rInterpretation: "<strong>Classification Algorithms:</strong><br><br>📈 <strong>Logistic Regression:</strong> Predicts probability of binary outcome (yes/no, spam/not spam).<br><br>👥 <strong>KNN:</strong> Classifies based on k nearest neighbors. Simple but effective!<br><br>📊 <strong>Confusion Matrix:</strong> Shows true positives, false positives, true negatives, false negatives.<br><br>🎯 <strong>Metrics:</strong> Accuracy = correct predictions / total. Precision = TP / (TP + FP). Recall = TP / (TP + FN).",
+        nextReading: "Model evaluation and cross-validation techniques."
+    },
+    "u4-t7": {
+        type: "handout",
+        courseName: "Data Analytics using R",
+        unitAndTopic: "Unit 4, Topic 7 | Model Evaluation & Cross-Validation",
+        hook: "How good is your model really? Let's find out!",
+        position: "Topic 7 of 7 in Unit 4",
+        prerequisites: "Understanding of regression and classification models.",
+        outcomes: ["Evaluate model performance", "Implement cross-validation", "Understand overfitting and underfitting", "Use ROC curves and AUC"],
+        subTopics: "Train-Test Split, Cross-Validation, K-Fold CV, ROC Curve, AUC, Overfitting, Underfitting, Model Selection",
+        syllabusMapping: "Unit 4: Machine Learning - Model Evaluation",
+        rVersion: "4.3.3",
+        rCode: `# Model Evaluation Examples
+
+# 1. Train-Test Split
+set.seed(123)
+data(iris)
+train_idx <- sample(1:nrow(iris), 0.7 * nrow(iris))
+train_data <- iris[train_idx, ]
+test_data <- iris[-train_idx, ]
+
+# 2. Build and Evaluate Model
+model <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = train_data)
+
+# Predictions on test set
+predictions <- predict(model, newdata = test_data)
+actual <- test_data$Sepal.Length
+
+# Calculate metrics
+mse <- mean((predictions - actual)^2)
+rmse <- sqrt(mse)
+r_squared <- cor(predictions, actual)^2
+
+print(paste("RMSE:", round(rmse, 3)))
+print(paste("R-squared:", round(r_squared, 3)))
+
+# 3. K-Fold Cross-Validation
+library(caret)
+train_control <- trainControl(method = "cv", number = 5)
+model_cv <- train(Sepal.Length ~ ., data = iris[,1:4], 
+                  method = "lm", trControl = train_control)
+print(model_cv)
+
+# 4. ROC Curve (for classification)
+# Binary classification example
+iris_binary <- iris[iris$Species != "virginica", ]
+iris_binary$Species <- droplevels(iris_binary$Species)
+model_glm <- glm(Species ~ Sepal.Length + Sepal.Width, 
+                 data = iris_binary, family = binomial)
+
+library(pROC)
+roc_obj <- roc(as.numeric(iris_binary$Species) - 1, 
+               predict(model_glm, type = "response"))
+auc_value <- auc(roc_obj)
+print(paste("AUC:", round(auc_value, 3)))`,
+        rInterpretation: "<strong>Model Evaluation:</strong><br><br>📊 <strong>Train-Test Split:</strong> Use 70-80% for training, 20-30% for testing. Never test on training data!<br><br>🔄 <strong>Cross-Validation:</strong> Split data into k folds, train on k-1, test on 1. Repeat k times. More reliable than single split.<br><br>📈 <strong>Metrics:</strong><br>• RMSE: Lower is better (measures prediction error)<br>• R-squared: Higher is better (0-1, proportion of variance explained)<br>• AUC: Area Under ROC Curve (0.5 = random, 1.0 = perfect)<br><br>⚠️ <strong>Overfitting:</strong> Model memorizes training data, fails on new data. Solution: simpler model, more data, regularization.<br><br>⚠️ <strong>Underfitting:</strong> Model too simple, misses patterns. Solution: more complex model, more features.<br><br>🎯 <strong>Best Practices:</strong><br>• Always use separate test set<br>• Use cross-validation for small datasets<br>• Check multiple metrics, not just accuracy<br>• Plot predictions vs actual values<br>• Look for patterns in residuals",
+        nextReading: "Unit 4 Virtual Lab - Practice machine learning!"
+    },
     "u4-lab": {
         type: "virtual-lab",
         unitId: 4

@@ -1111,6 +1111,123 @@ print("✓ Remember: Choose the right chart for your data type!")`,
         nextLinkage: "You can now visualize data beautifully! Next, we'll use statistics to make predictions and decisions.",
         nextReading: "Practice: Create all 6 chart types using the built-in 'mtcars' dataset in R. Which chart reveals the most interesting pattern?"
     },
+    "u3-t3": {
+        type: "handout",
+        courseName: "Data Analytics using R",
+        unitAndTopic: "Unit 3, Topic 3 | ggplot2 Grammar of Graphics",
+        hook: "ggplot2: Where art meets science in data visualization!",
+        position: "Topic 3 of 6 in Unit 3",
+        prerequisites: "Basic R plotting, understanding of data frames.",
+        outcomes: ["Master ggplot2 syntax and layering", "Create professional visualizations", "Understand aesthetic mappings", "Apply themes and customizations"],
+        subTopics: "ggplot2 Philosophy, Aesthetic Mappings, Geometries (geoms), Scales, Facets, Themes, Layering",
+        syllabusMapping: "Unit 3: Data Visualization - Advanced Graphics",
+        rVersion: "4.3.3",
+        rCode: `library(ggplot2)
+
+# Sample data
+data <- data.frame(
+  x = 1:10,
+  y = c(2, 4, 3, 5, 7, 6, 8, 9, 10, 11),
+  category = rep(c("A", "B"), each = 5)
+)
+
+# Basic ggplot
+ggplot(data, aes(x = x, y = y)) +
+  geom_point() +
+  geom_line() +
+  labs(title = "My First ggplot", x = "X Axis", y = "Y Axis") +
+  theme_minimal()
+
+# With color mapping
+ggplot(data, aes(x = x, y = y, color = category)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_bw()`,
+        rInterpretation: "<strong>ggplot2 Grammar of Graphics:</strong><br><br>📊 <strong>Layered Approach:</strong> ggplot2 builds plots in layers - data + aesthetics + geometries + themes.<br><br>🎨 <strong>Aesthetic Mappings:</strong> aes() maps data to visual properties (x, y, color, size, shape).<br><br>📈 <strong>Geometries:</strong> geom_point(), geom_line(), geom_bar() define how data is displayed.<br><br>🎯 <strong>Professional Output:</strong> Publication-ready graphics with minimal code.",
+        nextReading: "Advanced ggplot2 techniques and faceting."
+    },
+    "u3-t4": {
+        type: "handout",
+        courseName: "Data Analytics using R",
+        unitAndTopic: "Unit 3, Topic 4 | Advanced Visualizations & Faceting",
+        hook: "One plot is good, multiple plots are better!",
+        position: "Topic 4 of 6 in Unit 3",
+        prerequisites: "ggplot2 basics from previous topic.",
+        outcomes: ["Create multi-panel plots with faceting", "Build complex visualizations", "Use advanced geoms", "Combine multiple plots"],
+        subTopics: "Facet Wrap, Facet Grid, Heatmaps, Violin Plots, Density Plots, Combining Plots, Annotations",
+        syllabusMapping: "Unit 3: Data Visualization - Advanced Techniques",
+        rVersion: "4.3.3",
+        rCode: `library(ggplot2)
+
+# Faceting example
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  facet_wrap(~ cyl) +
+  labs(title = "MPG vs Weight by Cylinders")
+
+# Heatmap
+ggplot(mtcars, aes(x = factor(cyl), y = factor(gear), fill = mpg)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "red") +
+  labs(title = "Heatmap of MPG")`,
+        rInterpretation: "<strong>Advanced Visualizations:</strong><br><br>🔲 <strong>Faceting:</strong> Split data into multiple panels for comparison.<br><br>🌡️ <strong>Heatmaps:</strong> Show relationships using color intensity.<br><br>🎻 <strong>Violin Plots:</strong> Combine box plots with density plots for richer insights.",
+        nextReading: "Interactive visualizations with plotly."
+    },
+    "u3-t5": {
+        type: "handout",
+        courseName: "Data Analytics using R",
+        unitAndTopic: "Unit 3, Topic 5 | Interactive Plots with plotly",
+        hook: "Make your plots come alive with interactivity!",
+        position: "Topic 5 of 6 in Unit 3",
+        prerequisites: "ggplot2 knowledge, basic HTML understanding.",
+        outcomes: ["Create interactive visualizations", "Add hover tooltips", "Enable zoom and pan", "Build dashboards"],
+        subTopics: "plotly Basics, Converting ggplot to plotly, Hover Information, 3D Plots, Animations, Dashboards",
+        syllabusMapping: "Unit 3: Data Visualization - Interactive Graphics",
+        rVersion: "4.3.3",
+        rCode: `library(plotly)
+
+# Interactive scatter plot
+plot_ly(mtcars, x = ~wt, y = ~mpg, type = 'scatter', mode = 'markers',
+        marker = list(size = 10, color = ~hp, colorscale = 'Viridis'),
+        text = ~paste('Car:', rownames(mtcars), '<br>HP:', hp))
+
+# Convert ggplot to interactive
+library(ggplot2)
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
+ggplotly(p)`,
+        rInterpretation: "<strong>Interactive Visualizations:</strong><br><br>🖱️ <strong>Hover Tooltips:</strong> Show detailed information on mouse hover.<br><br>🔍 <strong>Zoom & Pan:</strong> Users can explore data interactively.<br><br>📊 <strong>Dashboards:</strong> Combine multiple interactive plots for comprehensive analysis.",
+        nextReading: "Data storytelling principles."
+    },
+    "u3-t6": {
+        type: "handout",
+        courseName: "Data Analytics using R",
+        unitAndTopic: "Unit 3, Topic 6 | Data Storytelling & Best Practices",
+        hook: "Data tells stories - learn to be a great storyteller!",
+        position: "Topic 6 of 6 in Unit 3",
+        prerequisites: "All previous visualization topics.",
+        outcomes: ["Apply data storytelling principles", "Choose appropriate chart types", "Design for audience", "Avoid common pitfalls"],
+        subTopics: "Storytelling Framework, Chart Selection, Color Theory, Accessibility, Common Mistakes, Presentation Tips",
+        syllabusMapping: "Unit 3: Data Visualization - Communication",
+        rVersion: "4.3.3",
+        rCode: `# Best Practices Example
+library(ggplot2)
+
+# GOOD: Clear, focused visualization
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point(color = "steelblue", size = 3) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(
+    title = "Fuel Efficiency Decreases with Vehicle Weight",
+    subtitle = "Analysis of 32 automobiles (1973-74 models)",
+    x = "Weight (1000 lbs)",
+    y = "Miles per Gallon",
+    caption = "Source: Motor Trend Magazine"
+  ) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold", size = 14))`,
+        rInterpretation: "<strong>Data Storytelling:</strong><br><br>📖 <strong>Clear Message:</strong> Every visualization should answer a specific question.<br><br>🎨 <strong>Design Principles:</strong> Use color purposefully, minimize clutter, maximize data-ink ratio.<br><br>👥 <strong>Know Your Audience:</strong> Technical vs. executive audiences need different approaches.<br><br>✅ <strong>Best Practices:</strong> Label axes, add titles, cite sources, use accessible colors.",
+        nextReading: "Unit 3 Virtual Lab - Practice your visualization skills!"
+    },
     "u3-lab": {
         type: "virtual-lab",
         unitId: 3
