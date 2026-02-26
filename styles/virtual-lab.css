@@ -497,3 +497,92 @@
 .dark-mode .output-code code {
     color: #c9d1d9;
 }
+
+
+/* Enhanced Virtual Lab Styles */
+
+.exercise-difficulty {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.difficulty-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.difficulty-badge:contains("Beginner") {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--secondary);
+}
+
+.difficulty-badge:contains("Intermediate") {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--accent);
+}
+
+.difficulty-badge:contains("Advanced") {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.btn-steps {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--secondary);
+    border: 2px solid var(--secondary);
+}
+
+.btn-steps:hover {
+    background: var(--secondary);
+    color: white;
+}
+
+.learning-points {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(79, 70, 229, 0.05);
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+}
+
+.learning-points h4 {
+    margin: 0 0 15px 0;
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+.learning-points ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.learning-points li {
+    margin: 8px 0;
+    line-height: 1.6;
+    color: var(--text-main);
+}
+
+.exercise-header>div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Dark Mode Enhancements */
+.dark-mode .learning-points {
+    background: rgba(79, 70, 229, 0.1);
+}
