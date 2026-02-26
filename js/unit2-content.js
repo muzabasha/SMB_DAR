@@ -466,14 +466,11 @@ print(m[1, ])`,
         nextTopic: "Reading External Data",
         nextLinkage: "We know how to store data in R; now let's learn how to BRING it from outside (Excel, CSV, Web).",
         nextReading: "read.csv and data.frame basics."
+    },
+    "u2-lab": {
+        type: "virtual-lab",
+        unitId: 2
     }
 };
 
 window.unit2Content = unit2Content;
-
-    },
-"u2-lab": {
-    type: "virtual-lab",
-        unitId: 2
-}
-};

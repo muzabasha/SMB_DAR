@@ -1110,14 +1110,11 @@ print("✓ Remember: Choose the right chart for your data type!")`,
         nextTopic: "Unit 4: Statistics & Machine Learning",
         nextLinkage: "You can now visualize data beautifully! Next, we'll use statistics to make predictions and decisions.",
         nextReading: "Practice: Create all 6 chart types using the built-in 'mtcars' dataset in R. Which chart reveals the most interesting pattern?"
+    },
+    "u3-lab": {
+        type: "virtual-lab",
+        unitId: 3
     }
 };
 
 window.unit3Content = unit3Content;
-
-    },
-"u3-lab": {
-    type: "virtual-lab",
-        unitId: 3
-}
-};

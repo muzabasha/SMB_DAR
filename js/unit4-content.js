@@ -388,14 +388,11 @@ print(paste('Optimal Discount is:', optim_result$maximum))`,
         nextTopic: "Course Recap & Project Presentations",
         nextLinkage: "We have reached the peak of the analytics mountain. Now it's time to build your own masterpiece.",
         nextReading: "Review all previous Unit handouts."
+    },
+    "u4-lab": {
+        type: "virtual-lab",
+        unitId: 4
     }
 };
 
 window.unit4Content = unit4Content;
-
-    },
-"u4-lab": {
-    type: "virtual-lab",
-        unitId: 4
-}
-};
