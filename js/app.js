@@ -1,12 +1,12 @@
 // Cache busting and refresh utilities
 const CacheBuster = {
-    version: '1.7.0',
+    version: '1.8.0',
 
     clearOldCaches() {
         if ('caches' in window) {
             caches.keys().then(cacheNames => {
                 cacheNames.forEach(cacheName => {
-                    if (!cacheName.includes('v1.1')) {
+                    if (!cacheName.includes('v1.8')) {
                         caches.delete(cacheName);
                         console.log('Cleared cache:', cacheName);
                     }
@@ -764,7 +764,7 @@ SETUP VIDEO:
                 </div>
                 <div class="interactive-flow">
                     ${content.map((block, idx) => `
-                        <div class="interactive-block" style="margin-bottom: 40px; animation: slideUp 0.5s ease-out ${idx * 0.1}s both;">
+                        <div class="interactive-block" style="margin-bottom: 40px;">
                             ${this.renderBlock(block)}
                         </div>
                     `).join('')}
