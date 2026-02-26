@@ -470,3 +470,10 @@ print(m[1, ])`,
 };
 
 window.unit2Content = unit2Content;
+
+    },
+"u2-lab": {
+    type: "virtual-lab",
+        unitId: 2
+}
+};

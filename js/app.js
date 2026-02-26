@@ -800,6 +800,7 @@ SETUP VIDEO:
         if (block.type === 'visualization') return Components.VisualizationBlock(block);
         if (block.type === 'activity') return Components.ActivityBlock(block);
         if (block.type === 'handout') return Components.HandoutBlock(block);
+        if (block.type === 'virtual-lab') return VirtualLab.render(block.unitId);
         return '';
     },
 

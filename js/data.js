@@ -202,14 +202,20 @@ const courseData = {
                 "Set up R and RStudio environment",
                 "Master variables, data types, and assignment",
                 "Implement decision logic and loops",
-                "Work with Vectors, Matrices, and Arrays"
+                "Work with Vectors, Matrices, and Arrays",
+                "Create and use custom functions",
+                "Handle data frames and lists effectively"
             ],
             topics: [
                 { id: "u2-prereq", title: "📚 Prerequisites: Programming Fundamentals", status: "pending", contentKey: "u2-prereq", contentSource: "unit2" },
                 { id: "u2-t1", title: "R Overview & Setup", status: "pending", contentKey: "u2-t1", contentSource: "unit2" },
                 { id: "u2-t2", title: "Variables & Data Types", status: "pending", contentKey: "u2-t2", contentSource: "unit2" },
                 { id: "u2-t3", title: "Control Structures", status: "pending", contentKey: "u2-t3", contentSource: "unit2" },
-                { id: "u2-t4", title: "Array, Matrix, Vectors", status: "pending", contentKey: "u2-t4", contentSource: "unit2" }
+                { id: "u2-t4", title: "Array, Matrix, Vectors", status: "pending", contentKey: "u2-t4", contentSource: "unit2" },
+                { id: "u2-t5", title: "Functions & Custom Code", status: "pending", contentKey: "u2-t5", contentSource: "unit2" },
+                { id: "u2-t6", title: "Data Frames & Lists", status: "pending", contentKey: "u2-t6", contentSource: "unit2" },
+                { id: "u2-t7", title: "String Manipulation & Text Processing", status: "pending", contentKey: "u2-t7", contentSource: "unit2" },
+                { id: "u2-lab", title: "🧪 Virtual Lab: R Programming", status: "pending", contentKey: "u2-lab", contentSource: "unit2" }
             ]
         },
         {
@@ -220,12 +226,19 @@ const courseData = {
                 "Import data from external sources (CSV/Excel/JSON)",
                 "Create basic and advanced charts in R",
                 "Apply the Grammar of Graphics principles",
-                "Interpret visual patterns and outliers"
+                "Interpret visual patterns and outliers",
+                "Master ggplot2 for professional visualizations",
+                "Create interactive dashboards"
             ],
             topics: [
                 { id: "u3-prereq", title: "📚 Prerequisites: Visual Literacy", status: "pending", contentKey: "u3-prereq", contentSource: "unit3" },
                 { id: "u3-t1", title: "Reading External Data", status: "pending", contentKey: "u3-t1", contentSource: "unit3" },
-                { id: "u3-t2", title: "Charts & Graphs", status: "pending", contentKey: "u3-t2", contentSource: "unit3" }
+                { id: "u3-t2", title: "Charts & Graphs", status: "pending", contentKey: "u3-t2", contentSource: "unit3" },
+                { id: "u3-t3", title: "ggplot2 Grammar of Graphics", status: "pending", contentKey: "u3-t3", contentSource: "unit3" },
+                { id: "u3-t4", title: "Advanced Visualizations & Faceting", status: "pending", contentKey: "u3-t4", contentSource: "unit3" },
+                { id: "u3-t5", title: "Interactive Plots with plotly", status: "pending", contentKey: "u3-t5", contentSource: "unit3" },
+                { id: "u3-t6", title: "Data Storytelling & Best Practices", status: "pending", contentKey: "u3-t6", contentSource: "unit3" },
+                { id: "u3-lab", title: "🧪 Virtual Lab: Data Visualization", status: "pending", contentKey: "u3-lab", contentSource: "unit3" }
             ]
         },
         {
@@ -236,14 +249,20 @@ const courseData = {
                 "Understand Normal and Binomial distributions",
                 "Perform Linear Regression modeling",
                 "Understand Ensemble models (Random Forest)",
-                "Explore Prescriptive Analytics and RL"
+                "Explore Prescriptive Analytics and RL",
+                "Master hypothesis testing and p-values",
+                "Apply machine learning algorithms"
             ],
             topics: [
                 { id: "u4-prereq", title: "📚 Prerequisites: Statistical Foundations", status: "pending", contentKey: "u4-prereq", contentSource: "unit4" },
                 { id: "u4-t1", title: "Normal and Binomial distributions", status: "pending", contentKey: "u4-t1", contentSource: "unit4" },
                 { id: "u4-t2", title: "Regression Analysis", status: "pending", contentKey: "u4-t2", contentSource: "unit4" },
                 { id: "u4-t3", title: "Random Forest & Decision Trees", status: "pending", contentKey: "u4-t3", contentSource: "unit4" },
-                { id: "u4-t4", title: "Prescriptive Analytics & RL", status: "pending", contentKey: "u4-t4", contentSource: "unit4" }
+                { id: "u4-t4", title: "Prescriptive Analytics & RL", status: "pending", contentKey: "u4-t4", contentSource: "unit4" },
+                { id: "u4-t5", title: "Hypothesis Testing & Statistical Inference", status: "pending", contentKey: "u4-t5", contentSource: "unit4" },
+                { id: "u4-t6", title: "Classification Algorithms (Logistic Regression, KNN)", status: "pending", contentKey: "u4-t6", contentSource: "unit4" },
+                { id: "u4-t7", title: "Model Evaluation & Cross-Validation", status: "pending", contentKey: "u4-t7", contentSource: "unit4" },
+                { id: "u4-lab", title: "🧪 Virtual Lab: Machine Learning", status: "pending", contentKey: "u4-lab", contentSource: "unit4" }
             ]
         }
     ],

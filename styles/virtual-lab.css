@@ -1,0 +1,499 @@
+/* ============================================
+   VIRTUAL LAB STYLES - NEP 2020 Experiential Learning
+   ============================================ */
+
+.virtual-lab-container {
+    width: 100%;
+    max-width: 100%;
+    background: var(--bg-main);
+}
+
+/* Lab Header */
+.lab-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px;
+    border-radius: 16px 16px 0 0;
+    text-align: center;
+}
+
+.lab-header h2 {
+    margin: 0 0 10px 0;
+    font-size: 2rem;
+}
+
+.lab-description {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    margin: 10px 0 20px 0;
+}
+
+.lab-badges {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge-nep {
+    background: rgba(255, 255, 255, 0.25);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.badge-experiential {
+    background: rgba(16, 185, 129, 0.3);
+    border: 2px solid rgba(16, 185, 129, 0.6);
+}
+
+.badge-exercises {
+    background: rgba(245, 158, 11, 0.3);
+    border: 2px solid rgba(245, 158, 11, 0.6);
+}
+
+/* Lab Content Layout */
+.lab-content {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 0;
+    background: var(--bg-card);
+    border-radius: 0 0 16px 16px;
+    overflow: hidden;
+}
+
+/* Lab Sidebar */
+.lab-sidebar {
+    background: var(--bg-main);
+    border-right: 2px solid var(--border);
+    padding: 20px;
+}
+
+.lab-sidebar h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+.exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.exercise-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: var(--bg-card);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.exercise-item:hover {
+    background: rgba(79, 70, 229, 0.1);
+    border-color: var(--primary);
+}
+
+.exercise-item.active {
+    background: rgba(79, 70, 229, 0.15);
+    border-color: var(--primary);
+}
+
+.exercise-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.exercise-title {
+    flex: 1;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.exercise-check {
+    color: var(--secondary);
+    width: 20px;
+    height: 20px;
+}
+
+/* Lab Workspace */
+.lab-workspace {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.exercise-header h3 {
+    margin: 0;
+    color: var(--text-main);
+    font-size: 1.5rem;
+}
+
+.exercise-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-hint,
+.btn-solution {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-hint {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--accent);
+    border: 2px solid var(--accent);
+}
+
+.btn-hint:hover {
+    background: var(--accent);
+    color: white;
+}
+
+.btn-solution {
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.btn-solution:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.exercise-instruction {
+    padding: 20px;
+    background: rgba(79, 70, 229, 0.05);
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-main);
+}
+
+/* Code Editor */
+.code-editor-container {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: var(--bg-main);
+    border-bottom: 2px solid var(--border);
+}
+
+.editor-header span {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.btn-run {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    background: var(--secondary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-run:hover {
+    background: #0d9488;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.code-editor {
+    width: 100%;
+    min-height: 300px;
+    padding: 20px;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    border: none;
+    resize: vertical;
+    outline: none;
+}
+
+.code-editor:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+}
+
+/* Output Container */
+.output-container {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: var(--bg-main);
+    border-bottom: 2px solid var(--border);
+}
+
+.output-header span {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.btn-clear {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-clear:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border-color: #ef4444;
+}
+
+.code-output {
+    min-height: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 20px;
+    background: var(--bg-card);
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 14px;
+}
+
+.output-placeholder {
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.output-message {
+    display: flex;
+    gap: 12px;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.output-info {
+    background: rgba(59, 130, 246, 0.1);
+    border-left: 4px solid #3b82f6;
+}
+
+.output-message i {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: #3b82f6;
+}
+
+.output-message strong {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-main);
+}
+
+.output-message p {
+    margin: 5px 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.output-code {
+    background: #1e1e1e;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.output-code pre {
+    margin: 0;
+    padding: 15px;
+}
+
+.output-code code {
+    color: #d4d4d4;
+    font-size: 13px;
+}
+
+/* Exercise Navigation */
+.exercise-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: var(--bg-main);
+    border-radius: 12px;
+    border: 2px solid var(--border);
+}
+
+.btn-prev,
+.btn-next {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-prev:hover:not(:disabled),
+.btn-next:hover:not(:disabled) {
+    background: #4338ca;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.btn-prev:disabled,
+.btn-next:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.exercise-progress {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .lab-content {
+        grid-template-columns: 1fr;
+    }
+
+    .lab-sidebar {
+        border-right: none;
+        border-bottom: 2px solid var(--border);
+    }
+
+    .exercise-list {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+
+    .exercise-item {
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .lab-header {
+        padding: 30px 20px;
+    }
+
+    .lab-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .lab-workspace {
+        padding: 20px;
+    }
+
+    .exercise-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .exercise-actions {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .btn-hint,
+    .btn-solution {
+        flex: 1;
+    }
+
+    .code-editor {
+        min-height: 250px;
+        font-size: 13px;
+    }
+
+    .exercise-navigation {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .btn-prev,
+    .btn-next {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Dark Mode Support */
+.dark-mode .code-editor {
+    background: #0d1117;
+    color: #c9d1d9;
+}
+
+.dark-mode .output-code {
+    background: #0d1117;
+}
+
+.dark-mode .output-code code {
+    color: #c9d1d9;
+}

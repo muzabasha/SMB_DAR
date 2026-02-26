@@ -392,3 +392,10 @@ print(paste('Optimal Discount is:', optim_result$maximum))`,
 };
 
 window.unit4Content = unit4Content;
+
+    },
+"u4-lab": {
+    type: "virtual-lab",
+        unitId: 4
+}
+};

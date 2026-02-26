@@ -1114,3 +1114,10 @@ print("✓ Remember: Choose the right chart for your data type!")`,
 };
 
 window.unit3Content = unit3Content;
+
+    },
+"u3-lab": {
+    type: "virtual-lab",
+        unitId: 3
+}
+};
