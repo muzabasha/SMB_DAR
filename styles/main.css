@@ -1468,3 +1468,40 @@ a:focus {
         gap: 15px !important;
     }
 }
+
+
+/* ============================================
+   INSTRUCTOR PAGE STYLES
+   ============================================ */
+
+.instructor-page-container {
+    width: 100%;
+    max-width: 100%;
+}
+
+.instructor-page-container .card {
+    margin: 0;
+}
+
+.instructor-page-container iframe {
+    background: var(--bg-main);
+}
+
+/* Instructor nav item hover effect */
+.nav-item:hover {
+    background: rgba(79, 70, 229, 0.1);
+    transform: translateX(5px);
+}
+
+.nav-item.active {
+    background: rgba(79, 70, 229, 0.15);
+    border-left: 4px solid var(--primary);
+}
+
+/* Responsive iframe */
+@media (max-width: 768px) {
+    .instructor-page-container iframe {
+        height: calc(100vh - 250px) !important;
+        min-height: 500px !important;
+    }
+}

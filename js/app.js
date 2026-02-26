@@ -211,7 +211,7 @@ const app = {
         const page = params.get('page');
         const id = params.get('id');
 
-        if (page && ['unit', 'topic', 'project', 'quiz'].includes(page)) {
+        if (page && ['unit', 'topic', 'project', 'quiz', 'instructor'].includes(page)) {
             // Convert id to number if it looks like one, otherwise keep as string (for topic ids like 'u1-t1')
             const parsedId = !isNaN(id) ? parseInt(id) : id;
             this.navigateTo(page, parsedId, false); // false = don't push state since we are already here
@@ -252,6 +252,10 @@ const app = {
             this.state.currentTopicId = null;
         } else if (page === 'quiz') {
             this.state.currentUnitId = id;
+            this.state.currentTopicId = null;
+            this.state.currentProjectId = null;
+        } else if (page === 'instructor') {
+            this.state.currentUnitId = null;
             this.state.currentTopicId = null;
             this.state.currentProjectId = null;
         }
@@ -295,6 +299,8 @@ const app = {
             this.renderProjectPage();
         } else if (this.state.currentPage === 'quiz') {
             this.renderQuizPage();
+        } else if (this.state.currentPage === 'instructor') {
+            this.renderInstructorPage();
         }
 
         // Re-initialize icons and code highlighting after render
@@ -499,6 +505,31 @@ SETUP VIDEO:
         QuizComponent.init(unitNumber);
     },
 
+    renderInstructorPage() {
+        this.nodes.contentDisplay.innerHTML = `
+            <div class="instructor-page-container">
+                <div class="card" style="padding: 0; overflow: hidden; border-top: 4px solid var(--primary);">
+                    <div style="padding: 30px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white;">
+                        <h2 style="margin: 0 0 10px 0; display: flex; align-items: center; gap: 12px;">
+                            <i data-lucide="user-circle" style="width: 32px; height: 32px;"></i>
+                            Instructor Profile
+                        </h2>
+                        <p style="margin: 0; opacity: 0.9;">Dr. Syed Muzamil Basha - Course Instructor</p>
+                    </div>
+                    <div style="position: relative; width: 100%; height: calc(100vh - 300px); min-height: 600px;">
+                        <iframe 
+                            src="https://scholar-sparkle-web.lovable.app/" 
+                            style="width: 100%; height: 100%; border: none; display: block;"
+                            title="Instructor Profile"
+                            loading="lazy"
+                            sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                        ></iframe>
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+
     renderProjectPage() {
         const project = courseData.projects.find(p => p.id === this.state.currentProjectId);
         if (!project) return;
@@ -506,7 +537,17 @@ SETUP VIDEO:
     },
 
     renderSidebar() {
-        let html = '';
+        let html = `
+            <div class="nav-unit" style="border-bottom: 2px solid var(--border); padding-bottom: 15px; margin-bottom: 15px;">
+                <div class="nav-item ${this.state.currentPage === 'instructor' ? 'active' : ''}" 
+                     onclick="app.navigateTo('instructor')" 
+                     style="cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 12px 15px; border-radius: 8px; transition: all 0.3s;">
+                    <i data-lucide="user-circle" style="width: 18px; height: 18px;"></i>
+                    <span style="font-weight: 600;">Instructor Profile</span>
+                </div>
+            </div>
+        `;
+
         courseData.units.forEach(unit => {
             html += `<div class="nav-unit">
                 <div class="unit-header" onclick="app.navigateTo('unit', ${unit.id})">Unit ${unit.id}</div>
@@ -521,8 +562,6 @@ SETUP VIDEO:
         let html = `
             <div class="dashboard-grid">
                 ${Components.WelcomeCard(this.state.progress)}
-
-                ${Components.InstructorProfile()}
 
                 ${Components.CourseVideoSection()}
 
