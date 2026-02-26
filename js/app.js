@@ -303,23 +303,21 @@ const app = {
             this.renderInstructorPage();
         }
 
-        // Re-initialize icons and code highlighting after render
-        setTimeout(() => {
-            try {
-                lucide.createIcons();
-            } catch (e) {
-                console.error('Error initializing Lucide icons:', e);
-            }
-            try {
-                if (window.Prism) window.Prism.highlightAll();
-            } catch (e) {
-                console.error('Error highlighting code:', e);
-            }
-            // Initialize video player
-            this.initializeVideoPlayer();
-            // Handle instructor image loading
-            this.handleInstructorImage();
-        }, 0);
+        // Re-initialize icons and code highlighting after render - immediate execution
+        try {
+            lucide.createIcons();
+        } catch (e) {
+            console.error('Error initializing Lucide icons:', e);
+        }
+        try {
+            if (window.Prism) window.Prism.highlightAll();
+        } catch (e) {
+            console.error('Error highlighting code:', e);
+        }
+        // Initialize video player
+        this.initializeVideoPlayer();
+        // Handle instructor image loading
+        this.handleInstructorImage();
     },
 
     handleInstructorImage() {
@@ -791,8 +789,8 @@ SETUP VIDEO:
         `;
         this.nodes.contentDisplay.innerHTML = html;
 
-        // Re-initialize icons after rendering
-        setTimeout(() => lucide.createIcons(), 0);
+        // Re-initialize icons after rendering - immediate execution
+        lucide.createIcons();
     },
 
     renderBlock(block) {

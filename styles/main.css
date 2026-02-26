@@ -33,9 +33,9 @@
 
     --sidebar-width: 300px;
     --header-height: 80px;
-    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-base: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dark-mode {
@@ -445,7 +445,7 @@ h4,
     padding: 30px;
     box-shadow: var(--shadow-md);
     transition: var(--transition-base);
-    animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    /* Removed animation for instant rendering */
 }
 
 .card:hover {
@@ -932,7 +932,7 @@ h4,
 }
 
 .video-info {
-    animation: slideUp 0.6s ease-out 0.2s both;
+    /* Removed animation for instant rendering */
 }
 
 @keyframes slideUp {
@@ -1048,7 +1048,7 @@ h4,
 }
 
 .topic-view {
-    animation: fadeIn 0.4s ease-out;
+    /* Removed animation for instant rendering */
 }
 
 @keyframes fadeIn {
@@ -1351,9 +1351,9 @@ body.dark-mode .quiz-option-btn:hover:not(:disabled) {
     transform: translateZ(0);
 }
 
-/* Smooth scrolling */
+/* Instant scrolling for better performance */
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
 }
 
 /* Better button states */
