@@ -460,6 +460,611 @@ print(paste("100°F to K:", convert_temperature(100, "F", "K")))`,
             "Input validation prevents errors",
             "DRY principle: Don't Repeat Yourself"
           ]
+        },
+        {
+          id: 6,
+          title: "Student Grade Management System",
+          difficulty: "Advanced",
+          instruction: "Build a complete student grade management system that handles multiple subjects, calculates weighted GPAs, identifies at-risk students, generates report cards, and provides class-wide statistical analysis. Use data frames, custom functions, and conditional logic.",
+          detailedSteps: [
+            "1. Create a data frame with 15+ students, 5 subjects, and attendance records",
+            "2. Write a function to calculate weighted GPA (labs=20%, midterm=30%, final=50%)",
+            "3. Classify students into grade categories (A+, A, B+, B, C, D, F)",
+            "4. Identify at-risk students (GPA < 2.0 OR attendance < 75%)",
+            "5. Generate per-subject statistics (mean, median, pass rate, top scorer)",
+            "6. Create a formatted report card for each student",
+            "7. Rank students and identify top 3 and bottom 3 performers"
+          ],
+          starterCode: `# Exercise 6: Student Grade Management System
+# Build a comprehensive grade tracking and analysis system
+
+# --- Step 1: Create student database ---
+set.seed(42)
+n_students <- 15
+students <- data.frame(
+  id = paste0("STU", sprintf("%03d", 1:n_students)),
+  name = c("Aarav", "Priya", "Rohan", "Sneha", "Vikram",
+           "Ananya", "Karthik", "Divya", "Arjun", "Meera",
+           "Rahul", "Pooja", "Siddharth", "Kavya", "Nikhil"),
+  math_lab = sample(40:100, n_students, replace=TRUE),
+  math_mid = sample(35:100, n_students, replace=TRUE),
+  math_final = sample(30:100, n_students, replace=TRUE),
+  sci_lab = sample(45:100, n_students, replace=TRUE),
+  sci_mid = sample(40:100, n_students, replace=TRUE),
+  sci_final = sample(35:100, n_students, replace=TRUE),
+  eng_lab = sample(50:100, n_students, replace=TRUE),
+  eng_mid = sample(40:100, n_students, replace=TRUE),
+  eng_final = sample(35:100, n_students, replace=TRUE),
+  attendance = sample(60:100, n_students, replace=TRUE),
+  stringsAsFactors = FALSE
+)
+
+# --- Step 2: Weighted GPA calculator ---
+calc_weighted_score <- function(lab, mid, final) {
+  return(round(lab * 0.20 + mid * 0.30 + final * 0.50, 2))
+}
+
+students$math_score <- calc_weighted_score(students$math_lab, students$math_mid, students$math_final)
+students$sci_score <- calc_weighted_score(students$sci_lab, students$sci_mid, students$sci_final)
+students$eng_score <- calc_weighted_score(students$eng_lab, students$eng_mid, students$eng_final)
+students$overall_avg <- round((students$math_score + students$sci_score + students$eng_score) / 3, 2)
+
+# --- Step 3: Grade classification ---
+assign_grade <- function(score) {
+  ifelse(score >= 90, "A+",
+    ifelse(score >= 80, "A",
+      ifelse(score >= 70, "B+",
+        ifelse(score >= 60, "B",
+          ifelse(score >= 50, "C",
+            ifelse(score >= 40, "D", "F"))))))
+}
+
+students$math_grade <- assign_grade(students$math_score)
+students$sci_grade <- assign_grade(students$sci_score)
+students$eng_grade <- assign_grade(students$eng_score)
+students$overall_grade <- assign_grade(students$overall_avg)
+
+# --- Step 4: Identify at-risk students ---
+students$at_risk <- students$overall_avg < 50 | students$attendance < 75
+at_risk_list <- students[students$at_risk == TRUE, c("id", "name", "overall_avg", "attendance")]
+cat("=== AT-RISK STUDENTS ===\\n")
+if(nrow(at_risk_list) > 0) {
+  for(i in 1:nrow(at_risk_list)) {
+    cat(sprintf("  %s (%s): Avg=%.1f%%, Attendance=%d%%\\n",
+        at_risk_list$name[i], at_risk_list$id[i],
+        at_risk_list$overall_avg[i], at_risk_list$attendance[i]))
+  }
+} else { cat("  No at-risk students\\n") }
+
+# --- Step 5: Subject-wise statistics ---
+cat("\\n=== SUBJECT STATISTICS ===\\n")
+subjects <- list(Math=students$math_score, Science=students$sci_score, English=students$eng_score)
+for(subj in names(subjects)) {
+  scores <- subjects[[subj]]
+  cat(sprintf("\\n%s: Mean=%.1f, Median=%.1f, Pass Rate=%.0f%%, Top=%s (%.1f)\\n",
+      subj, mean(scores), median(scores),
+      sum(scores >= 40)/length(scores)*100,
+      students$name[which.max(scores)], max(scores)))
+}
+
+# --- Step 6: Rank students ---
+students$rank <- rank(-students$overall_avg, ties.method="first")
+ranked <- students[order(students$rank), c("rank","name","overall_avg","overall_grade")]
+cat("\\n=== TOP 3 STUDENTS ===\\n")
+for(i in 1:3) cat(sprintf("  #%d: %s - %.1f%% (%s)\\n", ranked$rank[i], ranked$name[i], ranked$overall_avg[i], ranked$overall_grade[i]))
+cat("\\n=== BOTTOM 3 STUDENTS ===\\n")
+bottom <- tail(ranked, 3)
+for(i in 1:nrow(bottom)) cat(sprintf("  #%d: %s - %.1f%% (%s)\\n", bottom$rank[i], bottom$name[i], bottom$overall_avg[i], bottom$overall_grade[i]))
+
+cat("\\n=== CLASS SUMMARY ===\\n")
+cat(sprintf("Total Students: %d\\n", n_students))
+cat(sprintf("Class Average: %.1f%%\\n", mean(students$overall_avg)))
+cat(sprintf("At-Risk Count: %d\\n", sum(students$at_risk)))
+cat(sprintf("Grade Distribution: A+=%d, A=%d, B+=%d, B=%d, C=%d, D=%d, F=%d\\n",
+    sum(students$overall_grade=="A+"), sum(students$overall_grade=="A"),
+    sum(students$overall_grade=="B+"), sum(students$overall_grade=="B"),
+    sum(students$overall_grade=="C"), sum(students$overall_grade=="D"),
+    sum(students$overall_grade=="F")))`,
+          solution: `# Complete solution - the starter code IS the full solution. Run it to see results.`,
+          hint: "Use data.frame() for structured data. ifelse() handles vectorized conditions. sprintf() formats output strings. rank() with negative values gives descending order.",
+          expectedOutput: "AT-RISK STUDENTS list, SUBJECT STATISTICS with mean/median/pass rates, TOP 3 and BOTTOM 3 rankings, CLASS SUMMARY with grade distribution",
+          learningPoints: [
+            "Data frames store structured multi-column data",
+            "Custom functions enable code reuse across subjects",
+            "Vectorized ifelse() efficiently classifies entire columns",
+            "Logical indexing filters rows by complex conditions",
+            "sprintf() creates formatted professional output"
+          ]
+        },
+        {
+          id: 7,
+          title: "E-Commerce Data Pipeline & Analytics",
+          difficulty: "Advanced",
+          instruction: "Build a data processing pipeline for an e-commerce platform. Clean messy transaction data, handle missing values, detect anomalies, calculate customer lifetime value, perform RFM segmentation, and generate a business intelligence dashboard summary.",
+          detailedSteps: [
+            "1. Generate messy e-commerce data with missing values and outliers",
+            "2. Clean data: handle NAs, fix negative prices, remove duplicates",
+            "3. Calculate per-customer metrics (total spend, order count, avg order)",
+            "4. Perform RFM (Recency, Frequency, Monetary) segmentation",
+            "5. Detect anomalous transactions (Z-score > 2)",
+            "6. Calculate revenue by category and identify top products",
+            "7. Generate executive summary with KPIs"
+          ],
+          starterCode: `# Exercise 7: E-Commerce Data Pipeline & Analytics
+# Process raw transaction data into business insights
+
+# --- Step 1: Generate messy e-commerce data ---
+set.seed(123)
+n_orders <- 200
+raw_data <- data.frame(
+  order_id = paste0("ORD", sprintf("%04d", 1:n_orders)),
+  customer_id = paste0("CUST", sprintf("%03d", sample(1:50, n_orders, replace=TRUE))),
+  product = sample(c("Laptop","Phone","Tablet","Headphones","Charger","Case","Cable","Mouse","Keyboard","Monitor"),
+                   n_orders, replace=TRUE),
+  category = sample(c("Electronics","Accessories","Peripherals"), n_orders, replace=TRUE),
+  quantity = sample(1:5, n_orders, replace=TRUE),
+  unit_price = round(runif(n_orders, 5, 1500), 2),
+  date = as.Date("2025-01-01") + sample(0:364, n_orders, replace=TRUE),
+  stringsAsFactors = FALSE
+)
+
+# Inject messiness: NAs, negatives, duplicates
+raw_data$unit_price[sample(1:n_orders, 10)] <- NA
+raw_data$quantity[sample(1:n_orders, 5)] <- -1
+raw_data <- rbind(raw_data, raw_data[sample(1:n_orders, 8), ])
+
+cat(sprintf("Raw data: %d rows, %d NAs in price, %d negative quantities\\n",
+    nrow(raw_data), sum(is.na(raw_data$unit_price)), sum(raw_data$quantity < 0, na.rm=TRUE)))
+
+# --- Step 2: Clean the data ---
+clean_data <- raw_data[!duplicated(raw_data$order_id), ]
+clean_data <- clean_data[!is.na(clean_data$unit_price), ]
+clean_data$quantity[clean_data$quantity < 0] <- 1
+clean_data$total <- clean_data$quantity * clean_data$unit_price
+
+cat(sprintf("Clean data: %d rows (removed %d dirty rows)\\n",
+    nrow(clean_data), nrow(raw_data) - nrow(clean_data)))
+
+# --- Step 3: Customer metrics ---
+customer_stats <- aggregate(cbind(total, quantity) ~ customer_id, data = clean_data, FUN = sum)
+order_counts <- as.data.frame(table(clean_data$customer_id))
+names(order_counts) <- c("customer_id", "order_count")
+customer_stats <- merge(customer_stats, order_counts, by="customer_id")
+customer_stats$avg_order <- round(customer_stats$total / customer_stats$order_count, 2)
+customer_stats <- customer_stats[order(-customer_stats$total), ]
+
+cat("\\n=== TOP 5 CUSTOMERS BY REVENUE ===\\n")
+for(i in 1:min(5, nrow(customer_stats))) {
+  cat(sprintf("  %s: $%.2f (%d orders, avg $%.2f)\\n",
+      customer_stats$customer_id[i], customer_stats$total[i],
+      customer_stats$order_count[i], customer_stats$avg_order[i]))
+}
+
+# --- Step 4: RFM Segmentation ---
+ref_date <- as.Date("2025-12-31")
+rfm <- data.frame(
+  customer_id = customer_stats$customer_id,
+  recency = as.numeric(ref_date - tapply(clean_data$date, clean_data$customer_id, max)[customer_stats$customer_id]),
+  frequency = customer_stats$order_count,
+  monetary = customer_stats$total
+)
+rfm$r_score <- ifelse(rfm$recency <= 90, 3, ifelse(rfm$recency <= 180, 2, 1))
+rfm$f_score <- ifelse(rfm$frequency >= 5, 3, ifelse(rfm$frequency >= 3, 2, 1))
+rfm$m_score <- ifelse(rfm$monetary >= quantile(rfm$monetary, 0.75), 3,
+               ifelse(rfm$monetary >= quantile(rfm$monetary, 0.25), 2, 1))
+rfm$segment <- ifelse(rfm$r_score + rfm$f_score + rfm$m_score >= 8, "Champion",
+               ifelse(rfm$r_score + rfm$f_score + rfm$m_score >= 5, "Loyal", "At-Risk"))
+
+cat("\\n=== RFM SEGMENTS ===\\n")
+seg_table <- table(rfm$segment)
+for(s in names(seg_table)) cat(sprintf("  %s: %d customers\\n", s, seg_table[s]))
+
+# --- Step 5: Anomaly detection ---
+z_scores <- abs((clean_data$total - mean(clean_data$total)) / sd(clean_data$total))
+anomalies <- clean_data[z_scores > 2, ]
+cat(sprintf("\\n=== ANOMALIES DETECTED: %d transactions ===\\n", nrow(anomalies)))
+
+# --- Step 6: Revenue by category ---
+cat("\\n=== REVENUE BY CATEGORY ===\\n")
+cat_rev <- aggregate(total ~ category, data=clean_data, FUN=sum)
+cat_rev <- cat_rev[order(-cat_rev$total), ]
+for(i in 1:nrow(cat_rev)) cat(sprintf("  %s: $%.2f\\n", cat_rev$category[i], cat_rev$total[i]))
+
+# --- Step 7: Executive Summary ---
+cat("\\n========== EXECUTIVE SUMMARY ==========\\n")
+cat(sprintf("Total Revenue: $%.2f\\n", sum(clean_data$total)))
+cat(sprintf("Total Orders: %d\\n", nrow(clean_data)))
+cat(sprintf("Unique Customers: %d\\n", length(unique(clean_data$customer_id))))
+cat(sprintf("Avg Order Value: $%.2f\\n", mean(clean_data$total)))
+cat(sprintf("Data Quality: %.1f%% clean rate\\n", nrow(clean_data)/nrow(raw_data)*100))`,
+          solution: `# Complete solution - the starter code IS the full pipeline. Run it to see all outputs.`,
+          hint: "Use aggregate() for group-by operations. is.na() detects missing values. duplicated() finds duplicate rows. Z-score = (value - mean) / sd identifies outliers.",
+          expectedOutput: "Data cleaning summary, TOP 5 CUSTOMERS, RFM SEGMENTS, ANOMALIES, REVENUE BY CATEGORY, EXECUTIVE SUMMARY with KPIs",
+          learningPoints: [
+            "Real-world data requires cleaning before analysis",
+            "aggregate() performs SQL-like GROUP BY operations in R",
+            "RFM segmentation is a key marketing analytics technique",
+            "Z-scores detect statistical outliers effectively",
+            "Data pipelines transform raw data into actionable insights"
+          ]
+        },
+        {
+          id: 8,
+          title: "Hospital Patient Tracker & Health Analytics",
+          difficulty: "Advanced",
+          instruction: "Design a hospital patient management system that tracks admissions, diagnoses, vitals, treatment outcomes, and generates health analytics. Implement triage classification, length-of-stay prediction, and department-wise performance metrics.",
+          detailedSteps: [
+            "1. Create patient records with demographics, vitals, and diagnosis",
+            "2. Implement triage classification based on vital signs",
+            "3. Calculate length of stay and treatment costs",
+            "4. Analyze outcomes by department and diagnosis",
+            "5. Identify readmission patterns and high-risk patients",
+            "6. Generate department performance dashboard",
+            "7. Create patient discharge summary reports"
+          ],
+          starterCode: `# Exercise 8: Hospital Patient Tracker & Health Analytics
+# Comprehensive patient management and health analytics system
+
+# --- Step 1: Patient database ---
+set.seed(99)
+n_patients <- 30
+patients <- data.frame(
+  patient_id = paste0("PAT", sprintf("%04d", 1:n_patients)),
+  name = paste0("Patient_", 1:n_patients),
+  age = sample(18:85, n_patients, replace=TRUE),
+  gender = sample(c("M","F"), n_patients, replace=TRUE),
+  department = sample(c("Cardiology","Neurology","Orthopedics","General","Pulmonology"),
+                      n_patients, replace=TRUE),
+  diagnosis = sample(c("Hypertension","Fracture","Pneumonia","Migraine","Diabetes",
+                       "Asthma","Cardiac Arrest","Stroke","Arthritis","Infection"),
+                     n_patients, replace=TRUE),
+  bp_systolic = sample(90:180, n_patients, replace=TRUE),
+  bp_diastolic = sample(60:120, n_patients, replace=TRUE),
+  heart_rate = sample(55:130, n_patients, replace=TRUE),
+  temperature = round(runif(n_patients, 97.0, 104.0), 1),
+  admit_date = as.Date("2025-01-01") + sample(0:300, n_patients, replace=TRUE),
+  stay_days = sample(1:21, n_patients, replace=TRUE),
+  daily_cost = sample(c(2000,3500,5000,7500,10000), n_patients, replace=TRUE),
+  outcome = sample(c("Recovered","Improved","Referred","Readmitted"), n_patients,
+                   replace=TRUE, prob=c(0.5,0.25,0.15,0.10)),
+  stringsAsFactors = FALSE
+)
+
+# --- Step 2: Triage classification ---
+triage_classify <- function(bp_sys, hr, temp) {
+  score <- 0
+  if(bp_sys > 160 | bp_sys < 90) score <- score + 3
+  else if(bp_sys > 140 | bp_sys < 100) score <- score + 1
+  if(hr > 110 | hr < 60) score <- score + 3
+  else if(hr > 100 | hr < 65) score <- score + 1
+  if(temp > 102) score <- score + 3
+  else if(temp > 100) score <- score + 1
+  if(score >= 6) return("CRITICAL")
+  else if(score >= 3) return("URGENT")
+  else return("STABLE")
+}
+
+patients$triage <- mapply(triage_classify, patients$bp_systolic,
+                          patients$heart_rate, patients$temperature)
+
+cat("=== TRIAGE DISTRIBUTION ===\\n")
+triage_tbl <- table(patients$triage)
+for(t in names(triage_tbl)) cat(sprintf("  %s: %d patients\\n", t, triage_tbl[t]))
+
+# --- Step 3: Cost analysis ---
+patients$total_cost <- patients$stay_days * patients$daily_cost
+cat("\\n=== COST ANALYSIS ===\\n")
+cat(sprintf("Total Hospital Revenue: $%s\\n", format(sum(patients$total_cost), big.mark=",")))
+cat(sprintf("Average Cost per Patient: $%s\\n", format(round(mean(patients$total_cost)), big.mark=",")))
+cat(sprintf("Most Expensive Case: %s ($%s, %d days)\\n",
+    patients$patient_id[which.max(patients$total_cost)],
+    format(max(patients$total_cost), big.mark=","),
+    patients$stay_days[which.max(patients$total_cost)]))
+
+# --- Step 4: Department performance ---
+cat("\\n=== DEPARTMENT PERFORMANCE ===\\n")
+depts <- unique(patients$department)
+for(d in sort(depts)) {
+  dept_data <- patients[patients$department == d, ]
+  recovery_rate <- sum(dept_data$outcome %in% c("Recovered","Improved")) / nrow(dept_data) * 100
+  cat(sprintf("  %s: %d patients, Avg Stay=%.1f days, Recovery=%.0f%%, Avg Cost=$%s\\n",
+      d, nrow(dept_data), mean(dept_data$stay_days), recovery_rate,
+      format(round(mean(dept_data$total_cost)), big.mark=",")))
+}
+
+# --- Step 5: Readmission & high-risk analysis ---
+readmitted <- patients[patients$outcome == "Readmitted", ]
+cat(sprintf("\\n=== READMISSION ANALYSIS ===\\n"))
+cat(sprintf("Readmission Rate: %.1f%% (%d of %d)\\n",
+    nrow(readmitted)/n_patients*100, nrow(readmitted), n_patients))
+high_risk <- patients[patients$triage == "CRITICAL" & patients$age > 60, ]
+cat(sprintf("High-Risk Elderly (Critical + Age>60): %d patients\\n", nrow(high_risk)))
+
+# --- Step 6: Diagnosis statistics ---
+cat("\\n=== TOP DIAGNOSES ===\\n")
+diag_tbl <- sort(table(patients$diagnosis), decreasing=TRUE)
+for(i in 1:min(5, length(diag_tbl))) {
+  d <- names(diag_tbl)[i]
+  d_data <- patients[patients$diagnosis == d, ]
+  cat(sprintf("  %s: %d cases, Avg Stay=%.1f days, Avg Cost=$%s\\n",
+      d, diag_tbl[i], mean(d_data$stay_days),
+      format(round(mean(d_data$total_cost)), big.mark=",")))
+}
+
+# --- Step 7: Summary dashboard ---
+cat("\\n========== HOSPITAL DASHBOARD ==========\\n")
+cat(sprintf("Total Patients: %d\\n", n_patients))
+cat(sprintf("Overall Recovery Rate: %.1f%%\\n",
+    sum(patients$outcome %in% c("Recovered","Improved"))/n_patients*100))
+cat(sprintf("Critical Cases: %d (%.1f%%)\\n",
+    sum(patients$triage=="CRITICAL"), sum(patients$triage=="CRITICAL")/n_patients*100))
+cat(sprintf("Avg Length of Stay: %.1f days\\n", mean(patients$stay_days)))
+cat(sprintf("Total Revenue: $%s\\n", format(sum(patients$total_cost), big.mark=",")))`,
+          solution: `# Complete solution - the starter code IS the full system. Run to see all analytics.`,
+          hint: "Use mapply() to apply functions across multiple columns. table() counts frequencies. Logical indexing with & combines conditions. format(big.mark=',') adds thousand separators.",
+          expectedOutput: "TRIAGE DISTRIBUTION, COST ANALYSIS, DEPARTMENT PERFORMANCE metrics, READMISSION ANALYSIS, TOP DIAGNOSES, HOSPITAL DASHBOARD summary",
+          learningPoints: [
+            "mapply() applies functions across multiple vector arguments",
+            "Complex conditional logic builds real-world classification systems",
+            "Aggregate statistics reveal department-level performance",
+            "Logical indexing with multiple conditions filters complex datasets",
+            "Healthcare analytics requires combining clinical and operational data"
+          ]
+        },
+        {
+          id: 9,
+          title: "Bank Loan Eligibility & Risk Scoring",
+          difficulty: "Advanced",
+          instruction: "Create a bank loan processing system that evaluates applicant eligibility using credit scoring, debt-to-income ratios, employment verification, and risk assessment. Implement a multi-factor scoring model, generate approval/rejection decisions with reasons, and produce portfolio risk analysis.",
+          detailedSteps: [
+            "1. Create applicant database with financial and employment data",
+            "2. Calculate debt-to-income (DTI) ratio for each applicant",
+            "3. Build a multi-factor credit scoring model (0-100 scale)",
+            "4. Implement loan eligibility rules with approval/rejection reasons",
+            "5. Calculate EMI and total interest for approved loans",
+            "6. Perform portfolio risk analysis and exposure metrics",
+            "7. Generate loan decision reports with detailed breakdowns"
+          ],
+          starterCode: `# Exercise 9: Bank Loan Eligibility & Risk Scoring
+# Multi-factor loan processing and risk assessment system
+
+# --- Step 1: Applicant database ---
+set.seed(77)
+n_applicants <- 25
+applicants <- data.frame(
+  app_id = paste0("LOAN", sprintf("%04d", 1:n_applicants)),
+  name = paste0("Applicant_", 1:n_applicants),
+  age = sample(22:65, n_applicants, replace=TRUE),
+  income_monthly = sample(c(25000,35000,50000,75000,100000,150000), n_applicants, replace=TRUE),
+  existing_emi = sample(c(0,0,0,5000,8000,12000,15000,20000), n_applicants, replace=TRUE),
+  credit_score_raw = sample(300:900, n_applicants, replace=TRUE),
+  employment_years = sample(0:25, n_applicants, replace=TRUE),
+  loan_amount = sample(c(100000,300000,500000,1000000,2000000,5000000), n_applicants, replace=TRUE),
+  loan_tenure_months = sample(c(12,24,36,60,84,120), n_applicants, replace=TRUE),
+  has_collateral = sample(c(TRUE, FALSE), n_applicants, replace=TRUE),
+  prev_defaults = sample(c(0,0,0,0,1,1,2), n_applicants, replace=TRUE),
+  stringsAsFactors = FALSE
+)
+
+# --- Step 2: Calculate DTI ratio ---
+applicants$dti_ratio <- round(applicants$existing_emi / applicants$income_monthly * 100, 1)
+
+# --- Step 3: Multi-factor credit scoring (0-100) ---
+calc_risk_score <- function(credit, dti, emp_years, defaults, has_collat, age) {
+  score <- 0
+  score <- score + min(30, max(0, (credit - 300) / 600 * 30))
+  score <- score + max(0, 20 - dti)
+  score <- score + min(15, emp_years * 1.5)
+  score <- score + max(0, 20 - defaults * 10)
+  if(has_collat) score <- score + 10
+  if(age >= 25 & age <= 55) score <- score + 5
+  else if(age >= 22) score <- score + 2
+  return(round(min(100, score), 1))
+}
+
+applicants$risk_score <- mapply(calc_risk_score,
+  applicants$credit_score_raw, applicants$dti_ratio,
+  applicants$employment_years, applicants$prev_defaults,
+  applicants$has_collateral, applicants$age)
+
+# --- Step 4: Loan eligibility decision ---
+decide_loan <- function(score, dti, defaults, income, loan_amt) {
+  reasons <- c()
+  if(score < 40) reasons <- c(reasons, "Low risk score")
+  if(dti > 50) reasons <- c(reasons, "High DTI ratio")
+  if(defaults > 1) reasons <- c(reasons, "Multiple defaults")
+  if(loan_amt > income * 60) reasons <- c(reasons, "Loan exceeds 60x income")
+  if(length(reasons) > 0) return(paste("REJECTED:", paste(reasons, collapse="; ")))
+  if(score >= 70) return("APPROVED: Premium rate (8.5%)")
+  if(score >= 55) return("APPROVED: Standard rate (10.5%)")
+  return("APPROVED: High-risk rate (13.5%)")
+}
+
+applicants$decision <- mapply(decide_loan,
+  applicants$risk_score, applicants$dti_ratio,
+  applicants$prev_defaults, applicants$income_monthly, applicants$loan_amount)
+applicants$status <- ifelse(grepl("APPROVED", applicants$decision), "Approved", "Rejected")
+
+# --- Step 5: EMI calculation for approved loans ---
+calc_emi <- function(principal, rate_annual, months) {
+  r <- rate_annual / 12 / 100
+  emi <- principal * r * (1+r)^months / ((1+r)^months - 1)
+  return(round(emi, 2))
+}
+
+approved <- applicants[applicants$status == "Approved", ]
+approved$interest_rate <- ifelse(grepl("8.5%", approved$decision), 8.5,
+                          ifelse(grepl("10.5%", approved$decision), 10.5, 13.5))
+approved$emi <- mapply(calc_emi, approved$loan_amount, approved$interest_rate, approved$loan_tenure_months)
+approved$total_payable <- approved$emi * approved$loan_tenure_months
+approved$total_interest <- approved$total_payable - approved$loan_amount
+
+cat("=== LOAN DECISIONS ===\\n")
+cat(sprintf("Approved: %d (%.0f%%)\\n", sum(applicants$status=="Approved"),
+    sum(applicants$status=="Approved")/n_applicants*100))
+cat(sprintf("Rejected: %d (%.0f%%)\\n", sum(applicants$status=="Rejected"),
+    sum(applicants$status=="Rejected")/n_applicants*100))
+
+# --- Step 6: Portfolio risk analysis ---
+cat("\\n=== PORTFOLIO ANALYSIS ===\\n")
+cat(sprintf("Total Loan Exposure: Rs %s\\n", format(sum(approved$loan_amount), big.mark=",")))
+cat(sprintf("Expected Interest Income: Rs %s\\n", format(round(sum(approved$total_interest)), big.mark=",")))
+cat(sprintf("Average Risk Score (Approved): %.1f\\n", mean(approved$risk_score)))
+
+cat("\\nRisk Distribution (Approved):\\n")
+cat(sprintf("  Premium (Score>=70): %d loans\\n", sum(approved$risk_score >= 70)))
+cat(sprintf("  Standard (55-69): %d loans\\n", sum(approved$risk_score >= 55 & approved$risk_score < 70)))
+cat(sprintf("  High-Risk (<55): %d loans\\n", sum(approved$risk_score < 55)))
+
+# --- Step 7: Top approved loans ---
+cat("\\n=== TOP 5 APPROVED LOANS ===\\n")
+top_approved <- head(approved[order(-approved$loan_amount), ], 5)
+for(i in 1:nrow(top_approved)) {
+  cat(sprintf("  %s: Rs %s @ %.1f%% for %d months, EMI=Rs %s\\n",
+      top_approved$app_id[i], format(top_approved$loan_amount[i], big.mark=","),
+      top_approved$interest_rate[i], top_approved$loan_tenure_months[i],
+      format(top_approved$emi[i], big.mark=",")))
+}`,
+          solution: `# Complete solution - the starter code IS the full system. Run to see all outputs.`,
+          hint: "Use mapply() for row-wise function application. grepl() searches for patterns in strings. EMI formula: P*r*(1+r)^n / ((1+r)^n - 1). Logical conditions combine with & and |.",
+          expectedOutput: "LOAN DECISIONS (approved/rejected counts), PORTFOLIO ANALYSIS with exposure and interest income, Risk Distribution, TOP 5 APPROVED LOANS with EMI details",
+          learningPoints: [
+            "Multi-factor scoring models combine weighted criteria",
+            "Financial calculations (EMI, DTI) use standard formulas",
+            "mapply() enables row-wise operations across data frames",
+            "grepl() pattern matching classifies text-based decisions",
+            "Portfolio analysis aggregates individual loan metrics into risk exposure"
+          ]
+        },
+        {
+          id: 10,
+          title: "Employee Payroll & HR Analytics System",
+          difficulty: "Advanced",
+          instruction: "Build a comprehensive HR analytics system that processes employee payroll, calculates tax deductions under Indian tax slabs, tracks performance ratings, identifies attrition risk, computes department budgets, and generates workforce analytics. Handle complex business rules including overtime, bonuses, and PF contributions.",
+          detailedSteps: [
+            "1. Create employee database with salary, department, and performance data",
+            "2. Calculate gross salary with HRA, DA, and special allowances",
+            "3. Implement Indian income tax slab calculation (New Regime 2025)",
+            "4. Compute net salary after PF, tax, and professional tax deductions",
+            "5. Identify attrition risk based on salary, tenure, and performance",
+            "6. Generate department-wise budget and headcount analysis",
+            "7. Create comprehensive payroll summary and HR dashboard"
+          ],
+          starterCode: `# Exercise 10: Employee Payroll & HR Analytics System
+# Complete HR management with payroll processing and workforce analytics
+
+# --- Step 1: Employee database ---
+set.seed(55)
+n_emp <- 20
+employees <- data.frame(
+  emp_id = paste0("EMP", sprintf("%04d", 1:n_emp)),
+  name = paste0("Employee_", 1:n_emp),
+  department = sample(c("Engineering","Marketing","Finance","HR","Operations"), n_emp, replace=TRUE),
+  designation = sample(c("Junior","Senior","Lead","Manager","Director"), n_emp, replace=TRUE,
+                       prob=c(0.3,0.3,0.2,0.15,0.05)),
+  basic_salary = sample(c(25000,35000,50000,70000,90000,120000), n_emp, replace=TRUE),
+  years_of_service = sample(0:20, n_emp, replace=TRUE),
+  performance_rating = sample(1:5, n_emp, replace=TRUE, prob=c(0.05,0.15,0.40,0.30,0.10)),
+  overtime_hours = sample(0:30, n_emp, replace=TRUE),
+  leaves_taken = sample(0:20, n_emp, replace=TRUE),
+  stringsAsFactors = FALSE
+)
+
+# --- Step 2: Gross salary calculation ---
+employees$hra <- employees$basic_salary * 0.40
+employees$da <- employees$basic_salary * 0.12
+employees$special_allow <- employees$basic_salary * 0.10
+employees$overtime_pay <- employees$overtime_hours * (employees$basic_salary / 22 / 8) * 1.5
+employees$performance_bonus <- ifelse(employees$performance_rating >= 4,
+                               employees$basic_salary * 0.15,
+                               ifelse(employees$performance_rating >= 3,
+                               employees$basic_salary * 0.08, 0))
+employees$gross_salary <- round(employees$basic_salary + employees$hra + employees$da +
+                          employees$special_allow + employees$overtime_pay + employees$performance_bonus)
+
+# --- Step 3: Tax calculation (Indian New Regime 2025) ---
+calc_annual_tax <- function(annual_income) {
+  tax <- 0
+  if(annual_income > 1500000) tax <- tax + (annual_income - 1500000) * 0.30
+  if(annual_income > 1250000) tax <- tax + min(annual_income - 1250000, 250000) * 0.25
+  if(annual_income > 1000000) tax <- tax + min(annual_income - 1000000, 250000) * 0.20
+  if(annual_income > 750000) tax <- tax + min(annual_income - 750000, 250000) * 0.15
+  if(annual_income > 500000) tax <- tax + min(annual_income - 500000, 250000) * 0.10
+  if(annual_income > 300000) tax <- tax + min(annual_income - 300000, 200000) * 0.05
+  if(annual_income <= 700000) tax <- 0
+  cess <- tax * 0.04
+  return(round(tax + cess))
+}
+
+employees$annual_gross <- employees$gross_salary * 12
+employees$annual_tax <- sapply(employees$annual_gross, calc_annual_tax)
+employees$monthly_tax <- round(employees$annual_tax / 12)
+
+# --- Step 4: Net salary calculation ---
+employees$pf_deduction <- round(employees$basic_salary * 0.12)
+employees$prof_tax <- ifelse(employees$gross_salary > 15000, 200, 0)
+employees$total_deductions <- employees$monthly_tax + employees$pf_deduction + employees$prof_tax
+employees$net_salary <- employees$gross_salary - employees$total_deductions
+
+cat("=== PAYROLL SUMMARY (Top 5 by Net Salary) ===\\n")
+top_paid <- head(employees[order(-employees$net_salary), ], 5)
+for(i in 1:5) {
+  cat(sprintf("  %s (%s, %s): Gross=Rs %s, Tax=Rs %s, Net=Rs %s\\n",
+      top_paid$emp_id[i], top_paid$designation[i], top_paid$department[i],
+      format(top_paid$gross_salary[i], big.mark=","),
+      format(top_paid$monthly_tax[i], big.mark=","),
+      format(top_paid$net_salary[i], big.mark=",")))
+}
+
+# --- Step 5: Attrition risk analysis ---
+employees$attrition_score <- 0
+employees$attrition_score <- employees$attrition_score +
+  ifelse(employees$performance_rating <= 2, 30, 0) +
+  ifelse(employees$years_of_service <= 1, 20, ifelse(employees$years_of_service > 10, 10, 0)) +
+  ifelse(employees$net_salary < median(employees$net_salary), 20, 0) +
+  ifelse(employees$overtime_hours > 20, 15, 0) +
+  ifelse(employees$leaves_taken > 15, 15, 0)
+
+employees$attrition_risk <- ifelse(employees$attrition_score >= 50, "HIGH",
+                            ifelse(employees$attrition_score >= 30, "MEDIUM", "LOW"))
+
+cat("\\n=== ATTRITION RISK ===\\n")
+risk_tbl <- table(employees$attrition_risk)
+for(r in c("HIGH","MEDIUM","LOW")) {
+  if(r %in% names(risk_tbl)) cat(sprintf("  %s Risk: %d employees\\n", r, risk_tbl[r]))
+}
+
+# --- Step 6: Department budget analysis ---
+cat("\\n=== DEPARTMENT ANALYSIS ===\\n")
+for(d in sort(unique(employees$department))) {
+  dept <- employees[employees$department == d, ]
+  cat(sprintf("  %s: %d staff, Monthly Budget=Rs %s, Avg Salary=Rs %s, Avg Rating=%.1f\\n",
+      d, nrow(dept), format(sum(dept$gross_salary), big.mark=","),
+      format(round(mean(dept$net_salary)), big.mark=","),
+      mean(dept$performance_rating)))
+}
+
+# --- Step 7: HR Dashboard ---
+cat("\\n========== HR DASHBOARD ==========\\n")
+cat(sprintf("Total Employees: %d\\n", n_emp))
+cat(sprintf("Monthly Payroll: Rs %s\\n", format(sum(employees$gross_salary), big.mark=",")))
+cat(sprintf("Monthly Tax Collection: Rs %s\\n", format(sum(employees$monthly_tax), big.mark=",")))
+cat(sprintf("Monthly PF Contribution: Rs %s\\n", format(sum(employees$pf_deduction), big.mark=",")))
+cat(sprintf("Avg Performance Rating: %.2f / 5.0\\n", mean(employees$performance_rating)))
+cat(sprintf("High Attrition Risk: %d employees (%.0f%%)\\n",
+    sum(employees$attrition_risk=="HIGH"),
+    sum(employees$attrition_risk=="HIGH")/n_emp*100))
+cat(sprintf("Overtime Cost: Rs %s\\n", format(round(sum(employees$overtime_pay)), big.mark=",")))`,
+          solution: `# Complete solution - the starter code IS the full system. Run to see all outputs.`,
+          hint: "Use sapply() to apply tax function to each salary. Indian tax slabs use progressive rates. ifelse() handles vectorized conditional logic. format(big.mark=',') improves readability of large numbers.",
+          expectedOutput: "PAYROLL SUMMARY (top 5), ATTRITION RISK distribution, DEPARTMENT ANALYSIS with budgets, HR DASHBOARD with total payroll, tax, PF, and attrition metrics",
+          learningPoints: [
+            "Progressive tax calculation uses cascading if-else conditions",
+            "sapply() applies functions to each element of a vector",
+            "Multi-factor risk scoring combines weighted business rules",
+            "Payroll systems require precise arithmetic with multiple components",
+            "HR analytics combines financial, performance, and behavioral data"
+          ]
         }
       ]
     },
