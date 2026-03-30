@@ -1,12 +1,12 @@
 // Cache busting and refresh utilities
 const CacheBuster = {
-    version: '1.8.5',
+    version: '1.8.6',
 
     clearOldCaches() {
         if ('caches' in window) {
             caches.keys().then(cacheNames => {
                 cacheNames.forEach(cacheName => {
-                    if (!cacheName.includes('1.8.5')) {
+                    if (!cacheName.includes('1.8.6')) {
                         caches.delete(cacheName);
                         console.log('Cleared cache:', cacheName);
                     }
