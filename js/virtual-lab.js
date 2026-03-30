@@ -1173,7 +1173,8 @@ barplot(sales_2024,
             "beside=TRUE groups bars side-by-side",
             "text() adds labels to plots",
             "ylim/xlim control axis ranges"
-          ]
+          ],
+          outputImage: "assets/virtual-labs/unit3/ex1.png"
         },
         {
           id: 2,
@@ -1273,7 +1274,8 @@ legend("bottomright",
             "lm() performs linear regression",
             "cor() measures linear relationship (-1 to 1)",
             "ifelse() enables conditional coloring"
-          ]
+          ],
+          outputImage: "assets/virtual-labs/unit3/ex2.png"
         },
         {
           id: 3,
@@ -1373,7 +1375,8 @@ text(7, 33, "Summer", col = "orange")`,
             "lty controls line type (1=solid, 2=dashed, 3=dotted)",
             "rect() adds rectangular regions",
             "rgb() creates transparent colors"
-          ]
+          ],
+          outputImage: "assets/virtual-labs/unit3/ex3.png"
         },
         {
           id: 4,
@@ -1469,7 +1472,8 @@ cat(sprintf("Highest Fatality Rate: %s (%.2f%%)\\n",
             "Stacked bar charts show composition of totals",
             "Pie charts display proportional distribution",
             "Dot charts are effective for ranking comparisons"
-          ]
+          ],
+          outputImage: "assets/virtual-labs/unit3/ex4.png"
         },
         {
           id: 5,
@@ -1585,7 +1589,8 @@ cat(sprintf("Needs Support: %s (Avg=%.1f)\\n",
             "colorRampPalette() creates custom color gradients",
             "Hierarchical clustering groups similar variables",
             "image() with text() creates annotated heatmaps"
-          ]
+          ],
+          outputImage: "assets/virtual-labs/unit3/ex5.png"
         },
         {
           id: 6,
@@ -1711,7 +1716,8 @@ cat(sprintf("Best Product: %s (Rs %s cumulative)\\n",
             "Bubble charts encode 3 variables (x, y, size) simultaneously",
             "adjustcolor() with alpha creates transparent overlapping elements",
             "Business dashboards combine multiple chart types for insights"
-          ]
+          ],
+          outputImage: "assets/virtual-labs/unit3/ex6.png"
         },
         {
           id: 7,
@@ -3050,6 +3056,12 @@ for(i in 1:3) {
                     <p>Compare your code with the solution to verify correctness.</p>
                 </div>
             </div>
+            ${exercise.outputImage ? `
+            <div class="output-plot-container">
+                <img src="${exercise.outputImage}" alt="R Plot Output" class="output-plot-image">
+                <div class="plot-caption">Figure: Simulated R Plot Output for ${exercise.title}</div>
+            </div>
+            ` : ''}
             <div class="output-code">
                 <pre><code class="language-r">${code}</code></pre>
             </div>

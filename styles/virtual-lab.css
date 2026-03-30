@@ -582,6 +582,41 @@
     gap: 10px;
 }
 
+/* Plot Output Styling */
+.output-plot-container {
+    margin: 20px 0;
+    padding: 15px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.output-plot-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+}
+
+.output-plot-image:hover {
+    transform: scale(1.02);
+}
+
+.plot-caption {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    font-family: 'Inter', sans-serif;
+}
+
+.dark-mode .output-plot-container {
+    background: #f8f9fa; /* Keep plots on light background for authenticity */
+    border-color: #333;
+}
+
 /* Dark Mode Enhancements */
 .dark-mode .learning-points {
     background: rgba(79, 70, 229, 0.1);
