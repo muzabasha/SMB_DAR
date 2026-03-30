@@ -654,13 +654,26 @@ const Components = {
         return `
         <div class="question-bank-container fade-in">
             <header class="page-header" style="background: linear-gradient(135deg, #6366f1, #a855f7); color: white; padding: 40px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <div style="background: rgba(255, 255, 255, 0.2); width: 60px; height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center;">
-                        <i data-lucide="brain" style="width: 35px; height: 35px;"></i>
+                <div style="display: flex; flex-direction: column; gap: 25px;">
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div style="background: rgba(255, 255, 255, 0.2); width: 60px; height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="brain" style="width: 35px; height: 35px;"></i>
+                        </div>
+                        <div>
+                            <h1 style="margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.025em;">🧠 Unit ${unitId} Question Bank</h1>
+                            <p style="margin: 5px 0 0 0; font-size: 1.1rem; opacity: 0.9;">10 Higher Order Thinking (HOT) Questions with Schemes & Solutions</p>
+                        </div>
                     </div>
-                    <div>
-                        <h1 style="margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.025em;">🧠 Unit ${unitId} Question Bank</h1>
-                        <p style="margin: 5px 0 0 0; font-size: 1.1rem; opacity: 0.9;">10 Higher Order Thinking (HOT) Questions with Schemes & Solutions</p>
+                    
+                    <div class="unit-tabs" style="display: flex; gap: 10px; background: rgba(255, 255, 255, 0.1); padding: 5px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.2); align-self: flex-start;">
+                        ${[1, 2, 3, 4].map(id => `
+                            <button onclick="app.navigateTo('question-bank', ${id})" 
+                                    style="padding: 10px 25px; border-radius: 8px; border: none; cursor: pointer; font-weight: 700; font-size: 0.95rem; transition: all 0.3s; 
+                                           background: ${unitId == id ? 'white' : 'transparent'}; 
+                                           color: ${unitId == id ? '#6366f1' : 'white'};">
+                                Unit ${id}
+                            </button>
+                        `).join('')}
                     </div>
                 </div>
             </header>

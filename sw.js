@@ -1,7 +1,7 @@
 // Service Worker for R Analytics Toolkit
-const CACHE_NAME = 'r-analytics-v1.8.6';
-const STATIC_CACHE = 'r-analytics-static-v1.8.6';
-const DYNAMIC_CACHE = 'r-analytics-dynamic-v1.8.6';
+const CACHE_NAME = 'r-analytics-v1.8.7';
+const STATIC_CACHE = 'r-analytics-static-v1.8.7';
+const DYNAMIC_CACHE = 'r-analytics-dynamic-v1.8.7';
 
 const staticAssets = [
     '/',

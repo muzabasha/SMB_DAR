@@ -1,12 +1,12 @@
 // Cache busting and refresh utilities
 const CacheBuster = {
-    version: '1.8.6',
+    version: '1.8.7',
 
     clearOldCaches() {
         if ('caches' in window) {
             caches.keys().then(cacheNames => {
                 cacheNames.forEach(cacheName => {
-                    if (!cacheName.includes('1.8.6')) {
+                    if (!cacheName.includes('1.8.7')) {
                         caches.delete(cacheName);
                         console.log('Cleared cache:', cacheName);
                     }
@@ -570,6 +570,15 @@ SETUP VIDEO:
                      style="cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 12px 15px; border-radius: 8px; transition: all 0.3s; margin-top: 5px;">
                     <i data-lucide="brain" style="width: 18px; height: 18px;"></i>
                     <span style="font-weight: 600;">HOT Question Bank</span>
+                </div>
+                <div style="padding-left: 30px; margin-top: 5px; display: ${this.state.currentPage === 'question-bank' ? 'block' : 'none'};">
+                    ${[1, 2, 3, 4].map(id => `
+                        <div class="nav-topic ${this.state.currentUnitId === id ? 'active' : ''}" 
+                             onclick="app.navigateTo('question-bank', ${id})" 
+                             style="font-size: 0.85rem; padding: 8px 10px; border-radius: 6px; margin-bottom: 2px; cursor: pointer; transition: all 0.2s;">
+                            Unit ${id} HOTs
+                        </div>
+                    `).join('')}
                 </div>
             </div>
         `;
