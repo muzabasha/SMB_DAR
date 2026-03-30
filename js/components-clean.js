@@ -577,6 +577,17 @@ const Components = {
                 </ol>
             </section>
             ` : ''}
+
+            ${h.advancedDeepDive ? `
+            <section class="handout-section card" style="border-left: 5px solid #6366f1; margin-bottom: 20px; background: linear-gradient(to right, rgba(99, 102, 241, 0.05), transparent);">
+                <h3 style="color: #6366f1; margin-top: 0; display: flex; align-items: center; gap: 10px;">
+                    <i data-lucide="zap" style="width: 20px; color: #f59e0b;"></i> Advanced Deep Dive (For Fast Learners)
+                </h3>
+                <div style="background: rgba(99, 102, 241, 0.05); padding: 25px; border-radius: 12px; border: 1px solid rgba(99, 102, 241, 0.2);">
+                    ${h.advancedDeepDive}
+                </div>
+            </section>
+            ` : ''}
         </div>
     `
 };

@@ -171,7 +171,20 @@ print(paste('Product B growth:', round(growth_B, 1), '%'))`,
         ],
         nextTopic: "Reading External Data",
         nextLinkage: "Now that you understand visualization principles, let's learn how to import real-world data into R for analysis!",
-        nextReading: "Browse news websites and critically evaluate the charts you see. Are they honest or misleading?"
+        nextReading: "Browse news websites and critically evaluate the charts you see. Are they honest or misleading?",
+        advancedDeepDive: `
+            <h4 style="color: #6366f1;">🧠 The Psychology of Visual Perception</h4>
+            <p>Go beyond just creating charts. For advanced analysts, understanding <strong>Gestalt Principles</strong> (Proximity, Similarity, Enclosure, Connection) is crucial for designing intuitive dashboards.</p>
+            <ul style="line-height: 1.8;">
+                <li><strong>The Lie Factor:</strong> Defined by Edward Tufte as the ratio of the size of the effect shown in the graphic to the size of the effect in the data. Aim for a Lie Factor of 1.0!</li>
+                <li><strong>Data-Ink Ratio:</strong> Maximize the 'data-ink'—the non-erasable core of a graphic. If adding an element doesn't reveal new data, remove it.</li>
+                <li><strong>Pre-attentive Attributes:</strong> Use color, orientation, size, and position to guide the viewer's eye automatically before they even consciously process the chart.</li>
+            </ul>
+            <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px; border: 1px solid #e0e0e0;">
+                <h5 style="margin-top: 0; color: #f59e0b;">🚀 Fast Learner Challenge:</h5>
+                <p>Research the 'Anscombe's Quartet'. It's a set of four datasets that have nearly identical descriptive statistics but look completely different when graphed. This is the ultimate proof of why visualization is mandatory!</p>
+            </div>
+        `
     },
     "u3-t1": {
         type: "handout",
@@ -529,7 +542,26 @@ Import → Check (str/head/summary) → Clean (fix types, handle NAs) → Analyz
         ],
         nextTopic: "Charts & Graphs",
         nextLinkage: "Now that you can import data from anywhere, let's visualize it to uncover patterns!",
-        nextReading: "Practice: Download a CSV from Kaggle and an Excel file from your school. Import both into R and combine them."
+        nextReading: "Practice: Download a CSV from Kaggle and an Excel file from your school. Import both into R and combine them.",
+        advancedDeepDive: `
+            <h4 style="color: #6366f1;">🚄 High-Performance Data Ingestion</h4>
+            <p>Processing gigabytes of data? Standard <code>read.csv()</code> will be too slow. Advanced users leverage the <code>data.table</code> and <code>vroom</code> libraries.</p>
+            <div style="background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.85rem; margin: 15px 0;">
+                <span style="color: #6a9955;"># Fastest way to read 1GB CSV</span><br>
+                <span style="color: #9cdcfe;">library</span>(data.table)<br>
+                <span style="color: #9cdcfe;">dt</span> &lt;- <span style="color: #dcdcaa;">fread</span>(<span style="color: #ce9178;">'huge_dataset.csv'</span>)<br>
+                <br>
+                <span style="color: #6a9955;"># Lazy loading with vroom (reads only what you need)</span><br>
+                <span style="color: #9cdcfe;">library</span>(vroom)<br>
+                <span style="color: #9cdcfe;">data</span> &lt;- <span style="color: #dcdcaa;">vroom</span>(<span style="color: #ce9178;">'multi_gigabyte.csv'</span>)
+            </div>
+            <h5 style="color: #6366f1;">🔌 Connecting to Cloud & Big Data</h5>
+            <ul style="line-height: 1.8;">
+                <li><strong>Amazon S3 / Google Cloud Storage:</strong> Use <code>aws.s3</code> or <code>googleCloudStorageR</code> to stream data directly into R without downloading to disk.</li>
+                <li><strong>GraphQL APIs:</strong> Move beyond REST. Use <code>ghql</code> to fetch precise data fragments using GraphQL queries.</li>
+                <li><strong>Apache Parquet:</strong> The industry standard for Big Data storage. Use <code>arrow::read_parquet()</code> for columnar storage that is 10-50x faster than CSV.</li>
+            </ul>
+        `
     },
     "u3-t2": {
         type: "handout",
@@ -1109,7 +1141,24 @@ print("✓ Remember: Choose the right chart for your data type!")`,
         ],
         nextTopic: "Unit 4: Statistics & Machine Learning",
         nextLinkage: "You can now visualize data beautifully! Next, we'll use statistics to make predictions and decisions.",
-        nextReading: "Practice: Create all 6 chart types using the built-in 'mtcars' dataset in R. Which chart reveals the most interesting pattern?"
+        nextReading: "Practice: Create all 6 chart types using the built-in 'mtcars' dataset in R. Which chart reveals the most interesting pattern?",
+        advancedDeepDive: `
+            <h4 style="color: #6366f1;">📐 Mastering Base R Graphics System</h4>
+            <p>While <code>ggplot2</code> is popular, Base R graphics are incredibly powerful for low-level control and speed. Advanced users should master the <code>par()</code> function for layout control.</p>
+            <div style="background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.85rem; margin: 15px 0;">
+                <span style="color: #6a9955;"># Create a complex 2x2 layout</span><br>
+                <span style="color: #9cdcfe;">par</span>(mfrow = <span style="color: #dcdcaa;">c</span>(<span style="color: #b5cea8;">2</span>, <span style="color: #b5cea8;">2</span>), mar = <span style="color: #dcdcaa;">c</span>(<span style="color: #b5cea8;">4</span>, <span style="color: #b5cea8;">4</span>, <span style="color: #b5cea8;">2</span>, <span style="color: #b5cea8;">1</span>))<br>
+                <br>
+                <span style="color: #6a9955;"># Add a legend outside the plot area</span><br>
+                <span style="color: #9cdcfe;">legend</span>(<span style="color: #ce9178;">"topright"</span>, inset = <span style="color: #dcdcaa;">c</span>(-<span style="color: #b5cea8;">0.2</span>, <span style="color: #b5cea8;">0</span>), legend = <span style="color: #ce9178;">"Sales"</span>, fill = <span style="color: #ce9178;">"blue"</span>, xpd = <span style="color: #b5cea8;">TRUE</span>)
+            </div>
+            <h5 style="color: #6366f1;">🧠 Advanced Statistical Plots</h5>
+            <ul style="line-height: 1.8;">
+                <li><strong>Density Plots:</strong> Beyond histograms. Use <code>plot(density(x))</code> for a smooth estimate of the probability density function.</li>
+                <li><strong>Quantile-Quantile (Q-Q) Plots:</strong> Use <code>qqnorm()</code> and <code>qqline()</code> to check if your data follows a normal distribution—an essential step before running many statistical tests.</li>
+                <li><strong>Heatmaps:</strong> Use <code>image()</code> or <code>heatmap()</code> to visualize 3D data (z) across two dimensions (x, y). Essential for correlation matrices!</li>
+            </ul>
+        `
     },
     "u3-t3": {
         type: "handout",
@@ -1144,7 +1193,16 @@ ggplot(data, aes(x = x, y = y, color = category)) +
   geom_smooth(method = "lm", se = FALSE) +
   theme_bw()`,
         rInterpretation: "<strong>ggplot2 Grammar of Graphics:</strong><br><br>📊 <strong>Layered Approach:</strong> ggplot2 builds plots in layers - data + aesthetics + geometries + themes.<br><br>🎨 <strong>Aesthetic Mappings:</strong> aes() maps data to visual properties (x, y, color, size, shape).<br><br>📈 <strong>Geometries:</strong> geom_point(), geom_line(), geom_bar() define how data is displayed.<br><br>🎯 <strong>Professional Output:</strong> Publication-ready graphics with minimal code.",
-        nextReading: "Advanced ggplot2 techniques and faceting."
+        nextReading: "Advanced ggplot2 techniques and faceting.",
+        advancedDeepDive: `
+            <h4 style="color: #6366f1;">📐 Grammar of Graphics (GoG) Deep Dive</h4>
+            <p>ggplot2 is not just a tool—it's a philosophy based on Leland Wilkinson's <em>The Grammar of Graphics</em>.</p>
+            <ul style="line-height: 1.8;">
+                <li><strong>Mapping vs Setting:</strong> Know when to use <code>aes(color = variable)</code> (mapping) versus <code>geom_point(color = "blue")</code> (setting). This is the #1 mistake beginners make.</li>
+                <li><strong>Statistical Layers:</strong> Use <code>stat_summary()</code> to compute and display statistics (like means or medical intervals) directly on the plot without prior calculation.</li>
+                <li><strong>Custom Themes:</strong> Don't settle for 'minimal'. Create your own <code>theme()</code> function with corporate brand colors and fonts to standardize your work.</li>
+            </ul>
+        `
     },
     "u3-t4": {
         type: "handout",
@@ -1171,7 +1229,19 @@ ggplot(mtcars, aes(x = factor(cyl), y = factor(gear), fill = mpg)) +
   scale_fill_gradient(low = "white", high = "red") +
   labs(title = "Heatmap of MPG")`,
         rInterpretation: "<strong>Advanced Visualizations:</strong><br><br>🔲 <strong>Faceting:</strong> Split data into multiple panels for comparison.<br><br>🌡️ <strong>Heatmaps:</strong> Show relationships using color intensity.<br><br>🎻 <strong>Violin Plots:</strong> Combine box plots with density plots for richer insights.",
-        nextReading: "Interactive visualizations with plotly."
+        nextReading: "Interactive visualizations with plotly.",
+        advancedDeepDive: `
+            <h4 style="color: #6366f1;">🔭 Multivariate Exploration via Faceting</h4>
+            <p>Use <code>facet_grid(row ~ col)</code> to compare two categorical variables simultaneously. This reveals 'interactions'—where a pattern in one category changes depending on another.</p>
+            <ul style="line-height: 1.8;">
+                <li><strong>Free Scales:</strong> Use <code>scales = "free_y"</code> to let each panel have its own Y-axis range—useful when categories have vastly different orders of magnitude.</li>
+                <li><strong>Patchwork:</strong> Beyond faceting. Use the <code>patchwork</code> library to combine completely different plots (e.g., a bar chart next to a scatterplot) into a single publication-quality graphic.</li>
+            </ul>
+            <div style="background: #e0f2fe; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                <h5 style="margin-top: 0; color: #0369a1;">🚀 Pro Tip:</h5>
+                <p>Combine <code>dplyr</code> with <code>ggplot2</code> using the pipe <code>%&gt;%</code> operator to create complex visualizations without saving temporary variables.</p>
+            </div>
+        `
     },
     "u3-t5": {
         type: "handout",
@@ -1196,7 +1266,16 @@ library(ggplot2)
 p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 ggplotly(p)`,
         rInterpretation: "<strong>Interactive Visualizations:</strong><br><br>🖱️ <strong>Hover Tooltips:</strong> Show detailed information on mouse hover.<br><br>🔍 <strong>Zoom & Pan:</strong> Users can explore data interactively.<br><br>📊 <strong>Dashboards:</strong> Combine multiple interactive plots for comprehensive analysis.",
-        nextReading: "Data storytelling principles."
+        nextReading: "Data storytelling principles.",
+        advancedDeepDive: `
+            <h4 style="color: #6366f1;">🤖 Programmatic Interactivity</h4>
+            <p>Go beyond simple tooltips. Advanced users use <code>crosstalk</code> to sync multiple interactive widgets (filters, sliders, plots) without a Shiny server.</p>
+            <ul style="line-height: 1.8;">
+                <li><strong>Custom Hover Templates:</strong> Use <code>hovertemplate = "%{x}: $%{y:.2f}"</code> to format currency and labels exactly how you want.</li>
+                <li><strong>JS Event Listeners:</strong> You can embed custom JavaScript inside your plotly objects to trigger actions on the webpage when a user clicks a data point.</li>
+                <li><strong>3D Plotting:</strong> Use <code>z</code> and <code>type = "mesh3d"</code> to visualize complex three-dimensional surfaces—essential for terrain mapping or financial risk manifolds.</li>
+            </ul>
+        `
     },
     "u3-t6": {
         type: "handout",
@@ -1226,7 +1305,16 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold", size = 14))`,
         rInterpretation: "<strong>Data Storytelling:</strong><br><br>📖 <strong>Clear Message:</strong> Every visualization should answer a specific question.<br><br>🎨 <strong>Design Principles:</strong> Use color purposefully, minimize clutter, maximize data-ink ratio.<br><br>👥 <strong>Know Your Audience:</strong> Technical vs. executive audiences need different approaches.<br><br>✅ <strong>Best Practices:</strong> Label axes, add titles, cite sources, use accessible colors.",
-        nextReading: "Unit 3 Virtual Lab - Practice your visualization skills!"
+        nextReading: "Unit 3 Virtual Lab - Practice your visualization skills!",
+        advancedDeepDive: `
+            <h4 style="color: #6366f1;">🎭 Strategic Communication with Data</h4>
+            <p>Mastering the 'narrative' is the hallmark of a Senior Data Analyst.</p>
+            <ul style="line-height: 1.8;">
+                <li><strong>Emotional Resonance:</strong> Data is objective, but decisions are human. Use color psychology (e.g., red for high risk, green for growth) to trigger the desired instinctive response.</li>
+                <li><strong>The 'So What?' Test:</strong> Every title should be an insight, not a description. Use <em>"Sales Growth Driven by Regions"</em> instead of <em>"Sales by Region Chart"</em>.</li>
+                <li><strong>Accessibility (WCAG):</strong> Design for everyone. Verify your colors are distinguishable for colorblind users using the <code>colorblindr</code> package and ensure high contrast for better visibility.</li>
+            </ul>
+        `
     },
     "u3-lab": {
         type: "virtual-lab",

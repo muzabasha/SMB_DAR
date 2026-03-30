@@ -1,15 +1,19 @@
 // Service Worker for R Analytics Toolkit
-const CACHE_NAME = 'r-analytics-v1.8.0';
-const STATIC_CACHE = 'r-analytics-static-v1.8.0';
-const DYNAMIC_CACHE = 'r-analytics-dynamic-v1.8.0';
+const CACHE_NAME = 'r-analytics-v1.8.1';
+const STATIC_CACHE = 'r-analytics-static-v1.8.1';
+const DYNAMIC_CACHE = 'r-analytics-dynamic-v1.8.1';
 
 const staticAssets = [
     '/',
     '/index.html',
     '/styles/main.css',
+    '/styles/mindmap.css',
+    '/styles/virtual-lab.css',
     '/js/app.js',
     '/js/data.js',
-    '/js/components.js',
+    '/js/components-clean.js',
+    '/js/mindmap.js',
+    '/js/virtual-lab.js',
     '/js/unit1-content.js',
     '/js/unit2-content.js',
     '/js/unit3-content.js',

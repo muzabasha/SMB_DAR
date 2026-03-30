@@ -108,7 +108,16 @@ print(paste('P(rolling 6):', round(prob_six, 3)))`,
         ],
         nextTopic: "Normal and Binomial Distributions",
         nextLinkage: "Now that you understand basic statistics, let's explore how data naturally distributes itself in patterns.",
-        nextReading: "Review probability theory and the concept of random variables."
+        nextReading: "Review probability theory and the concept of random variables.",
+        advancedDeepDive: `
+            <h4 style="color: #6366f1;">📐 Inferential Thinking for Leaders</h4>
+            <p>Advanced metrics require moving beyond 'Central Tendency' into 'Uncertainty Quantifiction'.</p>
+            <ul style="line-height: 1.8;">
+                <li><strong>Bayesian vs Frequentist:</strong> While we learn frequentist stats (p-values), modern AI uses Bayesian logic—updating a 'Prior' belief with 'Evidence' to get a 'Posterior' probability.</li>
+                <li><strong>The Law of Large Numbers (LLN):</strong> Understand that as your sample size grows, its mean gets closer to the population mean. This is why big data reduces risk!</li>
+                <li><strong>Kurtosis & Skewness:</strong> Don't just look at Mean/SD. <em>Skewness</em> tells you if your outliers are on one side, and <em>Kurtosis</em> tells you if you have 'Fat Tails' (unexpectedly frequent extreme events).</li>
+            </ul>
+        `
     },
     "u4-t1": {
         type: "handout",
@@ -168,7 +177,16 @@ dbinom(5, size = 10, prob = 0.5)`,
         ],
         nextTopic: "Regression Analysis",
         nextLinkage: "Distributions describe ONE variable; Regression helps us see how TWO variables relate.",
-        nextReading: "Scatter plots and Line of best fit."
+        nextReading: "Scatter plots and Line of best fit.",
+        advancedDeepDive: `
+            <h4 style="color: #6366f1;">🧠 Beyond the Bell Curve</h4>
+            <p>While the Normal distribution is 'nature's default', advanced analysts must recognize when data is NOT normal.</p>
+            <ul style="line-height: 1.8;">
+                <li><strong>The Central Limit Theorem (CLT) Depth:</strong> The magic of CLT is that the *sum* of independent random variables tends toward a normal distribution, *regardless* of the original distribution shape. This is why we can use Z-tests on messy data!</li>
+                <li><strong>Poisson Distribution:</strong> Used for event counts (e.g., how many customers enter a store per hour). Essential for supply chain and call center optimization.</li>
+                <li><strong>Log-Normal Distribution:</strong> Financial returns and stock prices are often log-normal. If you assume they are normal, you will massively underestimate the probability of a market crash!</li>
+            </ul>
+        `
     },
     "u4-t2": {
         type: "handout",
@@ -252,7 +270,16 @@ F-statistic: 156.7 on 1 and 6 DF,  p-value: 8.632e-06
         ],
         nextTopic: "Random Forest & Decision Trees",
         nextLinkage: "Regression is for straight lines; Trees and Forests are for 'Branching' decisions.",
-        nextReading: "Introduction to Machine Learning."
+        nextReading: "Introduction to Machine Learning.",
+        advancedDeepDive: `
+            <h4 style="color: #6366f1;">🔬 Diagnostic Analytics with Residuals</h4>
+            <p>A high R-squared is not enough. You must 'validate' your model assumptions.</p>
+            <ul style="line-height: 1.8;">
+                <li><strong>Gauss-Markov Assumptions:</strong> For a model to be accurate, residuals must have constant variance (Homoscedasticity) and No Autocorrelation. Use the <code>plot(model)</code> function in R to see the diagnostic plots!</li>
+                <li><strong>Regularization (Lasso/Ridge):</strong> When you have too many variables, standard regression fails. Lasso (L1) can actually set coefficients to zero, helping you with 'Feature Selection'.</li>
+            <li><strong>Interaction Effects:</strong> Sometimes variable X only affects Y if Z is present. In R, use <code>lm(Y ~ X * Z)</code> to capture these complex 'synergies'.</li>
+            </ul>
+        `
     },
     "u4-t3": {
         type: "handout",
@@ -326,7 +353,16 @@ virginica       0          3        47        0.06`,
         ],
         nextTopic: "Prescriptive Analytics & RL",
         nextLinkage: "Models tell us what MIGHT happen; now let's learn how to make the computer CHOOSE the best action.",
-        nextReading: "Intro to Reinforcement Learning."
+        nextReading: "Intro to Reinforcement Learning.",
+        advancedDeepDive: `
+            <h4 style="color: #6366f1;">🧪 Ensemble Excellence & Feature Engineering</h4>
+            <p>Random Forests are the 'workhorse' of modern tabular data science.</p>
+            <ul style="line-height: 1.8;">
+                <li><strong>Hyperparameter Tuning:</strong> Master the parameters <code>mtry</code> (number of variables per split) and <code>ntree</code>. Use <code>tuneRF()</code> to automatically find the sweet spot between bias and variance.</li>
+                <li><strong>Variable Importance:</strong> Use the <code>importance()</code> function to generate a Gini index. This tells you which features are the 'Key Drivers' of your model—invaluable for business presentations!</li>
+                <li><strong>XGBoost vs Random Forest:</strong> While RF builds trees in parallel, XGBoost builds them sequentially (Boosting). Advanced learners should transition to XGBoost for maximum predictive power on Kaggle.</li>
+            </ul>
+        `
     },
     "u4-t4": {
         type: "handout",
@@ -387,7 +423,16 @@ print(paste('Optimal Discount is:', optim_result$maximum))`,
         ],
         nextTopic: "Course Recap & Project Presentations",
         nextLinkage: "We have reached the peak of the analytics mountain. Now it's time to build your own masterpiece.",
-        nextReading: "Review all previous Unit handouts."
+        nextReading: "Review all previous Unit handouts.",
+        advancedDeepDive: `
+            <h4 style="color: #6366f1;">🤖 Agentic AI & Q-Learning</h4>
+            <p>Moving from 'Static Prescription' to 'Autonomous Agents'.</p>
+            <ul style="line-height: 1.8;">
+                <li><strong>Dynamic Programming:</strong> Bellman Equations provide the mathematical 'heartbeat' for RL agents. They allow an agent to calculate the value of an action by balancing immediate reward versus future potential.</li>
+                <li><strong>Q-Learning:</strong> Discover how an agent builds a 'Q-Table' through trial and error. This table becomes the brain of the AI, mapping every possible 'State' to the best possible 'Action'.</li>
+                <li><strong>Constraint Optimization:</strong> Use <code>ompr</code> to solve 'Traveling Salesman' problems or 'Bin Packing' problems—mathematical puzzles that underpin the entire logistics industry.</li>
+            </ul>
+        `
     },
     "u4-t5": {
         type: "handout",
@@ -425,7 +470,16 @@ ci_lower <- mean_val - 1.96 * se
 ci_upper <- mean_val + 1.96 * se
 print(paste("95% CI:", ci_lower, "to", ci_upper))`,
         rInterpretation: "<strong>Hypothesis Testing:</strong><br><br>🎯 <strong>P-value:</strong> Probability of observing data if null hypothesis is true. p < 0.05 typically means 'statistically significant'.<br><br>⚖️ <strong>Type I Error:</strong> False positive (rejecting true null hypothesis).<br><br>⚖️ <strong>Type II Error:</strong> False negative (failing to reject false null hypothesis).<br><br>📊 <strong>Confidence Intervals:</strong> Range where true parameter likely lies (e.g., 95% CI).",
-        nextReading: "Classification algorithms and machine learning."
+        nextReading: "Classification algorithms and machine learning.",
+        advancedDeepDive: `
+            <h4 style="color: #6366f1;">🧪 Advanced Statistical Inference</h4>
+            <p>Beyond the simple t-test: Modern inference techniques.</p>
+            <ul style="line-height: 1.8;">
+                <li><strong>Power Analysis:</strong> Before running a test, use power analysis to determine *how big* your sample needs to be to detect an effect. Crucial for clinical trials!</li>
+                <li><strong>Effect Size:</strong> A p-value tells you if a finding is 'Real', but *Cohen's d* tells you if it's 'Big'. A p-value of 0.001 with a tiny effect size might be practically useless.</li>
+                <li><strong>Bayesian Hypothesis Testing:</strong> Using *Bayes Factors* to calculate the probability of the Null Hypothesis versus the Alternative.</li>
+            </ul>
+        `
     },
     "u4-t6": {
         type: "handout",
@@ -467,7 +521,16 @@ knn_pred <- knn(train, test, train_labels, k = 3)
 accuracy <- sum(knn_pred == test_labels) / length(test_labels)
 print(paste("KNN Accuracy:", round(accuracy * 100, 2), "%"))`,
         rInterpretation: "<strong>Classification Algorithms:</strong><br><br>📈 <strong>Logistic Regression:</strong> Predicts probability of binary outcome (yes/no, spam/not spam).<br><br>👥 <strong>KNN:</strong> Classifies based on k nearest neighbors. Simple but effective!<br><br>📊 <strong>Confusion Matrix:</strong> Shows true positives, false positives, true negatives, false negatives.<br><br>🎯 <strong>Metrics:</strong> Accuracy = correct predictions / total. Precision = TP / (TP + FP). Recall = TP / (TP + FN).",
-        nextReading: "Model evaluation and cross-validation techniques."
+        nextReading: "Model evaluation and cross-validation techniques.",
+        advancedDeepDive: `
+            <h4 style="color: #6366f1;">🚀 Sophisticated Classification Strategies</h4>
+            <p>Modern machine learning requires handling 'Messy' real-world data structures.</p>
+            <ul style="line-height: 1.8;">
+                <li><strong>Class Imbalance:</strong> If 99% of transactions are legitimate and 1% are fraud, a model can get 99% accuracy by just saying 'No Fraud'. Learn techniques like *SMOTE* or *Under-sampling* to fix this!</li>
+                <li><strong>KNN Distance Metrics:</strong> Beyond 'Euclidean distance'. Use *Manhattan* or *Minkowski* distances depending on the geometry of your features.</li>
+                <li><strong>Support Vector Machines (SVM):</strong> Transition from KNN to SVM for finding the 'Maximum Margin' hyperplane that separates complex overlapping categories.</li>
+            </ul>
+        `
     },
     "u4-t7": {
         type: "handout",
@@ -524,7 +587,16 @@ roc_obj <- roc(as.numeric(iris_binary$Species) - 1,
 auc_value <- auc(roc_obj)
 print(paste("AUC:", round(auc_value, 3)))`,
         rInterpretation: "<strong>Model Evaluation:</strong><br><br>📊 <strong>Train-Test Split:</strong> Use 70-80% for training, 20-30% for testing. Never test on training data!<br><br>🔄 <strong>Cross-Validation:</strong> Split data into k folds, train on k-1, test on 1. Repeat k times. More reliable than single split.<br><br>📈 <strong>Metrics:</strong><br>• RMSE: Lower is better (measures prediction error)<br>• R-squared: Higher is better (0-1, proportion of variance explained)<br>• AUC: Area Under ROC Curve (0.5 = random, 1.0 = perfect)<br><br>⚠️ <strong>Overfitting:</strong> Model memorizes training data, fails on new data. Solution: simpler model, more data, regularization.<br><br>⚠️ <strong>Underfitting:</strong> Model too simple, misses patterns. Solution: more complex model, more features.<br><br>🎯 <strong>Best Practices:</strong><br>• Always use separate test set<br>• Use cross-validation for small datasets<br>• Check multiple metrics, not just accuracy<br>• Plot predictions vs actual values<br>• Look for patterns in residuals",
-        nextReading: "Unit 4 Virtual Lab - Practice machine learning!"
+        nextReading: "Unit 4 Virtual Lab - Practice machine learning!",
+        advancedDeepDive: `
+            <h4 style="color: #6366f1;">🔍 Rigorous Model Validation</h4>
+            <p>The goal is 'Generalization'—making sure your model works on data it has NEVER seen before.</p>
+            <ul style="line-height: 1.8;">
+                <li><strong>The Bias-Variance Tradeoff:</strong> The core struggle of ML. High bias = underfitting; High variance = overfitting. Cross-validation is the weapon we use to find the perfect middle ground.</li>
+                <li><strong>Feature Selection Techniques:</strong> Don't just throw everything in! Use *Recursive Feature Elimination (RFE)* to strip away 'noisy' variables that hurt model performance.</li>
+                <li><strong>Calibration Curves:</strong> A model might be 'accurate' but 'unreliable'. Use calibration curves to ensure that if a model says '80% chance of rain', it actually rains 8 out of 10 times in reality.</li>
+            </ul>
+        `
     },
     "u4-lab": {
         type: "virtual-lab",
