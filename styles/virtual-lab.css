@@ -621,3 +621,127 @@
 .dark-mode .learning-points {
     background: rgba(79, 70, 229, 0.1);
 }
+
+/* Interactive Lesson Panel */
+.lesson-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--primary);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    padding: 0;
+    overflow: hidden;
+    animation: slideDown 0.4s ease-out;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-panel.hidden {
+    display: none;
+}
+
+.lesson-panel-header {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lesson-panel-header h4 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lesson-panel-header button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.lesson-steps {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.lesson-step {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.step-num {
+    background: var(--primary);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+}
+
+.step-content h5 {
+    margin: 0 0 5px 0;
+    color: var(--text-main);
+}
+
+.step-content p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+/* Specific ML Viz Styles */
+.viz-ml svg {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.confusion-table td {
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+.confusion-table small {
+    display: block;
+    margin-top: 4px;
+    color: #666;
+    font-size: 0.7rem;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-lesson {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--secondary);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-lesson:hover {
+    background: rgba(16, 185, 129, 0.2);
+    transform: translateY(-2px);
+}

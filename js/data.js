@@ -262,6 +262,7 @@ const courseData = {
                 { id: "u4-t5", title: "Hypothesis Testing & Statistical Inference", status: "pending", contentKey: "u4-t5", contentSource: "unit4" },
                 { id: "u4-t6", title: "Classification Algorithms (Logistic Regression, KNN)", status: "pending", contentKey: "u4-t6", contentSource: "unit4" },
                 { id: "u4-t7", title: "Model Evaluation & Cross-Validation", status: "pending", contentKey: "u4-t7", contentSource: "unit4" },
+                { id: "u4-t-lesson", title: "🎓 Interactive Lesson: ML Strategy", status: "pending", contentKey: "u4-t-lesson", contentSource: "unit4" },
                 { id: "u4-lab", title: "🧪 Virtual Lab: Machine Learning", status: "pending", contentKey: "u4-lab", contentSource: "unit4" }
             ]
         }

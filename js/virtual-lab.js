@@ -1949,6 +1949,26 @@ cat(sprintf("Correlation (HDI vs Literacy): r = %.3f\\n", cor(hdi, literacy)))`,
     unit4: {
       title: "Machine Learning Virtual Lab",
       description: "Build and evaluate ML models through 7 hands-on exercises. From regression to classification, clustering, and ensemble methods!",
+      interactiveLesson: {
+        title: "The Machine Learning Workflow",
+        steps: [
+          {
+            title: "1. Data Collection",
+            content: "The foundation of any ML model is quality data. In R, we use data frames to store our evidence.",
+            icon: "database"
+          },
+          {
+            title: "2. Training & Testing",
+            content: "Never test on the data you trained with! We split data (usually 70/30) to check if the model can generalise to new cases.",
+            icon: "split"
+          },
+          {
+            title: "3. Model Evaluation",
+            content: "Metrics like R-squared (for numbers) and Accuracy (for categories) tell us how much we can trust the model.",
+            icon: "target"
+          }
+        ]
+      },
       exercises: [
         {
           id: 1,
@@ -2181,6 +2201,7 @@ print(paste("\\nAccuracy:", round(accuracy * 100, 2), "%"))
 print(paste("Precision:", round(precision, 3)))
 print(paste("Recall:", round(recall, 3)))
 print(paste("F1-Score:", round(f1_score, 3)))`,
+          outputImage: "confusion_matrix_viz",
           hint: "glm() with family=binomial for classification. set.seed() ensures reproducible results. Confusion matrix shows prediction quality",
           expectedOutput: "Model summary, confusion matrix, and performance metrics",
           learningPoints: [
@@ -2848,6 +2869,7 @@ for(i in 1:3) {
       i, new_students$study_hours[i], new_students$attendance[i],
       new_students$prev_gpa[i], pred))
 }`,
+          outputImage: "model_comparison_viz",
           solution: `# Complete solution - the starter code IS the full pipeline. Run to see all outputs.`,
           hint: "lm() for linear regression. KNN uses Euclidean distance to find nearest neighbors. Ensemble averages multiple model predictions. RMSE = sqrt(mean(errors^2)). R2 = 1 - SS_res/SS_tot.",
           expectedOutput: "Dataset overview, MODEL COMPARISON table (RMSE, MAE, R2 for all 4 models), predicted vs actual scatter plot, R2 bar chart, predictions for 3 new students",
@@ -2919,8 +2941,33 @@ for(i in 1:3) {
                                 <button class="btn-solution" onclick="VirtualLab.showSolution()">
                                     <i data-lucide="eye"></i> Solution
                                 </button>
+                                ${lab.interactiveLesson ? `
+                                <button class="btn-lesson" onclick="VirtualLab.toggleLesson()" title="Show/Hide Interactive Lesson">
+                                    <i data-lucide="book-open"></i> Lesson
+                                </button>
+                                ` : ''}
                             </div>
                         </div>
+                        
+                        ${lab.interactiveLesson ? `
+                        <div id="interactive-lesson-panel" class="lesson-panel hidden">
+                           <div class="lesson-panel-header">
+                              <h4><i data-lucide="zap"></i> ${lab.interactiveLesson.title}</h4>
+                              <button onclick="VirtualLab.toggleLesson()">&times;</button>
+                           </div>
+                           <div class="lesson-steps">
+                              ${lab.interactiveLesson.steps.map((s, idx) => `
+                                 <div class="lesson-step">
+                                    <div class="step-num">${idx + 1}</div>
+                                    <div class="step-content">
+                                       <h5>${s.title}</h5>
+                                       <p>${s.content}</p>
+                                    </div>
+                                 </div>
+                              `).join('')}
+                           </div>
+                        </div>
+                        ` : ''}
 
                         <div class="exercise-instruction" id="exercise-instruction">
                             ${firstEx.instruction}
@@ -3056,12 +3103,7 @@ for(i in 1:3) {
                     <p>Compare your code with the solution to verify correctness.</p>
                 </div>
             </div>
-            ${exercise.outputImage ? `
-            <div class="output-plot-container">
-                <img src="${exercise.outputImage}" alt="R Plot Output" class="output-plot-image">
-                <div class="plot-caption">Figure: Simulated R Plot Output for ${exercise.title}</div>
-            </div>
-            ` : ''}
+            ${exercise.outputImage ? VirtualLab.renderVisualization(exercise.outputImage, exercise) : ''}
             <div class="output-code">
                 <pre><code class="language-r">${code}</code></pre>
             </div>
@@ -3077,6 +3119,161 @@ for(i in 1:3) {
 
     lucide.createIcons();
     if (window.Prism) window.Prism.highlightAll();
+  },
+
+  renderVisualization: (type, exercise) => {
+    // If it's a real image path
+    if (type.includes('.')) {
+      return `
+                <div class="output-plot-container">
+                    <img src="${type}" alt="R Plot Output" class="output-plot-image">
+                    <div class="plot-caption">Figure: Simulated R Plot Output for ${exercise.title}</div>
+                </div>
+            `;
+    }
+
+    // Interactive CSS Visualizations for ML
+    switch (type) {
+      case 'linear_regression_viz':
+        return `
+                    <div class="output-plot-container viz-ml">
+                        <svg viewBox="0 0 400 240" style="width: 100%; max-width: 500px; margin: 0 auto; display: block;">
+                            <line x1="40" y1="200" x2="360" y2="200" stroke="#333" stroke-width="2"/>
+                            <line x1="40" y1="40" x2="40" y2="200" stroke="#333" stroke-width="2"/>
+                            <circle cx="80" cy="180" r="4" fill="#3498DB"/>
+                            <circle cx="120" cy="165" r="4" fill="#3498DB"/>
+                            <circle cx="160" cy="155" r="4" fill="#3498DB"/>
+                            <circle cx="200" cy="130" r="4" fill="#3498DB"/>
+                            <circle cx="240" cy="115" r="4" fill="#3498DB"/>
+                            <circle cx="280" cy="90" r="4" fill="#3498DB"/>
+                            <circle cx="320" cy="75" r="4" fill="#3498DB"/>
+                            <line x1="40" y1="195" x2="360" y2="60" stroke="#E74C3C" stroke-width="3" stroke-dasharray="5,2"/>
+                            <text x="200" y="230" text-anchor="middle" font-size="12">House Size (Predictor)</text>
+                            <text x="15" y="120" text-anchor="middle" font-size="12" transform="rotate(-90, 15, 120)">Price (Target)</text>
+                        </svg>
+                        <div class="plot-caption">Figure: Linear Regression Model (Least Squares Fit)</div>
+                    </div>
+                `;
+      case 'confusion_matrix_viz':
+        return `
+                    <div class="output-plot-container viz-ml">
+                        <table class="confusion-table" style="width: auto; margin: 0 auto; border-collapse: collapse; font-family: sans-serif;">
+                            <tr><td colspan="2" rowspan="2"></td><td colspan="2" style="background:#f8f9fa; padding:10px; font-weight:bold; border:1px solid #ddd;">Predicted</td></tr>
+                            <tr><td style="background:#e9ecef; padding:10px; border:1px solid #ddd;">No (0)</td><td style="background:#e9ecef; padding:10px; border:1px solid #ddd;">Yes (1)</td></tr>
+                            <tr><td rowspan="2" style="background:#f8f9fa; padding:10px; font-weight:bold; border:1px solid #ddd; writing-mode:vertical-rl; transform:rotate(180deg);">Actual</td>
+                                <td style="background:#e9ecef; padding:10px; border:1px solid #ddd;">No (0)</td>
+                                <td style="background:#d4edda; padding:15px; border:1px solid #ddd;"><strong>30</strong><br><small>True Neg</small></td>
+                                <td style="background:#f8d7da; padding:15px; border:1px solid #ddd;"><strong>2</strong><br><small>False Pos</small></td>
+                            </tr>
+                            <tr>
+                                <td style="background:#e9ecef; padding:10px; border:1px solid #ddd;">Yes (1)</td>
+                                <td style="background:#fff3cd; padding:15px; border:1px solid #ddd;"><strong>1</strong><br><small>False Neg</small></td>
+                                <td style="background:#d1ecf1; padding:15px; border:1px solid #ddd;"><strong>12</strong><br><small>True Pos</small></td>
+                            </tr>
+                        </table>
+                        <div class="plot-caption">Figure: Confusion Matrix for Iris Classification</div>
+                    </div>
+                `;
+      case 'decision_tree_viz':
+        return `
+                    <div class="output-plot-container viz-ml">
+                        <div class="tree-viz" style="text-align: center; font-family: sans-serif;">
+                            <div style="background:#f8f9fa; border:2px solid #3498DB; padding:10px; border-radius:8px; display:inline-block; margin-bottom:20px;">
+                                <strong>Complaints &ge; 4?</strong>
+                            </div>
+                            <div style="display:flex; justify-content:center; gap:60px;">
+                                <div style="position:relative;">
+                                    <div style="width:2px; height:20px; background:#ddd; margin:0 auto;"></div>
+                                    <div style="background:#d4edda; border:1px solid #28a745; padding:8px; border-radius:4px; font-size:0.8rem;">No Churn (78%)</div>
+                                    <div style="position:absolute; left:-30px; top:-15px; font-size:0.7rem; color:red;">No</div>
+                                </div>
+                                <div style="position:relative;">
+                                    <div style="width:2px; height:20px; background:#ddd; margin:0 auto;"></div>
+                                    <div style="background:#f8d7da; border:1px solid #dc3545; padding:8px; border-radius:4px; font-size:0.8rem;">Churn (92%)</div>
+                                    <div style="position:absolute; right:-30px; top:-15px; font-size:0.7rem; color:green;">Yes</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plot-caption">Figure: Decision Tree Visualization (Risk Analysis)</div>
+                    </div>
+                `;
+      case 'regression_diagnostics_viz':
+        return `
+                    <div class="output-plot-container viz-ml">
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                           <div style="border:1px solid #ddd; padding:5px; background:#fff;">
+                              <small>Residuals vs Fitted</small>
+                              <svg viewBox="0 0 100 60"><line x1="10" y1="50" x2="90" y2="50" stroke="#ccc"/><line x1="10" y1="30" x2="90" y2="30" stroke="#f00" stroke-dasharray="2,2"/><circle cx="20" cy="25" r="1"/><circle cx="35" cy="35" r="1"/><circle cx="50" cy="28" r="1"/><circle cx="70" cy="32" r="1"/></svg>
+                           </div>
+                           <div style="border:1px solid #ddd; padding:5px; background:#fff;">
+                              <small>Normal Q-Q</small>
+                              <svg viewBox="0 0 100 60"><line x1="10" y1="50" x2="90" y2="10" stroke="#ccc"/><circle cx="20" cy="45" r="1"/><circle cx="40" cy="35" r="1"/><circle cx="60" cy="25" r="1"/><circle cx="80" cy="15" r="1"/></svg>
+                           </div>
+                        </div>
+                        <div class="plot-caption">Figure: Model Regression Diagnostics (Assumption Checks)</div>
+                    </div>
+                `;
+      case 'kmeans_viz':
+        return `
+                    <div class="output-plot-container viz-ml">
+                        <svg viewBox="0 0 400 240" style="width: 100%; max-width: 500px; margin: 0 auto; display: block;">
+                            <!-- Cluster 1 (Red) -->
+                            <circle cx="80" cy="180" r="15" fill="rgba(231, 76, 60, 0.2)" stroke="#E74C3C"/>
+                            <circle cx="75" cy="175" r="3" fill="#E74C3C"/><circle cx="85" cy="185" r="3" fill="#E74C3C"/><circle cx="80" cy="170" r="3" fill="#E74C3C"/>
+                            <!-- Cluster 2 (Blue) -->
+                            <circle cx="200" cy="100" r="20" fill="rgba(52, 152, 219, 0.2)" stroke="#3498DB"/>
+                            <circle cx="190" cy="95" r="3" fill="#3498DB"/><circle cx="210" cy="105" r="3" fill="#3498DB"/><circle cx="200" cy="115" r="3" fill="#3498DB"/><circle cx="205" cy="90" r="3" fill="#3498DB"/>
+                            <!-- Cluster 3 (Green) -->
+                            <circle cx="320" cy="50" r="18" fill="rgba(46, 204, 113, 0.2)" stroke="#2ECC71"/>
+                            <circle cx="310" cy="45" r="3" fill="#2ECC71"/><circle cx="330" cy="55" r="3" fill="#2ECC71"/><circle cx="325" cy="40" r="3" fill="#2ECC71"/>
+                            <text x="200" y="230" text-anchor="middle" font-size="12">Frequency</text>
+                            <text x="15" y="120" text-anchor="middle" font-size="12" transform="rotate(-90, 15, 120)">Monetary (Rs)</text>
+                        </svg>
+                        <div class="plot-caption">Figure: K-Means Customer Segmentation (K=3)</div>
+                    </div>
+                `;
+      case 'logistic_regression_viz':
+        return `
+                    <div class="output-plot-container viz-ml">
+                        <svg viewBox="0 0 400 240" style="width: 100%; max-width: 500px; margin: 0 auto; display: block;">
+                            <path d="M 40 200 Q 200 200 200 120 T 360 40" fill="none" stroke="#E74C3C" stroke-width="3"/>
+                            <line x1="40" y1="200" x2="360" y2="200" stroke="#333" stroke-width="2"/>
+                            <line x1="40" y1="40" x2="40" y2="200" stroke="#333" stroke-width="2"/>
+                            <text x="200" y="230" text-anchor="middle" font-size="12">Indicator (Age/Glucose)</text>
+                            <text x="15" y="120" text-anchor="middle" font-size="12" transform="rotate(-90, 15, 120)">Probability of Disease</text>
+                            <line x1="40" y1="120" x2="360" y2="120" stroke="#ddd" stroke-dasharray="4"/>
+                            <text x="370" y="125" font-size="10" fill="#999">0.5</text>
+                        </svg>
+                        <div class="plot-caption">Figure: Logistic Sigmoid Curve for Risk Prediction</div>
+                    </div>
+                `;
+      case 'model_comparison_viz':
+        return `
+                    <div class="output-plot-container viz-ml">
+                        <div style="display:flex; align-items:flex-end; gap:20px; height:150px; justify-content:center; padding-bottom:20px; border-bottom:2px solid #333;">
+                            <div style="width:40px; height:85%; background:#3498DB; position:relative;"><small style="position:absolute; top:-20px; width:100%; text-align:center;">85%</small></div>
+                            <div style="width:40px; height:72%; background:#2ECC71; position:relative;"><small style="position:absolute; top:-20px; width:100%; text-align:center;">72%</small></div>
+                            <div style="width:40px; height:65%; background:#F39C12; position:relative;"><small style="position:absolute; top:-20px; width:100%; text-align:center;">65%</small></div>
+                            <div style="width:40px; height:92%; background:#E74C3C; position:relative;"><small style="position:absolute; top:-20px; width:100%; text-align:center; font-weight:bold;">92%</small></div>
+                        </div>
+                        <div style="display:flex; justify-content:center; gap:20px; margin-top:10px; font-size:0.7rem;">
+                            <span style="width:40px; text-align:center;">LinReg</span>
+                            <span style="width:40px; text-align:center;">KNN</span>
+                            <span style="width:40px; text-align:center;">Rules</span>
+                            <span style="width:40px; text-align:center; font-weight:bold;">Ensemble</span>
+                        </div>
+                        <div class="plot-caption">Figure: Model Performance Comparison (R-squared Score)</div>
+                    </div>
+                `;
+      default:
+        return '';
+    }
+  },
+
+  toggleLesson: () => {
+    const panel = document.getElementById('interactive-lesson-panel');
+    panel.classList.toggle('hidden');
+    panel.classList.toggle('visible');
   },
 
   clearOutput: () => {

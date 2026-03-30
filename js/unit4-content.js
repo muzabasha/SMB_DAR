@@ -598,6 +598,154 @@ print(paste("AUC:", round(auc_value, 3)))`,
             </ul>
         `
     },
+    "u4-t-lesson": {
+        type: "handout",
+        unitAndTopic: "Unit 4 | Interactive Lesson: Machine Learning Strategy",
+        hook: "From raw data to autonomous agents—the complete strategy of ML.",
+        position: "Strategy Module for Unit 4",
+        prerequisites: "Regression, Classification, and Random Forest concepts.",
+        outcomes: [
+            "Master the Train-Test-Validate workflow",
+            "Understand the Bias-Variance tradeoff",
+            "Design model evaluation strategies",
+            "Explore Agentic AI foundations"
+        ],
+        subTopics: "Train-Test Split, Overfitting vs Underfitting, Performance Metrics, Hyperparameter Tuning, The Agentic Mindset",
+        background: "Machine learning is not just about writing code; it's about making choices that allow an algorithm to generalize from a small dataset to a massive population.",
+        coreConcept: "Generalization: The ability of a model to perform accurately on new, unseen data. We achieve this by penalizing complexity (Regularization) and testing rigorously.",
+        mindMap: {
+            center: "Machine Learning Strategy",
+            branches: [
+                {
+                    title: "1. Data Prep",
+                    subItems: ["Feature Selection", "Normalization", "Train/Test Split"]
+                },
+                {
+                    title: "2. Modeling",
+                    subItems: ["Gradient Descent", "Loss Functions", "Optimization"]
+                },
+                {
+                    title: "3. Evaluation",
+                    subItems: ["Confusion Matrix", "ROC Curves", "R-Squared"]
+                },
+                {
+                    title: "4. Deployment",
+                    subItems: ["Inference", "Monitoring", "Agentic Loops"]
+                }
+            ]
+        },
+        rInterpretation: `
+            <div style="background: var(--bg-main); border-radius: 16px; padding: 30px; border: 1px solid var(--border); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); margin-top: 25px;">
+                <h4 style="color: var(--primary); margin-bottom: 20px; font-weight: 700; display: flex; align-items: center; gap: 12px;">
+                    <span style="background: var(--primary); color: white; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem;">🏁</span> The 7-Step ML Workflow
+                </h4>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <!-- Step 1 -->
+                    <div class="card" style="margin: 0; padding: 20px; border-radius: 12px; border-left: 4px solid #3498DB;">
+                        <h5 style="color: #3498DB; margin: 0 0 10px 0;"><i data-lucide="database"></i> 1. Ingestion</h5>
+                        <p style="font-size: 0.9rem; margin-bottom: 0;">Merging CSVs, scraping web data, or connecting to SQL databases in R.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="card" style="margin: 0; padding: 20px; border-radius: 12px; border-left: 4px solid #F39C12;">
+                        <h5 style="color: #F39C12; margin: 0 0 10px 0;"><i data-lucide="filter"></i> 2. Pre-processing</h5>
+                        <p style="font-size: 0.9rem; margin-bottom: 0;">Removing missing values (NA), handling outliers, and scaling features.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="card" style="margin: 0; padding: 20px; border-radius: 12px; border-left: 4px solid #9B59B6;">
+                        <h5 style="color: #9B59B6; margin: 0 0 10px 0;"><i data-lucide="split"></i> 3. Splitting</h5>
+                        <p style="font-size: 0.9rem; margin-bottom: 0;">Creating <strong>Train (70%)</strong> and <strong>Test (30%)</strong> sets using <code>sample()</code>.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="card" style="margin: 0; padding: 20px; border-radius: 12px; border-left: 4px solid #1ABC9C;">
+                        <h5 style="color: #1ABC9C; margin: 0 0 10px 0;"><i data-lucide="activity"></i> 4. Training</h5>
+                        <p style="font-size: 0.9rem; margin-bottom: 0;">Feeding training data to <code>lm()</code>, <code>glm()</code>, or <code>randomForest()</code>.</p>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="card" style="margin: 0; padding: 20px; border-radius: 12px; border-left: 4px solid #E67E22;">
+                        <h5 style="color: #E67E22; margin: 0 0 10px 0;"><i data-lucide="eye"></i> 5. Prediction</h5>
+                        <p style="font-size: 0.9rem; margin-bottom: 0;">Calculating results for <strong>Test set</strong> to see if the model learned the pattern.</p>
+                    </div>
+                    <!-- Step 6 -->
+                    <div class="card" style="margin: 0; padding: 20px; border-radius: 12px; border-left: 4px solid #E74C3C;">
+                        <h5 style="color: #E74C3C; margin: 0 0 10px 0;"><i data-lucide="bar-chart"></i> 6. Validation</h5>
+                        <p style="font-size: 0.9rem; margin-bottom: 0;">Checking Accuracy, RMSE, or Confusion Matrices. Tuning until optimized.</p>
+                    </div>
+                </div>
+                
+                <!-- Optimization Deep Dive -->
+                <div style="background: rgba(79, 70, 229, 0.05); border-radius: 12px; padding: 25px; margin-top: 30px; border: 1px dashed var(--primary);">
+                    <h5 style="color: var(--primary); margin-top: 0; display: flex; align-items: center; gap: 10px;">
+                        <i data-lucide="trending-up" style="width: 20px;"></i> Advanced Optimization Strategy
+                    </h5>
+                    <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-muted);">
+                        Real-world ML modeling isn't a one-and-done process. It's a cyclic journey:
+                    </p>
+                    <ul style="padding-left: 20px; font-size: 0.9rem; color: var(--text-muted);">
+                        <li><strong>Feature Interaction:</strong> Combining columns (e.g., Size × Location) to uncover hidden signals.</li>
+                        <li><strong>Cross-Validation:</strong> Training the model multiple times on different subsets to ensure stability.</li>
+                        <li><strong>Ensembling:</strong> Combining weak models (like single trees) to create strong models (Random Forest).</li>
+                    </ul>
+                </div>
+            </div>
+        `,
+        experientialActivity: `
+            <div class="interactive-strategy-viz" style="background:#fff; padding:20px; border-radius:12px; border:1px solid #ddd; margin-top:20px;">
+                <h5>🛠️ Interactive Concept: Bias-Variance Tradeoff</h5>
+                <div style="display:flex; justify-content:center; gap:40px; margin-top:15px;">
+                    <div style="text-align:center;">
+                        <div style="width:100px; height:100px; border:2px solid #E74C3C; border-radius:50%; position:relative; margin:0 auto;">
+                           <div style="width:10px; height:10px; background:#E74C3C; border-radius:50%; position:absolute; top:45px; left:45px;"></div>
+                           <div style="width:6px; height:6px; background:#ddd; border-radius:50%; position:absolute; top:10px; left:10px;"></div>
+                        </div>
+                        <small style="color:#E74C3C; display:block; margin-top:5px;">Underfitting (High Bias)</small>
+                    </div>
+                    <div style="text-align:center;">
+                        <div style="width:100px; height:100px; border:2px solid #2ECC71; border-radius:50%; position:relative; margin:0 auto;">
+                           <div style="width:6px; height:6px; background:#2ECC71; border-radius:50%; position:absolute; top:47px; left:47px;"></div>
+                           <div style="width:6px; height:6px; background:#2ECC71; border-radius:50%; position:absolute; top:42px; left:52px;"></div>
+                        </div>
+                        <small style="color:#2ECC71; display:block; margin-top:5px;">Sweet Spot (Balanced)</small>
+                    </div>
+                    <div style="text-align:center;">
+                        <div style="width:100px; height:100px; border:2px solid #3498DB; border-radius:50%; position:relative; margin:0 auto;">
+                           <div style="width:6px; height:6px; background:#3498DB; border-radius:50%; position:absolute; top:5px; left:5px;"></div>
+                           <div style="width:6px; height:6px; background:#3498DB; border-radius:50%; position:absolute; top:80px; left:10px;"></div>
+                           <div style="width:6px; height:6px; background:#3498DB; border-radius:50%; position:absolute; top:20px; left:70px;"></div>
+                        </div>
+                        <small style="color:#3498DB; display:block; margin-top:5px;">Overfitting (High Variance)</small>
+                    </div>
+                </div>
+            </div>
+        `,
+        quizQuestions: [
+            "Why is the Train-Test split important?",
+            "What happens if we train a model including the Test set data?",
+            "Difference between Underfitting and Overfitting?",
+            "Standard rule-of-thumb ratio for splitting training and testing data?",
+            "Which evaluation metric is best for predicting car prices (Regression)?"
+        ],
+        examQuestions10M: [
+            "Elaborate on the complete Machine Learning life cycle from Problem Formulation to Model Monitoring. Discuss how R facilitates each step with specific examples."
+        ],
+        advancedDeepDive: `
+            <div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;">
+                <div style="width:50px; height:50px; background:rgba(99, 102, 241,0.1); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#6366f1;">
+                    <i data-lucide="cpu" style="width:32px; height:32px;"></i>
+                </div>
+                <h4 style="margin:0; color:#6366f1;">The Agentic Revolution</h4>
+            </div>
+            <p style="font-size:0.95rem; line-height:1.7;">
+                Modern data analytics is moving beyond 'static models' toward <strong>Agentic AI</strong>. 
+                Instead of a coder training a model once, we build <strong>Agents</strong> that:
+                <br><br>
+                1. <strong>Observe:</strong> Monitor real-time data streams.<br>
+                2. <strong>Reason:</strong> Assess the current situation (State).<br>
+                3. <strong>Act:</strong> Execute a prescriptive optimization (Action).<br>
+                4. <strong>Learn:</strong> Adjust their strategy based on the feedback (Reward).
+            </p>
+        `
+    },
     "u4-lab": {
         type: "virtual-lab",
         unitId: 4
