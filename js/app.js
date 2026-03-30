@@ -1,12 +1,12 @@
 // Cache busting and refresh utilities
 const CacheBuster = {
-    version: '1.8.3',
+    version: '1.8.5',
 
     clearOldCaches() {
         if ('caches' in window) {
             caches.keys().then(cacheNames => {
                 cacheNames.forEach(cacheName => {
-                    if (!cacheName.includes('v1.8.3')) {
+                    if (!cacheName.includes('1.8.5')) {
                         caches.delete(cacheName);
                         console.log('Cleared cache:', cacheName);
                     }
@@ -211,7 +211,7 @@ const app = {
         const page = params.get('page');
         const id = params.get('id');
 
-        if (page && ['unit', 'topic', 'project', 'quiz', 'instructor'].includes(page)) {
+        if (page && ['unit', 'topic', 'project', 'quiz', 'instructor', 'question-bank'].includes(page)) {
             // Convert id to number if it looks like one, otherwise keep as string (for topic ids like 'u1-t1')
             const parsedId = !isNaN(id) ? parseInt(id) : id;
             this.navigateTo(page, parsedId, false); // false = don't push state since we are already here
@@ -258,6 +258,10 @@ const app = {
             this.state.currentUnitId = null;
             this.state.currentTopicId = null;
             this.state.currentProjectId = null;
+        } else if (page === 'question-bank') {
+            this.state.currentUnitId = id || 1;
+            this.state.currentTopicId = null;
+            this.state.currentProjectId = null;
         }
 
         // Auto-close sidebar on mobile when navigating
@@ -299,6 +303,8 @@ const app = {
             this.renderProjectPage();
         } else if (this.state.currentPage === 'quiz') {
             this.renderQuizPage();
+        } else if (this.state.currentPage === 'question-bank') {
+            this.renderQuestionBankPage();
         } else if (this.state.currentPage === 'instructor') {
             this.renderInstructorPage();
         }
@@ -503,6 +509,22 @@ SETUP VIDEO:
         QuizComponent.init(unitNumber);
     },
 
+    renderQuestionBankPage() {
+        const unitId = this.state.currentUnitId || 1;
+        if (!window.questionBankContent) {
+            this.nodes.contentDisplay.innerHTML = `
+                <div class="card" style="padding: 40px; text-align: center;">
+                    <h2 style="color: var(--primary);">Loading Question Bank...</h2>
+                    <p>Please wait while we prepare the Higher Order Thinking questions.</p>
+                </div>
+            `;
+            return;
+        }
+        const questions = questionBankContent[`u${unitId}`];
+        this.nodes.contentDisplay.innerHTML = Components.QuestionBankBlock(unitId, questions);
+        lucide.createIcons();
+    },
+
     renderInstructorPage() {
         this.nodes.contentDisplay.innerHTML = `
             <div class="instructor-page-container">
@@ -542,6 +564,12 @@ SETUP VIDEO:
                      style="cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 12px 15px; border-radius: 8px; transition: all 0.3s;">
                     <i data-lucide="user-circle" style="width: 18px; height: 18px;"></i>
                     <span style="font-weight: 600;">Instructor Profile</span>
+                </div>
+                <div class="nav-item ${this.state.currentPage === 'question-bank' ? 'active' : ''}" 
+                     onclick="app.navigateTo('question-bank')" 
+                     style="cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 12px 15px; border-radius: 8px; transition: all 0.3s; margin-top: 5px;">
+                    <i data-lucide="brain" style="width: 18px; height: 18px;"></i>
+                    <span style="font-weight: 600;">HOT Question Bank</span>
                 </div>
             </div>
         `;
@@ -592,20 +620,20 @@ SETUP VIDEO:
                     ${courseData.units.map(u => Components.UnitCard(u)).join('')}
                 </div>
 
-                <section class="quiz-hub" style="margin-top: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 12px; color: white;">
+                <section class="questions-hub" style="margin-top: 20px; background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%); padding: 30px; border-radius: 12px; color: white;">
                     <h3 style="margin-top: 0; display: flex; align-items: center; gap: 10px;">
-                        <i data-lucide="help-circle" style="color: white;"></i> 📝 Unit Quizzes
+                        <i data-lucide="brain" style="color: white;"></i> 🧠 Higher Order Thinking (HOT) Questions
                     </h3>
-                    <p style="margin: 10px 0 20px 0; opacity: 0.9;">Test your understanding of each unit with interactive quizzes featuring immediate feedback and explanations.</p>
+                    <p style="margin: 10px 0 20px 0; opacity: 0.9;">Master each unit with 10 complex analytical questions designed for top-tier academic excellence. Includes marking schemes and detailed solutions.</p>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                         ${courseData.units.map(u => `
-                            <button onclick="app.navigateTo('quiz', ${u.id})" 
+                            <button onclick="app.navigateTo('question-bank', ${u.id})" 
                                     style="padding: 20px; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: 8px; color: white; cursor: pointer; font-size: 16px; font-weight: 600; transition: all 0.3s; text-align: left;">
-                                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                                    <i data-lucide="book-open" style="color: white;"></i>
-                                    <span>Unit ${u.id}</span>
+                                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                                    <i data-lucide="help-circle" style="color: white;"></i>
+                                    <span>Unit ${u.id} HOTs</span>
                                 </div>
-                                <div style="font-size: 12px; opacity: 0.8;">${u.topics.length} topics • 5 questions</div>
+                                <div style="font-size: 12px; opacity: 0.8;">10 Questions • Schemes • Solved</div>
                             </button>
                         `).join('')}
                     </div>
@@ -791,6 +819,15 @@ SETUP VIDEO:
 
         // Re-initialize icons after rendering - immediate execution
         lucide.createIcons();
+        if (typeof renderMathInElement === 'function') {
+            renderMathInElement(this.nodes.contentDisplay, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false
+            });
+        }
     },
 
     renderBlock(block) {

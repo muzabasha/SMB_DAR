@@ -485,6 +485,65 @@ const Components = {
             </section>
             ` : ''}
 
+            ${h.mathematicalFoundations ? `
+            <section class="handout-section card" style="border-left: 5px solid #ef4444; margin-bottom: 20px;">
+                <h3 style="color: #ef4444; margin-top: 0; display: flex; align-items: center; gap: 10px;">
+                    <i data-lucide="function" style="width: 20px;"></i> Mathematical Foundation
+                </h3>
+                <div style="background: var(--bg-main); padding: 25px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 15px;">
+                    <div style="font-size: 1.2rem; text-align: center; margin-bottom: 20px; padding: 15px; background: rgba(239, 68, 68, 0.03); border-radius: 8px;">
+                        ${h.mathematicalFoundations.equation}
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+                        ${h.mathematicalFoundations.terms.map(term => `
+                            <div style="padding: 10px; background: rgba(239, 68, 68, 0.05); border-radius: 8px; border-left: 3px solid #ef4444;">
+                                <strong>${term.symbol}:</strong> ${term.interpretation}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                ${h.mathematicalFoundations.illustration ? `
+                    <div style="background: #fdf2f2; padding: 15px; border-radius: 8px; border: 1px dashed #ef4444; font-size: 0.9rem; color: #991b1b;">
+                        <strong>🎨 Illustration:</strong> ${h.mathematicalFoundations.illustration}
+                    </div>
+                ` : ''}
+            </section>
+            ` : ''}
+
+            ${h.stepByStepAlgorithm ? `
+            <section class="handout-section card" style="border-left: 5px solid #f97316; margin-bottom: 20px;">
+                <h3 style="color: #f97316; margin-top: 0; display: flex; align-items: center; gap: 10px;">
+                    <i data-lucide="list-ordered" style="width: 20px;"></i> Step-by-Step Algorithm
+                </h3>
+                <div style="margin-bottom: 20px;">
+                    ${h.stepByStepAlgorithm.steps.map((step, idx) => `
+                        <div style="display: flex; gap: 15px; margin-bottom: 12px; align-items: flex-start;">
+                            <div style="width: 24px; height: 24px; background: #f97316; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.8rem; font-weight: 700;">${idx + 1}</div>
+                            <div style="font-size: 0.95rem; line-height: 1.5; color: var(--text-main);">${step}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                ${h.stepByStepAlgorithm.sampleIO ? `
+                <div style="background: #fff7ed; padding: 20px; border-radius: 12px; border: 1px solid #ffedd5;">
+                    <h4 style="color: #c2410c; margin-top: 0; font-size: 0.95rem; margin-bottom: 12px;">📊 Sample Input/Output Interpretation</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid #fed7aa;">
+                            <small style="color: #9a3412; font-weight: 700; text-transform: uppercase; font-size: 0.7rem; display: block; margin-bottom: 5px;">Input Data</small>
+                            <code style="font-size: 0.85rem; color: var(--text-main);">${h.stepByStepAlgorithm.sampleIO.input}</code>
+                        </div>
+                        <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid #fed7aa;">
+                            <small style="color: #9a3412; font-weight: 700; text-transform: uppercase; font-size: 0.7rem; display: block; margin-bottom: 5px;">Calculated Output</small>
+                            <code style="font-size: 0.85rem; color: var(--text-main);">${h.stepByStepAlgorithm.sampleIO.output}</code>
+                        </div>
+                    </div>
+                    <p style="margin-top: 12px; font-size: 0.85rem; color: #7c2d12; line-height: 1.6; font-style: italic;">
+                        <strong>Interpretation:</strong> ${h.stepByStepAlgorithm.sampleIO.interpretation}
+                    </p>
+                </div>
+                ` : ''}
+            </section>
+            ` : ''}
+
             ${h.rCode ? `
             <section class="handout-section card" style="border-left: 5px solid #10b981; margin-bottom: 20px;">
                 <h3 style="color: #10b981; margin-top: 0;">💻 R Code Example</h3>
@@ -589,6 +648,74 @@ const Components = {
             </section>
             ` : ''}
         </div>
-    `
+    `,
+
+    QuestionBankBlock: (unitId, questions) => {
+        return `
+        <div class="question-bank-container fade-in">
+            <header class="page-header" style="background: linear-gradient(135deg, #6366f1, #a855f7); color: white; padding: 40px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="background: rgba(255, 255, 255, 0.2); width: 60px; height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="brain" style="width: 35px; height: 35px;"></i>
+                    </div>
+                    <div>
+                        <h1 style="margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.025em;">🧠 Unit ${unitId} Question Bank</h1>
+                        <p style="margin: 5px 0 0 0; font-size: 1.1rem; opacity: 0.9;">10 Higher Order Thinking (HOT) Questions with Schemes & Solutions</p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="questions-grid" style="display: flex; flex-direction: column; gap: 20px;">
+                ${questions.map((q, idx) => `
+                    <div class="card question-card" style="border: 1px solid var(--border); padding: 0; border-radius: 15px; overflow: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); background: var(--bg-card); box-shadow: var(--shadow-sm);">
+                        <div class="question-header" style="padding: 25px; border-bottom: 1px solid var(--border); display: flex; gap: 20px; align-items: flex-start; background: rgba(99, 102, 241, 0.02);">
+                            <span style="background: linear-gradient(135deg, #6366f1, #818cf8); color: white; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);">${idx + 1}</span>
+                            <div style="flex-grow: 1;">
+                                <h4 style="margin: 0; font-size: 1.15rem; line-height: 1.6; color: var(--text-main); font-weight: 700;">${q.question}</h4>
+                            </div>
+                        </div>
+                        
+                        <div class="question-body" style="padding: 25px;">
+                            <div style="margin-bottom: 25px;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                                    <div style="background: #eef2ff; color: #6366f1; padding: 6px; border-radius: 6px;">
+                                        <i data-lucide="list-checks" style="width: 18px; height: 18px;"></i>
+                                    </div>
+                                    <strong style="color: var(--text-main); font-size: 0.95rem;">Marking Scheme & Evaluation Criteria</strong>
+                                </div>
+                                <div style="background: #f8fafc; color: #475569; padding: 15px; border-radius: 10px; font-size: 0.92rem; border-left: 4px solid #6366f1; line-height: 1.6;">
+                                    ${q.scheme}
+                                </div>
+                            </div>
+                            
+                            <div class="solution-container">
+                                <button class="btn show-solution-btn" onclick="const content = this.nextElementSibling; content.classList.toggle('hidden'); this.querySelector('.btn-text').innerText = content.classList.contains('hidden') ? 'Reveal Detailed Solution' : 'Hide Solution'; if(!content.classList.contains('hidden')) { lucide.createIcons(); }" style="background: white; color: #ec4899; border: 2px solid #ec4899; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-size: 0.95rem; display: flex; align-items: center; gap: 10px; font-weight: 700; transition: all 0.2s ease;">
+                                    <i data-lucide="eye" style="width: 18px;"></i> <span class="btn-text">Reveal Detailed Solution</span>
+                                </button>
+                                <div class="solution-content hidden" style="margin-top: 20px; background: #fff1f2; color: #9f1239; padding: 25px; border-radius: 12px; border: 1px solid #fecdd3; line-height: 1.7; animation: slideDown 0.3s ease-out;">
+                                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; color: #e11d48;">
+                                        <i data-lucide="check-circle-2" style="width: 20px; height: 20px;"></i>
+                                        <h5 style="margin: 0; font-size: 1rem; font-weight: 800;">Academic Solution & Analysis</h5>
+                                    </div>
+                                    <div style="color: #4b5563; font-size: 1rem;">${q.solution}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+
+            <style>
+                .hidden { display: none; }
+                .question-card:hover { transform: translateY(-6px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); border-color: #6366f1; }
+                .show-solution-btn:hover { background: #ec4899 !important; color: white !important; transform: scale(1.02); }
+                @keyframes slideDown {
+                    from { opacity: 0; transform: translateY(-10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            </style>
+        </div>
+    `;
+    }
 };
 

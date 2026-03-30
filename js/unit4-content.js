@@ -122,19 +122,43 @@ print(paste('P(rolling 6):', round(prob_six, 3)))`,
     "u4-t1": {
         type: "handout",
         courseName: "Data Analytics using R",
-        unitAndTopic: "Unit 4: Stats & ML | Topic 1: Normal and Binomial distributions",
+        unitAndTopic: "Unit 4 | Topic 1: Probability Distributions (Normal & Binomial)",
         hook: "Nature's signature: Patterns that appear in everything from heights to coin flips.",
-        position: "1st Topic of Unit 4",
-        prerequisites: "Data Visualization (Unit 3).",
-        outcomes: ["Define and plot Normal distribution", "Calculate probabilities for Binomial trials", "Understand the Central Limit Theorem"],
-        subTopics: "Probability Density (dnorm), Cumulative Density (pnorm), Quantile function (qnorm), Random Generation (rnorm), Binomial Success Trials (dbinom/pbinom)",
-        syllabusMapping: "Syllabus Section 4.1: Probability Distributions",
+        position: "Topic 1 of 7 in Unit 4",
+        prerequisites: "Basic probability and measures of central tendency.",
+        outcomes: ["Define and identify Normal and Binomial distributions", "Calculate probabilities using R's d/p/q functions", "Understand the Central Limit Theorem (CLT)", "Apply distributions to quality control and risk assessment"],
+        subTopics: "Normal Distribution (Gauss), Binomial Distribution (Bernoulli), Z-scores, Central Limit Theorem, dnorm/pnorm/qnorm/rnorm, dbinom/pbinom/qbinom/rbinom",
+        syllabusMapping: "Unit 4: Statistics - Distributions",
         background: "Carl Friedrich Gauss developed the Normal distribution in the 1800s. It's called 'Normal' because so many natural phenomena follow this pattern.",
         motivation: "If you know your data is 'Normal', you can predict exactly how many items will be 'Extreme' (far from average). This is vital for quality control.",
         problemStatement: "Assuming everything is 'Normal' when it's actually 'Skewed' can lead to disastrous predictions (like underestimating the chance of a financial crash).",
-        coreConcept: "A mathematical function that provides the probabilities of occurrence of different possible outcomes.",
-        terminology: "Standard Deviation, Variance, Skewness, Kurtosis, Z-score",
-        technicalFoundations: "Probability Density Functions (PDF) and Cumulative Distribution Functions (CDF).",
+        coreConcept: "A probability distribution specifies the relative likelihoods of all possible outcomes for a random variable.",
+        terminology: "PDF (Density), PMF (Mass), CDF (Cumulative), Z-score, Parameter, µ (Mu), σ (Sigma), n (Trials), p (Probability)",
+        mathematicalFoundations: {
+            equation: "$$f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^2}$$",
+            terms: [
+                { symbol: "$f(x)$", interpretation: "Probability Density (Height of the curve at point x)" },
+                { symbol: "$\\mu$ (Mu)", interpretation: "Mean - The center/peak of the distribution" },
+                { symbol: "$\\sigma$ (Sigma)", interpretation: "Standard Deviation - The spread/width of the curve" },
+                { symbol: "$x$", interpretation: "The value we're interested in" },
+                { symbol: "$\\pi, e$", interpretation: "Constants (Pi ≈ 3.1415, e ≈ 2.7182)" }
+            ],
+            illustration: "The 68-95-99.7 Rule: 68% of data falls within 1 SD, 95% within 2 SD, and 99.7% within 3 SD."
+        },
+        stepByStepAlgorithm: {
+            steps: [
+                "Identify the type: Continuous (use Normal) or Discrete (use Binomial).",
+                "Determine the parameters: For Normal ($\\mu, \\sigma$), for Binomial ($n, p$).",
+                "Calculate the target value: For Normal, find Z-score $Z = (x - \\mu) / \\sigma$. For Binomial, set $k$ successes.",
+                "Execute in R: Use `pnorm()` for 'less than' probabilities, `dbinom()` for 'exactly X' successes.",
+                "Interpret: Convert the 0-1 probability into a percentage for business reporting."
+            ],
+            sampleIO: {
+                input: "X = 115, Mean = 100, SD = 15",
+                output: "Z = 1.0, Probability = 0.8413",
+                interpretation: "Given an IQ distribution with mean 100 and SD 15, an individual with IQ 115 is at the 84th percentile (smarter than 84% of population)."
+            }
+        },
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
         rCode: `# Normal Distribution: Scores of 1000 students
@@ -191,19 +215,43 @@ dbinom(5, size = 10, prob = 0.5)`,
     "u4-t2": {
         type: "handout",
         courseName: "Data Analytics using R",
-        unitAndTopic: "Unit 4: Stats & ML | Topic 2: Regression Analysis",
-        hook: "Connecting the dots: Predicting Y if you know X.",
-        position: "2nd Topic of Unit 4",
+        unitAndTopic: "Unit 4 | Topic 2: Linear Regression Analysis",
+        hook: "Connecting the dots: Predicting the future by understanding the present.",
+        position: "Topic 2 of 7 in Unit 4",
         prerequisites: "Correlation and Distributions.",
-        outcomes: ["Build Linear Regression models", "Interpret R-squared and p-values", "Predict future values based on trends"],
-        subTopics: "Simple Linear Regression (lm), Multiple Regression, Interpreting Coefficients, Hypothesis Testing (p-values), R-Squared Evaluation, Prediction (predict)",
-        syllabusMapping: "Syllabus Section 4.2: Predictive Modeling",
-        background: "Sir Francis Galton coined the term 'Regression' while studying how the heights of children 'regress' toward the mean height of the population.",
-        motivation: "Sales = Function of (Price, Marketing, Season). If you find this formula, you can 'hack' your business for maximum profit.",
-        problemStatement: "Overfitting: Finding a pattern in random noise that won't work on new data. A 'perfect' model on old data is often a 'useless' model in the future.",
-        coreConcept: "A statistical method that allows you to examine the relationship between two or more variables of interest.",
-        terminology: "Intercept, Slope, p-value, R-squared, Residuals",
-        technicalFoundations: "Method of Least Squares (minimizing the square of the distance between dots and the line).",
+        outcomes: ["Build Simple and Multiple Linear Regression models", "Interpret coefficients, R-squared, and p-values", "Predict future values using the `predict()` function", "Assess model fit using residuals"],
+        subTopics: "Simple Linear Regression (lm), Multiple Regression, Coefficients (Intercept/Slope), R-Squared Evaluation, Residual Analysis, Prediction Intervals",
+        syllabusMapping: "Unit 4: Statistics - Regression",
+        background: "Regression is the most fundamental predictive method. Sir Francis Galton coined the term while observing how children's heights 'regress' toward the mean of the population.",
+        motivation: "In business, if you can find the formula relating Marketing Spend to Sales Revenue, you can optimize your budget for maximum profit.",
+        coreConcept: "A statistical method to model the relationship between a dependent (target) variable and one or more independent (predictor) variables.",
+        terminology: "Dependent (Y), Independent (X), Intercept (β₀), Slope (β₁), SSR (Residual Sum of Squares), R² (Goodness of fit)",
+        mathematicalFoundations: {
+            equation: "$$Y = \\beta_0 + \\beta_1 X + \\epsilon$$",
+            terms: [
+                { symbol: "$Y$", interpretation: "Dependent Variable (What we want to predict)" },
+                { symbol: "$X$", interpretation: "Independent Variable (Predictor)" },
+                { symbol: "$\\beta_0$ (Beta Zero)", interpretation: "Intercept - The value of Y when X is zero" },
+                { symbol: "$\\beta_1$ (Beta One)", interpretation: "Slope - The change in Y for every 1-unit increase in X" },
+                { symbol: "$\\epsilon$ (Epsilon)", interpretation: "Error term - The part of Y we cannot explain" }
+            ],
+            illustration: "A 'Line of Best Fit' that minimizes the vertical distances (residuals) between itself and all data points."
+        },
+        stepByStepAlgorithm: {
+            steps: [
+                "Plot X vs Y to check for a linear trend.",
+                "Calculate Mean and Standard Deviation of both X and Y.",
+                "Find the Slope ($\\beta_1$): $Cov(X,Y) / Var(X)$.",
+                "Find the Intercept ($\\beta_0$): $\\mu_Y - \\beta_1 \\cdot \\mu_X$.",
+                "Build model: `lm(Y ~ X)`. Check if p-value < 0.05 for significance.",
+                "Assess R²: Closer to 1 means a more accurate model."
+            ],
+            sampleIO: {
+                input: "X: [1, 2, 3], Y: [50, 60, 70]",
+                output: "Equation: $Y = 40 + 10X$, R² = 1.0",
+                interpretation: "Perfect linear relationship. For each unit X increases, Y grows by 10 points."
+            }
+        },
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
         rCode: `# Regression: Study Hours vs Exam Score
@@ -284,19 +332,43 @@ F-statistic: 156.7 on 1 and 6 DF,  p-value: 8.632e-06
     "u4-t3": {
         type: "handout",
         courseName: "Data Analytics using R",
-        unitAndTopic: "Unit 4: Stats & ML | Topic 3: Random Forest & Decision Trees",
+        unitAndTopic: "Unit 4 | Topic 3: Decision Trees and Random Forests",
         hook: "If you want to make a choice, ask a tree. If you want to be sure, ask a forest.",
-        position: "3rd Topic of Unit 4",
-        prerequisites: "Regression basics.",
-        outcomes: ["Construct a simple Decision Tree", "Combine trees into a Random Forest", "Measure model accuracy"],
-        subTopics: "Recursive Partitioning, Gini Impurity, Information Gain, Bootstrapping, Aggregating (Bagging), Variable Importance Plots",
-        syllabusMapping: "Syllabus Section 4.3: Machine Learning Frameworks",
-        background: "Leo Breiman and Adele Cutler developed Random Forests in 2001. It is currently one of the most popular and robust ML algorithms in the world.",
-        motivation: "Unlike regression which fails with complex 'IF-THEN' human logic, Decision Trees mimic how humans actually think. Random Forests fix the 'bias' of a single tree.",
-        problemStatement: "A single tree is often too sensitive to its specific training data ('Overfitting'). It's like a person who memorizes the answers but doesn't understand the logic.",
-        coreConcept: "A decision tree splits data into branches based on feature values. Random Forest is an 'Ensemble' method using many trees to vote on the outcome.",
-        terminology: "Entropy, Information Gain, Leaf Node, Bagging, Overfitting",
-        technicalFoundations: "Logic: Bootstrapping (random sampling) + Aggregating (voting) = Bagging.",
+        position: "Topic 3 of 7 in Unit 4",
+        prerequisites: "Regression basics and Classification concepts.",
+        outcomes: ["Build and visualize Decision Trees", "Implement Random Forest ensembles", "Interpret Gini Impurity and Information Gain", "Evaluate variable importance"],
+        subTopics: "Recursive Partitioning (rpart), Gini Impurity, Information Gain, Bootstrapping, Bagging, Random Forest (randomForest), Variable Importance",
+        syllabusMapping: "Unit 4: Machine Learning - Ensembles",
+        background: "Leo Breiman developed Random Forests in 2001 to solve the 'overfitting' problem of single decision trees. It remains a gold standard for tabular data.",
+        motivation: "Unlike regression which assumes a straight-line relationship, trees can capture complex 'If-Then' logic, making them more like human decision-making.",
+        coreConcept: "A decision tree splits data into branches based on feature values to reach a prediction. A Random Forest combines many trees to create a stable, 'crowd-voted' result.",
+        terminology: "Root Node, Leaf Node, Pruning, Gini Impurity, Bagging (Bootstrap Aggregating), OOB (Out-of-Bag) Error",
+        mathematicalFoundations: {
+            equation: "$$Gini(S) = 1 - \\sum_{i=1}^{C} p_i^2$$",
+            terms: [
+                { symbol: "$Gini(S)$", interpretation: "Impurity index - Measures how 'mixed' the classes are in a node" },
+                { symbol: "$p_i$", interpretation: "Probability of an item belonging to class $i$" },
+                { symbol: "$C$", interpretation: "Total number of classes" },
+                { symbol: "$0$", interpretation: "Perfect purity (all items belong to one class)" },
+                { symbol: "$0.5$", interpretation: "Maximum impurity (50/50 split in binary classification)" }
+            ],
+            illustration: "A tree trunk (Root) splitting into branches (Decisions) and ending at leaves (Predictions). If the leaf is 'Pure', Gini is 0."
+        },
+        stepByStepAlgorithm: {
+            steps: [
+                "Select the best feature to split the data (lowest Gini or highest Information Gain).",
+                "Split the dataset into subsets based on the chosen feature.",
+                "Repeat recursively for each subset until a stopping criterion is met (e.g., max depth).",
+                "For Random Forest: Create multiple 'Bootstrapped' samples (random with replacement).",
+                "Train a tree on each sample using a random subset of features at each split.",
+                "Aggregate results: Take the average (Regression) or majority vote (Classification)."
+            ],
+            sampleIO: {
+                input: "Is it raining? [Yes/No], Temp > 20? [Yes/No]",
+                output: "Leaf node: 'Play Tennis' or 'Stay Home'",
+                interpretation: "The model decided that 'No Rain' + 'High Temp' leads to 'Play Tennis' with 90% confidence."
+            }
+        },
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
         rCode: `# Step 1: Load library
@@ -367,19 +439,43 @@ virginica       0          3        47        0.06`,
     "u4-t4": {
         type: "handout",
         courseName: "Data Analytics using R",
-        unitAndTopic: "Unit 4: Stats & ML | Topic 4: Prescriptive Analytics & RL",
+        unitAndTopic: "Unit 4 | Topic 4: Prescriptive Analytics & Reinforcement Learning (RL)",
         hook: "Solving the future: Not just predicting what will happen, but making it happen!",
-        position: "4th Topic of Unit 4",
+        position: "Topic 4 of 7 in Unit 4",
         prerequisites: "Predictive Analytics (Topic 2 & 3).",
-        outcomes: ["Distinguish Predictive vs Prescriptive analytics", "Understand the Reward-Action cycle in RL", "Identify use cases for self-learning systems"],
-        subTopics: "Levels of Analytics (Descriptive-Diagnostic-Predictive-Prescriptive), Resource Optimization (SOLVERS), Markov Decision Processes (MDP), Reward-based Learning",
-        syllabusMapping: "Syllabus Section 4.4: Advanced Prescriptive Models",
-        background: "Prescriptive analytics combines predictions with optimization. Reinforcement Learning (RL) has its roots in behaviorist psychology.",
-        motivation: "A GPS doesn't just predict traffic; it tells you 'Turn Left now to save 5 minutes'. That is Prescriptive Analytics. It's the highest level of data maturity.",
-        problemStatement: "A predictive model might say 'It will rain'. A business needs to know 'Should I buy umbrellas or close the shop?'. Predictions without prescriptions cause paralysis.",
-        coreConcept: "Prescriptive analytics suggests actions to take. RL is the branch of AI where an agent learns through trial and error to maximize rewards.",
-        terminology: "Optimization, Solver, Policy, Agent, Environment, Reward",
-        technicalFoundations: "Markov Decision Processes (MDP) and Mathematical Programming.",
+        outcomes: ["Distinguish Predictive vs Prescriptive analytics", "Understand the Reward-Action-State cycle in RL", "Identify use cases for self-learning optimization systems", "Apply the Bellman Equation logic"],
+        subTopics: "Levels of Analytics (Descriptive to Prescriptive), Optimization, Markov Decision Processes (MDP), Q-Learning, Agent-Environment Interaction, Bellman Equation",
+        syllabusMapping: "Unit 4: Advanced Prescriptive Models",
+        background: "Prescriptive analytics combines predictions with optimization. RL, inspired by behaviorist psychology, allows machines to learn through trial and error.",
+        motivation: "A GPS doesn't just predict traffic; it tells you 'Turn Left now to save 5 minutes'. That is Prescriptive Analytics—the highest level of data maturity.",
+        coreConcept: "Prescriptive analytics suggests actions to take to achieve a goal. RL is the AI branch where an agent learns to maximize cumulative rewards in an environment.",
+        terminology: "Agent, Environment, State (s), Action (a), Reward (r), Policy (π), Value Function (V), Q-Value (Action-Value)",
+        mathematicalFoundations: {
+            equation: "$$V(s) = \\max_{a} \\left( R(s, a) + \\gamma \\sum_{s'} P(s' | s, a) V(s') \\right)$$",
+            terms: [
+                { symbol: "$V(s)$", interpretation: "Value Function - The long-term total reward starting from state $s$" },
+                { symbol: "$R(s, a)$", interpretation: "Immediate Reward - Points gained for taking action $a$ in state $s$" },
+                { symbol: "$\\gamma$ (Gamma)", interpretation: "Discount Factor (0 to 1) - How much we value future rewards vs immediate ones" },
+                { symbol: "$P(s' | s, a)$", interpretation: "Transition Probability - Chance of moving to state $s'$ from $s$ given action $a$" },
+                { symbol: "$V(s')$", interpretation: "Future Value - The value of the next state we arrive in" }
+            ],
+            illustration: "A robot in a maze: It tries a path (Action), hits a wall (Negative Reward), and eventually finds the exit (Positive Reward). It learns the 'Best Path' (Policy)."
+        },
+        stepByStepAlgorithm: {
+            steps: [
+                "Initialize the Q-table with zeros for all possible states and actions.",
+                "Observe current state $s$.",
+                "Choose action $a$ using an epsilon-greedy strategy (exploration vs exploitation).",
+                "Take action $a$, observe reward $r$ and new state $s'$.",
+                "Update Q-value: $Q(s,a) = Q(s,a) + \\alpha [r + \\gamma \\max Q(s',a') - Q(s,a)]$.",
+                "Repeat until the agent converges to an optimal policy."
+            ],
+            sampleIO: {
+                input: "State: Inventory Low, Action: Reorder 10 units",
+                output: "Reward: +100 (No stockout, profit made)",
+                interpretation: "The agent learned that reordering when inventory is low results in high long-term rewards, so it updates its policy to always reorder at this threshold."
+            }
+        },
         rVersion: "4.3.3",
         rPlatform: "x86_64-w64-mingw32 (ucrt)",
         rCode: `# Prescriptive Logic: Resource Optimization
@@ -437,14 +533,43 @@ print(paste('Optimal Discount is:', optim_result$maximum))`,
     "u4-t5": {
         type: "handout",
         courseName: "Data Analytics using R",
-        unitAndTopic: "Unit 4, Topic 5 | Hypothesis Testing & Statistical Inference",
-        hook: "How do we know if our findings are real or just luck?",
+        unitAndTopic: "Unit 4 | Topic 5: Hypothesis Testing & Statistical Inference",
+        hook: "How do we know if our findings are 'real' or just blind luck?",
         position: "Topic 5 of 7 in Unit 4",
-        prerequisites: "Understanding of probability, distributions, and p-values.",
-        outcomes: ["Conduct hypothesis tests", "Interpret p-values correctly", "Understand Type I and Type II errors", "Apply t-tests and chi-square tests"],
-        subTopics: "Null Hypothesis, Alternative Hypothesis, P-values, Significance Levels, T-tests, Chi-Square Tests, ANOVA, Confidence Intervals",
-        syllabusMapping: "Unit 4: Statistics - Hypothesis Testing",
-        rVersion: "4.3.3",
+        prerequisites: "Understanding of probability, normal distributions, and p-values.",
+        outcomes: ["Define Null ($H_0$) and Alternative ($H_a$) hypotheses", "Calculate T-statistics and P-values using R", "Interpret Type I and Type II errors", "Apply Chi-square and ANOVA tests"],
+        subTopics: "Hypothesis Formulation, Alpha Level (α), P-value Interpretation, T-test (One/Two Sample), Chi-Square test, Confidence Intervals",
+        syllabusMapping: "Unit 4: Statistics - Inference",
+        background: "Statistical inference allows us to draw conclusions about a whole population based on a smaller sample. Hypothesis testing is the 'scientific method' of data science.",
+        motivation: "Before a pharmaceutical company launches a drug, it must PROVE (with 95% confidence) that the drug works better than a placebo. This is hypothesis testing in action.",
+        coreConcept: "A formal procedure for investigating our ideas about the world using statistics.",
+        terminology: "Null ($H_0$), Alternative ($H_a$), P-value, Significance Level ($\\alpha$), Degree of Freedom ($df$), Test Statistic ($t$ or $z$)",
+        mathematicalFoundations: {
+            equation: "$$t = \\frac{\\bar{x} - \\mu}{s / \\sqrt{n}}$$",
+            terms: [
+                { symbol: "$t$", interpretation: "T-statistic - How many standard errors the sample mean is from the population mean" },
+                { symbol: "$\\bar{x}$", interpretation: "Sample Mean - The average of our collected data" },
+                { symbol: "$\\mu$", interpretation: "Hypothesized Population Mean ($H_0$ value)" },
+                { symbol: "$s$", interpretation: "Sample Standard Deviation" },
+                { symbol: "$n$", interpretation: "Sample Size" }
+            ],
+            illustration: "The 'Rejection Region' at the tails of the distribution. If our calculated $t$ falls here, we 'Reject the Null'!"
+        },
+        stepByStepAlgorithm: {
+            steps: [
+                "State the Null ($H_0$) and Alternative ($H_a$) hypotheses clearly.",
+                "Choose a Significance Level (usually $\\alpha = 0.05$).",
+                "Collect data and calculate the Test Statistic (e.g., $t$-score).",
+                "Determine the P-value: Probability of getting our result if $H_0$ is true.",
+                "Compare: If P-value < $\\alpha$, Reject $H_0$; if P-value $\ge$ $\\alpha$, Fail to Reject $H_0$.",
+                "Interpret the result in plain English for stakeholders."
+            ],
+            sampleIO: {
+                input: "Mean=$70$, $H_0=$ $65$, $SD=$ $10$, $n=$ $25$",
+                output: "$t = 2.5$, P-value = 0.019",
+                interpretation: "Since 0.019 < 0.05, we reject the claim that the mean is 65. Our finding is 'Statistically Significant'."
+            }
+        },
         rCode: `# Hypothesis Testing Examples
 
 # 1. One-sample t-test
@@ -484,13 +609,42 @@ print(paste("95% CI:", ci_lower, "to", ci_upper))`,
     "u4-t6": {
         type: "handout",
         courseName: "Data Analytics using R",
-        unitAndTopic: "Unit 4, Topic 6 | Classification Algorithms (Logistic Regression, KNN)",
-        hook: "Predict categories, not just numbers!",
+        unitAndTopic: "Unit 4 | Topic 6: Classification Algorithms (Logistic & KNN)",
+        hook: "Predicting categories: Is it A or B? Success or Failure?",
         position: "Topic 6 of 7 in Unit 4",
-        prerequisites: "Understanding of regression, basic ML concepts.",
-        outcomes: ["Build logistic regression models", "Implement K-Nearest Neighbors", "Understand classification metrics", "Compare algorithm performance"],
-        subTopics: "Logistic Regression, KNN Algorithm, Decision Boundaries, Confusion Matrix, Accuracy, Precision, Recall, F1-Score",
+        prerequisites: "Regression basics, Normal distribution, and distance concepts.",
+        outcomes: ["Build Logistic Regression models for binary classification", "Implement K-Nearest Neighbors (KNN) algorithm", "Calculate and interpret classification metrics", "Understand the Sigmoid function"],
+        subTopics: "Logistic Regression (Generalized Linear Models), KNN (Lazy Learning), Sigmoid Activation, Euclidean Distance, Decision Boundaries, overfitting",
         syllabusMapping: "Unit 4: Machine Learning - Classification",
+        background: "Classification is the task of predicting a discrete label. Logistic regression is a statistical classic, while KNN is an intuitive, distance-based AI method.",
+        motivation: "Email providers use classification to decide if an email is 'Spam' or 'Inbox'. Banks use it to decide 'Approve Loan' or 'Reject'.",
+        coreConcept: "Classification models divide data points into distinct classes based on their features.",
+        terminology: "Sigmoid, Odds Ratio, $K$ (Neighbors), Euclidean Distance, Binary vs Multi-class",
+        mathematicalFoundations: {
+            equation: "$$P(Y=1) = \\frac{1}{1 + e^{-(\\beta_0 + \\beta_1 X)}}$$",
+            terms: [
+                { symbol: "$P(Y=1)$", interpretation: "Probability of belonging to class 1 (Success)" },
+                { symbol: "$e$", interpretation: "Euler's number (approx 2.718)" },
+                { symbol: "$\\beta_0 + \\beta_1 X$", interpretation: "The linear combination (Logit) from standard regression" },
+                { symbol: "$d = \\sqrt{\\sum(x_i - y_i)^2}$", interpretation: "Euclidean Distance formula used by KNN to find neighbors" }
+            ],
+            illustration: "An 'S-curve' (Sigmoid) that squashes any input value to a probability between 0 and 1."
+        },
+        stepByStepAlgorithm: {
+            steps: [
+                "For Logistic: Calculate the Logit, apply Sigmoid, and set a threshold (usually 0.5).",
+                "For KNN: Choose the number of neighbors $K$ (usually an odd number).",
+                "Calculate distance between the new point and all points in the training set.",
+                "Identify the $K$ points with the smallest distances.",
+                "Take a 'Majority Vote'—the class with the most neighbors wins.",
+                "Assign the new point to the winning class."
+            ],
+            sampleIO: {
+                input: "Point (5, 5), K=3 Neighbors: [Class A, Class A, Class B]",
+                output: "Predicted: Class A",
+                interpretation: "Since the majority (2 out of 3) of the nearest neighbors are Class A, the new point is classified as A."
+            }
+        },
         rVersion: "4.3.3",
         rCode: `# Classification Examples
 
@@ -535,13 +689,43 @@ print(paste("KNN Accuracy:", round(accuracy * 100, 2), "%"))`,
     "u4-t7": {
         type: "handout",
         courseName: "Data Analytics using R",
-        unitAndTopic: "Unit 4, Topic 7 | Model Evaluation & Cross-Validation",
-        hook: "How good is your model really? Let's find out!",
+        unitAndTopic: "Unit 4 | Topic 7: Model Evaluation & Cross-Validation",
+        hook: "How good is your model really? Let's find out before it hits the real world!",
         position: "Topic 7 of 7 in Unit 4",
-        prerequisites: "Understanding of regression and classification models.",
-        outcomes: ["Evaluate model performance", "Implement cross-validation", "Understand overfitting and underfitting", "Use ROC curves and AUC"],
-        subTopics: "Train-Test Split, Cross-Validation, K-Fold CV, ROC Curve, AUC, Overfitting, Underfitting, Model Selection",
+        prerequisites: "Regression and Classification model building.",
+        outcomes: ["Evaluate model performance using MSE, RMSE, and R²", "Implement K-Fold Cross-Validation in R", "Understand the Bias-Variance tradeoff", "Construct and interpret ROC Curves and AUC"],
+        subTopics: "Train-Test Split, K-Fold CV, Overfitting vs Underfitting, Confusion Matrix Metrics, ROC Curves, AUC (Area Under Curve)",
         syllabusMapping: "Unit 4: Machine Learning - Model Evaluation",
+        background: "A model that performs perfectly on training data but fails on new data is useless. Evaluation ensures that our model has actually 'learned' general patterns, not just 'memorized' specific examples.",
+        motivation: "In credit scoring, a 1% improvement in model accuracy can save a bank millions of dollars. Reliable evaluation metrics are the only way to prove this value.",
+        coreConcept: "Model evaluation is the process of using various metrics to assess how well a machine learning model generalizes to unseen data.",
+        terminology: "RMSE (Error), R² (Fit), Precision, Recall, F1-Score, Bias, Variance, Generalization",
+        mathematicalFoundations: {
+            equation: "$$F1 = \\frac{2 \\times Precision \\times Recall}{Precision + Recall}$$",
+            terms: [
+                { symbol: "$F1$", interpretation: "Harmonic mean of Precision and Recall - Best for imbalanced data" },
+                { symbol: "$Precision$", interpretation: "True Positives / (True Positives + False Positives)" },
+                { symbol: "$Recall$", interpretation: "True Positives / (True Positives + False Negatives)" },
+                { symbol: "$MSE$", interpretation: "Mean Squared Error: $\\frac{1}{n} \\sum (Y_i - \\hat{Y}_i)^2$" },
+                { symbol: "$RMSE$", interpretation: "Root Mean Squared Error (Standard deviation of residuals)" }
+            ],
+            illustration: "A Balance Scale: On one side is 'Bias' (Underfitting), on the other 'Variance' (Overfitting). Evaluation helps us find the 'Sweet Spot' in the middle."
+        },
+        stepByStepAlgorithm: {
+            steps: [
+                "Split dataset into Training Set (70%) and Test Set (30%).",
+                "Train the model using the Training Set only.",
+                "Make predictions on the Test Set.",
+                "Compare predictions to actual values to calculate Error Metrics (RMSE, Accuracy).",
+                "For K-Fold CV: Split data into $K$ parts, rotate the 'Test' part $K$ times, and average the results.",
+                "Plot ROC Curve: Plot True Positive Rate vs False Positive Rate at various thresholds."
+            ],
+            sampleIO: {
+                input: "Actual: [1, 0, 1], Predicted Prob: [0.9, 0.4, 0.8]",
+                output: "Accuracy: 100%, AUC: 1.0",
+                interpretation: "The model perfectly separated the classes in this small sample. An AUC of 1.0 represents a perfect classifier."
+            }
+        },
         rVersion: "4.3.3",
         rCode: `# Model Evaluation Examples
 
