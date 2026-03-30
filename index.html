@@ -189,7 +189,7 @@
         if ('caches' in window) {
             caches.keys().then(cacheNames => {
                 cacheNames.forEach(cacheName => {
-                    if (!cacheName.includes('v1.8.0')) {
+                    if (!cacheName.includes('v1.8.3')) {
                         caches.delete(cacheName);
                         console.log('Cleared old cache:', cacheName);
                     }
